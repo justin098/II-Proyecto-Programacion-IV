@@ -119,10 +119,10 @@ BEGIN
   CREATE TABLE T_Direcciones 
   (
     Id_Direccion INT NOT NULL IDENTITY(1,1),
-	Provincia VARCHAR(50) NOT NULL,
-	Canton VARCHAR(50) NOT NULL,
-	Distrito VARCHAR(50) NOT NULL,
-	Direccion_Exacta VARCHAR(MAX) NOT NULL,
+	Provincia VARCHAR(10) NOT NULL,
+	Canton VARCHAR(10) NOT NULL,
+	Distrito VARCHAR(10) NOT NULL,
+	Direccion_Exacta VARCHAR(25) NOT NULL,
     CONSTRAINT  PK_Id_Direccion PRIMARY KEY NONCLUSTERED
     (
 	  Id_Direccion  ASC
@@ -144,14 +144,15 @@ BEGIN
   CREATE TABLE T_Personas 
   (
     Id_Persona INT NOT NULL IDENTITY(1,1),
-	Cedula VARCHAR(30) NOT NULL,
-	Nombre VARCHAR(50) NOT NULL,
-	Primer_Apellido VARCHAR(50) NOT NULL,
-	Segundo_Apellido VARCHAR(50) NOT NULL,
-	Email VARCHAR(50) NOT NULL,
-	Telefono VARCHAR(30) NOT NULL,
-	Usuario VARCHAR(30) NOT NULL,
-	Contrasena VARCHAR(30) NOT NULL,
+	Cedula VARCHAR(15) NOT NULL,
+	Nombre VARCHAR(25) NOT NULL,
+	Primer_Apellido VARCHAR(25) NOT NULL,
+	Segundo_Apellido VARCHAR(25) NOT NULL,
+	Email VARCHAR(35) NOT NULL,
+	Telefono1 VARCHAR(14) NOT NULL,
+	Telefono2 VARCHAR (14) NOT NULL,
+	Usuario VARCHAR(15) NOT NULL,
+	Contrasena VARCHAR(12) NOT NULL,
 	Id_Direccion INT NOT NULL,
 	Super_Usuario BIT NOT NULL DEFAULT(0),
 	Activo BIT NOT NULL DEFAULT(0),
@@ -193,7 +194,7 @@ BEGIN
   CREATE TABLE T_Tarjetas 
   (
     Id_Tarjeta INT NOT NULL IDENTITY(1,1),
-	Numero_tarjeta VARCHAR(50) NOT NULL,
+	Numero_tarjeta VARCHAR(20) NOT NULL,
 	Id_Persona INT NOT NULL,
     CONSTRAINT  PK_Id_Tarjeta PRIMARY KEY NONCLUSTERED
     (
@@ -290,7 +291,7 @@ BEGIN
   CREATE TABLE T_Promociones 
   (
     Id_Promocion INT NOT NULL IDENTITY(1,1),
-	Descripcion VARCHAR(50) NOT NULL,
+	Descripcion VARCHAR(25) NOT NULL,
 	Monto MONEY NOT NULL DEFAULT(0),
 	Id_Persona INT NOT NULL,
     CONSTRAINT  PK_Id_Promocion PRIMARY KEY NONCLUSTERED
@@ -331,7 +332,7 @@ BEGIN
   CREATE TABLE T_Sucursales 
   (
     Id_Sucursal INT NOT NULL IDENTITY(1,1),
-	Nombre VARCHAR(50) NOT NULL,
+	Nombre VARCHAR(25) NOT NULL,
 	Id_Direccion INT NOT NULL,
 	Activo BIT NOT NULL DEFAULT(0),
     CONSTRAINT  PK_Id_Sucursal PRIMARY KEY NONCLUSTERED
@@ -372,7 +373,7 @@ BEGIN
   CREATE TABLE T_Estados 
   (
     Id_Estado INT NOT NULL IDENTITY(1,1),
-	Descripcion VARCHAR(50) NOT NULL,
+	Descripcion VARCHAR(25) NOT NULL,
     CONSTRAINT  PK_Id_Estados PRIMARY KEY NONCLUSTERED
     (
 	  Id_Estado  ASC
@@ -420,7 +421,7 @@ BEGIN
   CREATE TABLE T_Categorias 
   (
     Id_Categoria INT NOT NULL IDENTITY(1,1),
-	Nombre VARCHAR(50) NOT NULL,
+	Nombre VARCHAR(25) NOT NULL,
 	Arancel MONEY NOT NULL DEFAULT(0),
 	Costo_Por_Kilo MONEY NOT NULL DEFAULT(0),
     CONSTRAINT  PK_Id_Categoria PRIMARY KEY NONCLUSTERED
@@ -444,7 +445,7 @@ BEGIN
   CREATE TABLE T_Paquetes 
   (
     Id_Paquete INT NOT NULL IDENTITY(1,1),
-	Descripcion VARCHAR(50) NOT NULL,
+	Descripcion VARCHAR(25) NOT NULL,
 	Peso FLOAT NOT NULL DEFAULT(0),
 	Id_Categoria INT NOT NULL,
 	Id_Estado INT NOT NULL,
@@ -629,7 +630,8 @@ BEGIN
 	,Primer_Apellido
 	,Segundo_Apellido
 	,Email
-	,Telefono
+	,Telefono1
+	,Telefono2
 	,Usuario
 	,Contrasena
 	,Id_Direccion
