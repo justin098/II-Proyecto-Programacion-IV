@@ -1,5 +1,3 @@
-
-
 --CREACION DE LA BASE DE DATOS
 IF EXISTS(SELECT 1 FROM MASTER.SYS.SYSDATABASES WHERE NAME ='DB_SISTEMA_ENCOMIENDAS')
 BEGIN
@@ -57,21 +55,21 @@ BEGIN
     ) ON [PRIMARY];
 END;  
 
-IF OBJECT_ID (N'T_Roles_Privilegios', N'U') IS NULL
+IF OBJECT_ID (N'T_Privilegios_Roles', N'U') IS NULL
 BEGIN
-  CREATE TABLE T_Roles_Privilegios 
+  CREATE TABLE T_Privilegios_Roles 
   (
-    Id_Rol_Privilegio INT NOT NULL IDENTITY(1,1),
+    Id_Privilegio_Rol INT NOT NULL IDENTITY(1,1),
 	Id_Rol INT NOT NULL,
 	Id_Privilegio INT NOT NULL,
-    CONSTRAINT  PK_Id_Rol_Privilegio PRIMARY KEY NONCLUSTERED
+    CONSTRAINT  PK_Id_Privilegio_Rol PRIMARY KEY NONCLUSTERED
     (
-	  Id_Rol_Privilegio  ASC
+	  Id_Privilegio_Rol  ASC
     ) WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
   ) ON [PRIMARY]
 
-  CREATE UNIQUE CLUSTERED INDEX IX_T_Roles_Privilegios_Sequential
-  ON T_Roles_Privilegios (Id_Rol_Privilegio)
+  CREATE UNIQUE CLUSTERED INDEX IX_T_Privilegios_Roles_Sequential
+  ON T_Privilegios_Roles (Id_Privilegio_Rol)
     WITH(
     STATISTICS_NORECOMPUTE = OFF,
     IGNORE_DUP_KEY = OFF,
@@ -79,8 +77,8 @@ BEGIN
     ALLOW_PAGE_LOCKS = ON
     ) ON [PRIMARY];
 
-  CREATE NONCLUSTERED INDEX FK_T_Roles_Privilegios_Id_Rol
-  ON T_Roles_Privilegios(Id_Rol)
+  CREATE NONCLUSTERED INDEX FK_T_Privilegios_Roles_Id_Rol
+  ON T_Privilegios_Roles(Id_Rol)
     WITH(
     STATISTICS_NORECOMPUTE = OFF,
     IGNORE_DUP_KEY = OFF,
@@ -88,8 +86,8 @@ BEGIN
     ALLOW_PAGE_LOCKS = ON
     ) ON [PRIMARY];
 
-  CREATE NONCLUSTERED INDEX FK_T_Roles_Privilegios_Id_Privilegio
-  ON T_Roles_Privilegios(Id_Privilegio)
+  CREATE NONCLUSTERED INDEX FK_T_Privilegios_Roles_Id_Privilegio
+  ON T_Privilegios_Roles(Id_Privilegio)
     WITH(
     STATISTICS_NORECOMPUTE = OFF,
     IGNORE_DUP_KEY = OFF,
@@ -97,16 +95,16 @@ BEGIN
     ALLOW_PAGE_LOCKS = ON
     ) ON [PRIMARY];
 
-  ALTER TABLE T_Roles_Privilegios
-    ADD CONSTRAINT FK_T_Roles_Privilegios_Id_Rol
+  ALTER TABLE T_Privilegios_Roles
+    ADD CONSTRAINT FK_T_Privilegios_Roles_Id_Rol
     FOREIGN KEY(Id_Rol)
     REFERENCES T_Roles(Id_Rol)
     ON UPDATE CASCADE
     ON DELETE CASCADE
     NOT FOR REPLICATION;
 
-  ALTER TABLE T_Roles_Privilegios
-    ADD CONSTRAINT FK_T_Roles_Privilegios_Id_Privilegio
+  ALTER TABLE T_Privilegios_Roles
+    ADD CONSTRAINT FK_T_Privilegios_Roles_Id_Privilegio
     FOREIGN KEY(Id_Privilegio)
     REFERENCES T_Privilegios(Id_Privilegio)
     ON UPDATE CASCADE
@@ -122,7 +120,7 @@ BEGIN
 	Provincia VARCHAR(10) NOT NULL,
 	Canton VARCHAR(10) NOT NULL,
 	Distrito VARCHAR(10) NOT NULL,
-	Direccion_Exacta VARCHAR(25) NOT NULL,
+	Direccion_Exacta VARCHAR(250) NOT NULL,
     CONSTRAINT  PK_Id_Direccion PRIMARY KEY NONCLUSTERED
     (
 	  Id_Direccion  ASC
@@ -756,4 +754,25 @@ BEGIN
 	,Id_Persona
   FROM 
     T_Tarjetas
+End;
+
+--CREACION DE PROCEDURES FILTAR
+IF OBJECT_ID('sp_Filtrar_Categorias') IS NOT NULL DROP PROCEDURE sp_Listar_Categorias
+GO
+
+CREATE PROCEDURE sp_Filtrar_Categorias
+(
+	@Filtro varchar(25)
+)
+AS
+BEGIN
+  SELECT
+    Id_Categoria
+    ,Nombre
+    ,Arancel
+    ,Costo_Por_Kilo
+  FROM 
+    T_Categorias
+  WHERE
+    (Nombre like '%'+@Filtro+'%')
 End;
