@@ -776,3 +776,255 @@ BEGIN
   WHERE
     (Nombre like '%'+@Filtro+'%')
 End;
+
+IF OBJECT_ID('sp_Filtrar_Direcciones') IS NOT NULL DROP PROCEDURE sp_Listar_Direcciones
+GO
+
+CREATE PROCEDURE sp_Filtrar_Direcciones
+(
+	@Filtro varchar(25)
+)
+AS
+BEGIN
+  SELECT
+    Id_Direccion
+	,Provincia
+	,Canton
+	,Distrito
+	,Direccion_Exacta
+  FROM 
+    T_Direcciones
+  WHERE
+    (Provincia like '%'+@Filtro+'%')
+End;
+
+IF OBJECT_ID('sp_Filtrar_Estados') IS NOT NULL DROP PROCEDURE sp_Listar_Estados
+GO
+
+CREATE PROCEDURE sp_Filtrar_Estados
+(
+	@Filtro varchar(25)
+)
+AS
+BEGIN
+  SELECT
+    Id_Estado
+	,Descripcion
+  FROM 
+    T_Estados
+  WHERE
+    (Id_Estado like '%'+@Filtro+'%')
+End;
+
+IF OBJECT_ID('sp_Filtrar_Paquetes') IS NOT NULL DROP PROCEDURE sp_Listar_Paquetes
+GO
+
+CREATE PROCEDURE sp_Filtrar_Paquetes
+(
+	@Filtro varchar(25)
+)
+AS
+BEGIN
+  SELECT
+    Id_Paquete
+	,Descripcion
+	,Peso
+	,Id_Categoria
+	,Id_Estado
+	,Id_Sucursal
+	,Id_Persona
+	Id_Recibo
+  FROM 
+    T_Paquetes
+  WHERE
+    (Id_Paquete like '%'+@Filtro+'%')
+End;
+
+IF OBJECT_ID('sp_Filtrar_Personas') IS NOT NULL DROP PROCEDURE sp_Listar_Personas
+GO
+
+CREATE PROCEDURE sp_Filtrar_Personas
+(
+	@Filtro varchar(25)
+)
+AS
+BEGIN
+  SELECT
+    Id_Persona
+	,Cedula
+	,Nombre
+	,Primer_Apellido
+	,Segundo_Apellido
+	,Email
+	,Telefono1
+	,Telefono2
+	,Usuario
+	,Contrasena
+	,Id_Direccion
+	,Super_Usuario
+	,Activo
+  FROM 
+    T_Personas
+  WHERE
+    (Nombre like '%'+@Filtro+'%')
+End;
+
+IF OBJECT_ID('sp_Filtrar_Privilegios') IS NOT NULL DROP PROCEDURE sp_Listar_Privilegios
+GO
+
+CREATE PROCEDURE sp_Filtrar_Privilegios
+(
+	@Filtro varchar(25)
+)
+AS
+BEGIN
+  SELECT
+    Id_Privilegio
+	,Privilegio
+	,Descripcion
+  FROM 
+    T_Privilegios
+  WHERE
+    (Privilegio like '%'+@Filtro+'%')
+End;
+
+IF OBJECT_ID('sp_Filtrar_Privilegios_Roles') IS NOT NULL DROP PROCEDURE sp_Listar_Privilegios_Roles
+GO
+
+CREATE PROCEDURE sp_Filtrar_Privilegios_Roles
+(
+	@Filtro varchar(25)
+)
+AS
+BEGIN
+  SELECT
+    Id_Privilegio_Rol
+	,Id_Rol
+	,Id_Privilegio
+  FROM 
+    T_Privilegios_Roles
+  WHERE
+    (Id_Privilegio_Rol like '%'+@Filtro+'%')
+End;
+
+IF OBJECT_ID('sp_Filtrar_Promociones') IS NOT NULL DROP PROCEDURE sp_Listar_Promociones
+GO
+
+CREATE PROCEDURE sp_Filtrar_Promociones
+(
+	@Filtro varchar(25)
+)
+AS
+BEGIN
+  SELECT
+    Id_Promocion 
+	,Descripcion
+	,Monto
+	,Id_Persona
+  FROM 
+    T_Promociones
+  WHERE
+    (Id_Promocion like '%'+@Filtro+'%')
+End;
+
+IF OBJECT_ID('sp_Filtrar_Recibos') IS NOT NULL DROP PROCEDURE sp_Listar_Recibos
+GO
+
+CREATE PROCEDURE sp_Filtrar_Recibos
+(
+	@Filtro varchar(25)
+)
+AS
+BEGIN
+  SELECT
+    Id_Recibo
+	,Sub_Total
+	,Impuesto
+	,Envio
+	,Total
+	,Pagado
+  FROM 
+    T_Recibos
+  WHERE
+    (Id_Recibo like '%'+@Filtro+'%')
+End;
+
+IF OBJECT_ID('sp_Filtrar_Roles') IS NOT NULL DROP PROCEDURE sp_Listar_Roles
+GO
+
+CREATE PROCEDURE sp_Filtrar_Roles
+(
+	@Filtro varchar(25)
+)
+AS
+BEGIN
+  SELECT
+    Id_Rol
+	,Rol
+	,Descripcion
+  FROM 
+    T_Roles
+  WHERE
+    (Descripcion like '%'+@Filtro+'%')
+End;
+
+IF OBJECT_ID('sp_Filtrar_Roles_Personas') IS NOT NULL DROP PROCEDURE sp_Listar_Roles_Personas
+GO
+
+CREATE PROCEDURE sp_Filtrar_Roles_Personas
+(
+	@Filtro varchar(25)
+)
+AS
+BEGIN
+  SELECT
+    Id_Rol_Persona
+	,Id_Rol
+	,Id_Persona
+  FROM 
+    T_Roles_Personas
+  WHERE
+    (Id_Rol_Persona like '%'+@Filtro+'%')
+End;
+
+IF OBJECT_ID('sp_Filtrar_Sucursales') IS NOT NULL DROP PROCEDURE sp_Listar_Sucursales
+GO
+
+CREATE PROCEDURE sp_Filtrar_Sucursales
+(
+	@Filtro varchar(25)
+)
+AS
+BEGIN
+  SELECT
+    Id_Sucursal
+	,Nombre
+	,Id_Direccion
+	,Activo
+  FROM 
+    T_Sucursales
+  WHERE
+    (Nombre like '%'+@Filtro+'%')
+End;
+
+IF OBJECT_ID('sp_Filtrar_Tarjetas') IS NOT NULL DROP PROCEDURE sp_Listar_Tarjetas
+GO
+
+CREATE PROCEDURE sp_Filtrar_Tarjetas
+(
+	@Filtro varchar(25)
+)
+AS
+BEGIN
+  SELECT
+    Id_Tarjeta
+	,Numero_tarjeta
+	,Id_Persona
+  FROM 
+    T_Tarjetas
+  WHERE
+    (Numero_tarjeta like '%'+@Filtro+'%')
+End;
+
+
+
