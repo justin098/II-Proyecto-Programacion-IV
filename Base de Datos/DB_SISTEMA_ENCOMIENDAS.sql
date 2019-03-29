@@ -757,7 +757,7 @@ BEGIN
 End;
 
 --CREACION DE PROCEDURES FILTAR
-IF OBJECT_ID('sp_Filtrar_Categorias') IS NOT NULL DROP PROCEDURE sp_Listar_Categorias
+IF OBJECT_ID('sp_Filtrar_Categorias') IS NOT NULL DROP PROCEDURE sp_Filtrar_Categorias
 GO
 
 CREATE PROCEDURE sp_Filtrar_Categorias
@@ -777,7 +777,7 @@ BEGIN
     (Nombre like '%'+@Filtro+'%')
 End;
 
-IF OBJECT_ID('sp_Filtrar_Direcciones') IS NOT NULL DROP PROCEDURE sp_Listar_Direcciones
+IF OBJECT_ID('sp_Filtrar_Direcciones') IS NOT NULL DROP PROCEDURE sp_Filtrar_Direcciones
 GO
 
 CREATE PROCEDURE sp_Filtrar_Direcciones
@@ -798,7 +798,7 @@ BEGIN
     (Provincia like '%'+@Filtro+'%')
 End;
 
-IF OBJECT_ID('sp_Filtrar_Estados') IS NOT NULL DROP PROCEDURE sp_Listar_Estados
+IF OBJECT_ID('sp_Filtrar_Estados') IS NOT NULL DROP PROCEDURE sp_Filtrar_Estados
 GO
 
 CREATE PROCEDURE sp_Filtrar_Estados
@@ -816,7 +816,7 @@ BEGIN
     (Id_Estado like '%'+@Filtro+'%')
 End;
 
-IF OBJECT_ID('sp_Filtrar_Paquetes') IS NOT NULL DROP PROCEDURE sp_Listar_Paquetes
+IF OBJECT_ID('sp_Filtrar_Paquetes') IS NOT NULL DROP PROCEDURE sp_Filtrar_Paquetes
 GO
 
 CREATE PROCEDURE sp_Filtrar_Paquetes
@@ -840,7 +840,7 @@ BEGIN
     (Id_Paquete like '%'+@Filtro+'%')
 End;
 
-IF OBJECT_ID('sp_Filtrar_Personas') IS NOT NULL DROP PROCEDURE sp_Listar_Personas
+IF OBJECT_ID('sp_Filtrar_Personas') IS NOT NULL DROP PROCEDURE sp_Filtrar_Personas
 GO
 
 CREATE PROCEDURE sp_Filtrar_Personas
@@ -869,7 +869,7 @@ BEGIN
     (Nombre like '%'+@Filtro+'%')
 End;
 
-IF OBJECT_ID('sp_Filtrar_Privilegios') IS NOT NULL DROP PROCEDURE sp_Listar_Privilegios
+IF OBJECT_ID('sp_Filtrar_Privilegios') IS NOT NULL DROP PROCEDURE sp_Filtrar_Privilegios
 GO
 
 CREATE PROCEDURE sp_Filtrar_Privilegios
@@ -888,7 +888,7 @@ BEGIN
     (Privilegio like '%'+@Filtro+'%')
 End;
 
-IF OBJECT_ID('sp_Filtrar_Privilegios_Roles') IS NOT NULL DROP PROCEDURE sp_Listar_Privilegios_Roles
+IF OBJECT_ID('sp_Filtrar_Privilegios_Roles') IS NOT NULL DROP PROCEDURE sp_Filtrar_Privilegios_Roles
 GO
 
 CREATE PROCEDURE sp_Filtrar_Privilegios_Roles
@@ -907,7 +907,7 @@ BEGIN
     (Id_Privilegio_Rol like '%'+@Filtro+'%')
 End;
 
-IF OBJECT_ID('sp_Filtrar_Promociones') IS NOT NULL DROP PROCEDURE sp_Listar_Promociones
+IF OBJECT_ID('sp_Filtrar_Promociones') IS NOT NULL DROP PROCEDURE sp_Filtrar_Promociones
 GO
 
 CREATE PROCEDURE sp_Filtrar_Promociones
@@ -927,7 +927,7 @@ BEGIN
     (Id_Promocion like '%'+@Filtro+'%')
 End;
 
-IF OBJECT_ID('sp_Filtrar_Recibos') IS NOT NULL DROP PROCEDURE sp_Listar_Recibos
+IF OBJECT_ID('sp_Filtrar_Recibos') IS NOT NULL DROP PROCEDURE sp_Filtrar_Recibos
 GO
 
 CREATE PROCEDURE sp_Filtrar_Recibos
@@ -949,7 +949,7 @@ BEGIN
     (Id_Recibo like '%'+@Filtro+'%')
 End;
 
-IF OBJECT_ID('sp_Filtrar_Roles') IS NOT NULL DROP PROCEDURE sp_Listar_Roles
+IF OBJECT_ID('sp_Filtrar_Roles') IS NOT NULL DROP PROCEDURE sp_Filtrar_Roles
 GO
 
 CREATE PROCEDURE sp_Filtrar_Roles
@@ -968,7 +968,7 @@ BEGIN
     (Descripcion like '%'+@Filtro+'%')
 End;
 
-IF OBJECT_ID('sp_Filtrar_Roles_Personas') IS NOT NULL DROP PROCEDURE sp_Listar_Roles_Personas
+IF OBJECT_ID('sp_Filtrar_Roles_Personas') IS NOT NULL DROP PROCEDURE sp_Filtrar_Roles_Personas
 GO
 
 CREATE PROCEDURE sp_Filtrar_Roles_Personas
@@ -987,7 +987,7 @@ BEGIN
     (Id_Rol_Persona like '%'+@Filtro+'%')
 End;
 
-IF OBJECT_ID('sp_Filtrar_Sucursales') IS NOT NULL DROP PROCEDURE sp_Listar_Sucursales
+IF OBJECT_ID('sp_Filtrar_Sucursales') IS NOT NULL DROP PROCEDURE sp_Filtrar_Sucursales
 GO
 
 CREATE PROCEDURE sp_Filtrar_Sucursales
@@ -1007,7 +1007,7 @@ BEGIN
     (Nombre like '%'+@Filtro+'%')
 End;
 
-IF OBJECT_ID('sp_Filtrar_Tarjetas') IS NOT NULL DROP PROCEDURE sp_Listar_Tarjetas
+IF OBJECT_ID('sp_Filtrar_Tarjetas') IS NOT NULL DROP PROCEDURE sp_Filtrar_Tarjetas
 GO
 
 CREATE PROCEDURE sp_Filtrar_Tarjetas
