@@ -17,5 +17,17 @@ namespace SVC.Interfaces
         [OperationContract]
         DataTable FiltarDatos(string sNombreSP, string sNombreTabla, string sNombreParametro, 
                               string sTipoParametro, string sValorParametro, ref string sMsjError);
+
+        [OperationContract]
+        string InsertarDato(string sNombreSP, string sNombreTabla, DataTable dtParametros,
+                            ref char cAccion, ref string sMsjError);
+
+        [OperationContract]
+        void ModificarDato(string sNombreSP, string sNombreTabla, DataTable dtParametros,
+                           ref char cAccion, ref string sMsjError);
+
+        [OperationContract]
+        void EliminarDato(string sNombreSP, string sNombreTabla, string sNombreParametro,
+                               string sTipoParametro, string sValorParametro, ref string sMsjError);
     }
 }

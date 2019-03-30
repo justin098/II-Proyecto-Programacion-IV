@@ -1,7 +1,8 @@
 --CREACION DE LA BASE DE DATOS
+USE MASTER;
+
 IF EXISTS(SELECT 1 FROM MASTER.SYS.SYSDATABASES WHERE NAME ='DB_SISTEMA_ENCOMIENDAS')
 BEGIN
-  USE MASTER;
   DROP DATABASE DB_SISTEMA_ENCOMIENDAS;
 END;
 
@@ -141,27 +142,26 @@ IF OBJECT_ID (N'T_Personas', N'U') IS NULL
 BEGIN
   CREATE TABLE T_Personas 
   (
-    Id_Persona INT NOT NULL IDENTITY(1,1),
 	Cedula VARCHAR(15) NOT NULL,
 	Nombre VARCHAR(25) NOT NULL,
 	Primer_Apellido VARCHAR(25) NOT NULL,
 	Segundo_Apellido VARCHAR(25) NOT NULL,
 	Email VARCHAR(35) NOT NULL,
 	Telefono1 VARCHAR(14) NOT NULL,
-	Telefono2 VARCHAR (14) NOT NULL,
+	Telefono2 VARCHAR (14) NULL,
 	Usuario VARCHAR(15) NOT NULL,
 	Contrasena VARCHAR(12) NOT NULL,
-	Id_Direccion INT NOT NULL,
+	Id_Direccion INT NULL,
 	Super_Usuario BIT NOT NULL DEFAULT(0),
 	Activo BIT NOT NULL DEFAULT(0),
-    CONSTRAINT  PK_Id_Persona PRIMARY KEY NONCLUSTERED
+    CONSTRAINT  PK_Cedula PRIMARY KEY NONCLUSTERED
     (
-	  Id_Persona  ASC
+	  Cedula  ASC
     ) WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
   ) ON [PRIMARY]
 
-  CREATE UNIQUE CLUSTERED INDEX IX_T_Personas_Sequential
-  ON T_Personas (Id_Persona)
+  CREATE UNIQUE CLUSTERED INDEX IX_T_Personas_Unique
+  ON T_Personas (Cedula,Email,Usuario)
     WITH(
     STATISTICS_NORECOMPUTE = OFF,
     IGNORE_DUP_KEY = OFF,
@@ -191,17 +191,16 @@ IF OBJECT_ID (N'T_Tarjetas', N'U') IS NULL
 BEGIN
   CREATE TABLE T_Tarjetas 
   (
-    Id_Tarjeta INT NOT NULL IDENTITY(1,1),
 	Numero_tarjeta VARCHAR(20) NOT NULL,
-	Id_Persona INT NOT NULL,
-    CONSTRAINT  PK_Id_Tarjeta PRIMARY KEY NONCLUSTERED
+	Cedula VARCHAR(15) NOT NULL,
+    CONSTRAINT  PK_Numero_tarjeta PRIMARY KEY NONCLUSTERED
     (
-	  Id_Tarjeta  ASC
+	  Numero_tarjeta  ASC
     ) WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
   ) ON [PRIMARY]
 
-  CREATE UNIQUE CLUSTERED INDEX IX_T_Tarjetas_Sequential
-  ON T_Tarjetas (Id_Tarjeta)
+  CREATE UNIQUE CLUSTERED INDEX IX_T_Tarjetas_Unique
+  ON T_Tarjetas (Numero_tarjeta)
     WITH(
     STATISTICS_NORECOMPUTE = OFF,
     IGNORE_DUP_KEY = OFF,
@@ -209,8 +208,8 @@ BEGIN
     ALLOW_PAGE_LOCKS = ON
     ) ON [PRIMARY];
 
-  CREATE NONCLUSTERED INDEX FK_T_Tarjetas_Id_Persona
-  ON T_Tarjetas(Id_Persona)
+  CREATE NONCLUSTERED INDEX FK_T_Tarjetas_Cedula
+  ON T_Tarjetas(Cedula)
     WITH(
     STATISTICS_NORECOMPUTE = OFF,
     IGNORE_DUP_KEY = OFF,
@@ -219,9 +218,9 @@ BEGIN
     ) ON [PRIMARY];
 
   ALTER TABLE T_Tarjetas
-    ADD CONSTRAINT FK_T_Tarjetas_Id_Persona
-    FOREIGN KEY(Id_Persona)
-    REFERENCES T_Personas(Id_Persona)
+    ADD CONSTRAINT FK_T_Tarjetas_Cedula
+    FOREIGN KEY(Cedula)
+    REFERENCES T_Personas(Cedula)
     ON UPDATE CASCADE
     ON DELETE CASCADE
     NOT FOR REPLICATION;
@@ -233,7 +232,7 @@ BEGIN
   (
     Id_Rol_Persona INT NOT NULL IDENTITY(1,1),
 	Id_Rol INT NOT NULL,
-	Id_Persona INT NOT NULL,
+	Cedula VARCHAR(15) NOT NULL,
     CONSTRAINT  PK_Id_Rol_Persona PRIMARY KEY NONCLUSTERED
     (
 	  Id_Rol_Persona  ASC
@@ -258,8 +257,8 @@ BEGIN
     ALLOW_PAGE_LOCKS = ON
     ) ON [PRIMARY];
 
-  CREATE NONCLUSTERED INDEX FK_T_Roles_Personas_Id_Persona
-  ON T_Roles_Personas(Id_Persona)
+  CREATE NONCLUSTERED INDEX FK_T_Roles_Personas_Cedula
+  ON T_Roles_Personas(Cedula)
     WITH(
     STATISTICS_NORECOMPUTE = OFF,
     IGNORE_DUP_KEY = OFF,
@@ -276,9 +275,9 @@ BEGIN
     NOT FOR REPLICATION;
 
   ALTER TABLE T_Roles_Personas
-    ADD CONSTRAINT FK_T_Roles_Personas_Id_Persona
-    FOREIGN KEY(Id_Persona)
-    REFERENCES T_Personas(Id_Persona)
+    ADD CONSTRAINT FK_T_Roles_Personas_Cedula
+    FOREIGN KEY(Cedula)
+    REFERENCES T_Personas(Cedula)
     ON UPDATE CASCADE
     ON DELETE CASCADE
     NOT FOR REPLICATION;
@@ -291,7 +290,7 @@ BEGIN
     Id_Promocion INT NOT NULL IDENTITY(1,1),
 	Descripcion VARCHAR(25) NOT NULL,
 	Monto MONEY NOT NULL DEFAULT(0),
-	Id_Persona INT NOT NULL,
+	Cedula VARCHAR(15) NOT NULL,
     CONSTRAINT  PK_Id_Promocion PRIMARY KEY NONCLUSTERED
     (
 	  Id_Promocion  ASC
@@ -307,8 +306,8 @@ BEGIN
     ALLOW_PAGE_LOCKS = ON
     ) ON [PRIMARY];
 
-  CREATE NONCLUSTERED INDEX FK_T_Promociones_Id_Persona
-  ON T_Promociones(Id_Persona)
+  CREATE NONCLUSTERED INDEX FK_T_Promociones_Cedula
+  ON T_Promociones(Cedula)
     WITH(
     STATISTICS_NORECOMPUTE = OFF,
     IGNORE_DUP_KEY = OFF,
@@ -317,9 +316,9 @@ BEGIN
     ) ON [PRIMARY];
 
   ALTER TABLE T_Promociones
-    ADD CONSTRAINT FK_T_Promociones_Id_Persona
-    FOREIGN KEY(Id_Persona)
-    REFERENCES T_Personas(Id_Persona)
+    ADD CONSTRAINT FK_T_Promociones_Cedula
+    FOREIGN KEY(Cedula)
+    REFERENCES T_Personas(Cedula)
     ON UPDATE CASCADE
     ON DELETE CASCADE
     NOT FOR REPLICATION;
@@ -331,7 +330,7 @@ BEGIN
   (
     Id_Sucursal INT NOT NULL IDENTITY(1,1),
 	Nombre VARCHAR(25) NOT NULL,
-	Id_Direccion INT NOT NULL,
+	Id_Direccion INT NULL,
 	Activo BIT NOT NULL DEFAULT(0),
     CONSTRAINT  PK_Id_Sucursal PRIMARY KEY NONCLUSTERED
     (
@@ -448,7 +447,7 @@ BEGIN
 	Id_Categoria INT NOT NULL,
 	Id_Estado INT NOT NULL,
 	Id_Sucursal INT NOT NULL,
-	Id_Persona INT NOT NULL,
+	Cedula VARCHAR(15) NOT NULL,
 	Id_Recibo INT NOT NULL
     CONSTRAINT  PK_Id_Paquete PRIMARY KEY NONCLUSTERED
     (
@@ -492,8 +491,8 @@ BEGIN
     ALLOW_PAGE_LOCKS = ON
     ) ON [PRIMARY];
 
-  CREATE NONCLUSTERED INDEX FK_T_Paquetes_Id_Persona
-  ON T_Paquetes(Id_Persona)
+  CREATE NONCLUSTERED INDEX FK_T_Paquetes_Cedula
+  ON T_Paquetes(Cedula)
     WITH(
     STATISTICS_NORECOMPUTE = OFF,
     IGNORE_DUP_KEY = OFF,
@@ -535,9 +534,9 @@ BEGIN
     NOT FOR REPLICATION;
 
   ALTER TABLE T_Paquetes
-    ADD CONSTRAINT FK_T_Paquetes_Id_Persona
-    FOREIGN KEY(Id_Persona)
-    REFERENCES T_Personas(Id_Persona)
+    ADD CONSTRAINT FK_T_Paquetes_Cedula
+    FOREIGN KEY(Cedula)
+    REFERENCES T_Personas(Cedula)
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT FOR REPLICATION;
@@ -609,7 +608,7 @@ BEGIN
 	,Id_Categoria
 	,Id_Estado
 	,Id_Sucursal
-	,Id_Persona
+	,Cedula
 	,Id_Recibo
   FROM 
     T_Paquetes
@@ -622,8 +621,7 @@ CREATE PROCEDURE sp_Listar_Personas
 AS
 BEGIN
   SELECT
-    Id_Persona
-    ,Cedula
+    Cedula
 	,Nombre
 	,Primer_Apellido
 	,Segundo_Apellido
@@ -663,7 +661,7 @@ BEGIN
     Id_Promocion
     ,Descripcion
 	,Monto
-	,Id_Persona
+	,Cedula
   FROM 
     T_Promociones
 End;
@@ -708,7 +706,7 @@ BEGIN
   SELECT
     Id_Rol_Persona
     ,Id_Rol
-	,Id_Persona
+	,Cedula
   FROM 
     T_Roles_Personas
 End;
@@ -749,9 +747,8 @@ CREATE PROCEDURE sp_Listar_Tarjetas
 AS
 BEGIN
   SELECT
-    Id_Tarjeta
-    ,Numero_tarjeta
-	,Id_Persona
+    Numero_tarjeta
+	,Cedula
   FROM 
     T_Tarjetas
 End;
@@ -832,7 +829,7 @@ BEGIN
 	,Id_Categoria
 	,Id_Estado
 	,Id_Sucursal
-	,Id_Persona
+	,Cedula
 	Id_Recibo
   FROM 
     T_Paquetes
@@ -850,8 +847,7 @@ CREATE PROCEDURE sp_Filtrar_Personas
 AS
 BEGIN
   SELECT
-    Id_Persona
-	,Cedula
+	Cedula
 	,Nombre
 	,Primer_Apellido
 	,Segundo_Apellido
@@ -920,7 +916,7 @@ BEGIN
     Id_Promocion 
 	,Descripcion
 	,Monto
-	,Id_Persona
+	,Cedula
   FROM 
     T_Promociones
   WHERE
@@ -980,7 +976,7 @@ BEGIN
   SELECT
     Id_Rol_Persona
 	,Id_Rol
-	,Id_Persona
+	,Cedula
   FROM 
     T_Roles_Personas
   WHERE
@@ -1017,19 +1013,102 @@ CREATE PROCEDURE sp_Filtrar_Tarjetas
 AS
 BEGIN
   SELECT
-    Id_Tarjeta
-	,Numero_tarjeta
-	,Id_Persona
+    Numero_tarjeta
+	,Cedula
   FROM 
     T_Tarjetas
   WHERE
     (Numero_tarjeta like '%'+@Filtro+'%')
 End;
 
+--CREACION DE PROCEDURES INSERTAR
+IF OBJECT_ID('sp_Insertar_Persona]') IS NOT NULL DROP PROCEDURE sp_Insertar_Persona
+GO
 
----Esto es una prueba de commit 
+Create Procedure sp_Insertar_Persona
 
--- Push
+(
+  @Cedula VARCHAR(15)
+  ,@Nombre VARCHAR(25)
+  ,@Primer_Apellido VARCHAR(25)
+  ,@Segundo_Apellido VARCHAR(25)
+  ,@Email VARCHAR(35)
+  ,@Telefono1 VARCHAR(14)
+  ,@Telefono2 VARCHAR(14)
+  ,@Usuario VARCHAR(15)
+  ,@Contrasena VARCHAR(12)
+  ,@Id_Direccion INT
+  ,@Super_Usuario BIT
+  ,@Activo BIT
+)
+As
+Begin
+
+INSERT INTO T_Personas
+           (Cedula,Nombre,Primer_Apellido,Segundo_Apellido,Email,Telefono1
+           ,Telefono2,Usuario,Contrasena,Id_Direccion,Super_Usuario,Activo)
+VALUES
+           (@Cedula,@Nombre,@Primer_Apellido,@Segundo_Apellido,@Email,@Telefono1
+           ,@Telefono2,@Usuario,@Contrasena,@Id_Direccion,@Super_Usuario,@Activo)
+
+End
 
 
+--CREACION DE PROCEDURES MODIFICAR
+IF OBJECT_ID('sp_Modificar_Persona]') IS NOT NULL DROP PROCEDURE sp_Modificar_Persona
+GO
 
+Create Procedure sp_Modificar_Persona
+
+(
+  @Cedula VARCHAR(15)
+  ,@Nombre VARCHAR(25)
+  ,@Primer_Apellido VARCHAR(25)
+  ,@Segundo_Apellido VARCHAR(25)
+  ,@Email VARCHAR(35)
+  ,@Telefono1 VARCHAR(14)
+  ,@Telefono2 VARCHAR(14)
+  ,@Usuario VARCHAR(15)
+  ,@Contrasena VARCHAR(12)
+  ,@Id_Direccion INT
+  ,@Super_Usuario BIT
+  ,@Activo BIT
+)
+As
+Begin
+
+  UPDATE 
+    T_Personas
+  SET
+	Nombre = @Nombre,
+	Primer_Apellido = @Primer_Apellido,
+	Segundo_Apellido = @Segundo_Apellido,
+	Email = @Email,
+	Telefono1 = @Telefono1,
+	Telefono2 = @Telefono2,
+	Usuario = @Usuario,
+	Contrasena = @Contrasena,
+	Id_Direccion = @Id_Direccion,
+	Super_Usuario = @Super_Usuario,
+	Activo = @Activo
+  WHERE
+    (Cedula = @Cedula)
+
+End
+
+
+--CREACION DE PROCEDURES ELIMINAR
+IF OBJECT_ID('sp_Eliminar_Persona') IS NOT NULL DROP PROCEDURE sp_Eliminar_Persona
+GO
+
+Create Procedure sp_Eliminar_Persona
+
+(
+	@Cedula varchar(15)
+)
+As
+Begin
+
+DELETE FROM T_Personas WHERE (Cedula = @Cedula);
+
+End
