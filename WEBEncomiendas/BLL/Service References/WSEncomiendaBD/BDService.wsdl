@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="BDService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:50110/BDService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:50110/BDService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:50110/BDService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IBDService_ListarDatos_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarDatos" />
+  </wsdl:message>
+  <wsdl:message name="IBDService_ListarDatos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarDatosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBDService_FiltarDatos_InputMessage">
+    <wsdl:part name="parameters" element="tns:FiltarDatos" />
+  </wsdl:message>
+  <wsdl:message name="IBDService_FiltarDatos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FiltarDatosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBDService_InsertarDato_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarDato" />
+  </wsdl:message>
+  <wsdl:message name="IBDService_InsertarDato_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarDatoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBDService_ModificarDato_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModificarDato" />
+  </wsdl:message>
+  <wsdl:message name="IBDService_ModificarDato_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ModificarDatoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBDService_EliminarDato_InputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarDato" />
+  </wsdl:message>
+  <wsdl:message name="IBDService_EliminarDato_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarDatoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IBDService">
+    <wsdl:operation name="ListarDatos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBDService/ListarDatos" message="tns:IBDService_ListarDatos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBDService/ListarDatosResponse" message="tns:IBDService_ListarDatos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FiltarDatos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBDService/FiltarDatos" message="tns:IBDService_FiltarDatos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBDService/FiltarDatosResponse" message="tns:IBDService_FiltarDatos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarDato">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBDService/InsertarDato" message="tns:IBDService_InsertarDato_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBDService/InsertarDatoResponse" message="tns:IBDService_InsertarDato_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ModificarDato">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBDService/ModificarDato" message="tns:IBDService_ModificarDato_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBDService/ModificarDatoResponse" message="tns:IBDService_ModificarDato_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarDato">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBDService/EliminarDato" message="tns:IBDService_EliminarDato_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBDService/EliminarDatoResponse" message="tns:IBDService_EliminarDato_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IBDService" type="tns:IBDService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListarDatos">
+      <soap:operation soapAction="http://tempuri.org/IBDService/ListarDatos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FiltarDatos">
+      <soap:operation soapAction="http://tempuri.org/IBDService/FiltarDatos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarDato">
+      <soap:operation soapAction="http://tempuri.org/IBDService/InsertarDato" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModificarDato">
+      <soap:operation soapAction="http://tempuri.org/IBDService/ModificarDato" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarDato">
+      <soap:operation soapAction="http://tempuri.org/IBDService/EliminarDato" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BDService">
+    <wsdl:port name="BasicHttpBinding_IBDService" binding="tns:BasicHttpBinding_IBDService">
+      <soap:address location="http://localhost:50110/BDService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
