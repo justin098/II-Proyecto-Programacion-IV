@@ -11,7 +11,7 @@ namespace DAL.CatMan
     {
 
         private DataTable _dtTabla;
-        private string _Error;
+        private string _Error,_Filtro;
 
         public DataTable DtTabla
         {
@@ -36,6 +36,19 @@ namespace DAL.CatMan
             set
             {
                 _Error = value;
+            }
+        }
+
+        public string Filtro
+        {
+            get
+            {
+                return _Filtro;
+            }
+
+            set
+            {
+                _Filtro = value;
             }
         }
     }
