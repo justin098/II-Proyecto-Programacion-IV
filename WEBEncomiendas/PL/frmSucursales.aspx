@@ -53,7 +53,7 @@
                     </div>
 
                 </div>
-                <asp:Label Text="text" ID="lblPureb" runat="server" />
+                <asp:Label Text="" ID="lblMensaje" runat="server" />
             </form>
         </div>
 

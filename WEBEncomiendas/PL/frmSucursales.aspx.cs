@@ -45,11 +45,11 @@ namespace PL
             }else if (objDAL.Error == string.Empty)
             {
                 gdvSucursales.Visible = false;
-                lblPureb.Text = "No hay datos que mostrar";
+                lblMensaje.Text = "No hay datos que mostrar";
             }
             else
             {
-                lblPureb.Text = objDAL.Error;
+                lblMensaje.Text = objDAL.Error;
             }
         }
 
