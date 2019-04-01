@@ -15,7 +15,7 @@ namespace SVC.Interfaces
         DataTable ListarDatos(string sNombreSP, string sNombreTabla, ref string sMsjError);
 
         [OperationContract]
-        DataTable FiltarDatos(string sNombreSP, string sNombreTabla, DataTable dtParametros, 
+        DataTable FiltrarDatos(string sNombreSP, string sNombreTabla, DataTable dtParametros, 
                               ref string sMsjError);
 
         [OperationContract]

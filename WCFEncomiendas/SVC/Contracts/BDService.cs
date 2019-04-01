@@ -44,7 +44,7 @@ namespace SVC.Contracts
             }
         }
 
-        public DataTable FiltarDatos(string sNombreSP, string sNombreTabla, DataTable dtParametros,
+        public DataTable FiltrarDatos(string sNombreSP, string sNombreTabla, DataTable dtParametros,
                                      ref string sMsjError)
         {
             try

@@ -5,6 +5,6 @@
     Renaming the file extension or editing the content of this file may   
     cause the file to be unrecognizable by the program.
 -->
-<GenericObjectDataSource DisplayName="FiltarDatosResponse" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>BLL.WSEncomiendaBD.FiltarDatosResponse</TypeInfo>
+<GenericObjectDataSource DisplayName="FiltrarDatosResponse" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+   <TypeInfo>BLL.WSEncomiendaBD.FiltrarDatosResponse, Service References.WSEncomiendaBD.Reference.cs.dll, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>

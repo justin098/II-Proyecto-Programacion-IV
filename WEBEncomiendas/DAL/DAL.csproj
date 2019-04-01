@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CatMan\clsSucursalesDAL.cs" />
+    <Compile Include="Cat_Man\Cls_Membership_DAL.cs" />
+    <Compile Include="Cat_Man\Cls_Personas_DAL.cs" />
+    <Compile Include="Cat_Man\Cls_Sucursales_DAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

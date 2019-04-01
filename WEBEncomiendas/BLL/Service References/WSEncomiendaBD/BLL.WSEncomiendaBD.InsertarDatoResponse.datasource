@@ -6,5 +6,5 @@
     cause the file to be unrecognizable by the program.
 -->
 <GenericObjectDataSource DisplayName="InsertarDatoResponse" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>BLL.WSEncomiendaBD.InsertarDatoResponse</TypeInfo>
+   <TypeInfo>BLL.WSEncomiendaBD.InsertarDatoResponse, Service References.WSEncomiendaBD.Reference.cs.dll, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>

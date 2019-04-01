@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DAL.CatMan;
-using BLL.CatMan;
+using DAL.Cat_Man;
+using BLL.Cat_Man;
 
 namespace PL
 {
@@ -22,34 +22,34 @@ namespace PL
 
         private void CargarSucursales()
         {
-            clsSucursalesBLL objBLL = new clsSucursalesBLL();
-            clsSucursalesDAL objDAL = new clsSucursalesDAL();
+            Cls_Sucursales_BLL objBLL = new Cls_Sucursales_BLL();
+            Cls_Sucursales_DAL objDAL = new Cls_Sucursales_DAL();
             if (txtBuscar.Value == string.Empty)
             {
                 objBLL.Listar(ref objDAL);
             }
             else
             {
-                objDAL.Filtro = txtBuscar.Value.Trim();
+                objDAL.sFiltro = txtBuscar.Value.Trim();
                 objBLL.Filtrar(ref objDAL);
             }
 
 
-            if (objDAL.Error == string.Empty && objDAL.DtTabla.Rows.Count>0)
+            if (objDAL.sError == string.Empty && objDAL.DtTabla.Rows.Count>0)
             {
                 this.gdvSucursales.DataSource = null;
                 this.gdvSucursales.DataBind();
                 this.gdvSucursales.DataSource = objDAL.DtTabla;
                 this.gdvSucursales.DataBind();
                 gdvSucursales.Visible = true;
-            }else if (objDAL.Error == string.Empty)
+            }else if (objDAL.sError == string.Empty)
             {
                 gdvSucursales.Visible = false;
                 lblMensaje.Text = "No hay datos que mostrar";
             }
             else
             {
-                lblMensaje.Text = objDAL.Error;
+                lblMensaje.Text = objDAL.sError;
             }
         }
 

@@ -753,6 +753,26 @@ BEGIN
     T_Tarjetas
 End;
 
+IF OBJECT_ID('sp_Listar_Sucursales_Direccion') IS NOT NULL DROP PROCEDURE sp_Listar_Sucursales_Direccion
+GO
+
+CREATE PROCEDURE sp_Listar_Sucursales_Direccion
+AS
+BEGIN
+  SELECT
+    Id_Sucursal
+    ,Nombre
+	,TD.Id_Direccion
+	,Activo
+	,TD.Provincia
+	,TD.Canton
+	,TD.Distrito
+	,TD.Direccion_Exacta
+  FROM 
+    T_Sucursales TS
+	INNER JOIN T_Direcciones TD ON TS.Id_Direccion=TD.Id_Direccion
+End;
+
 --CREACION DE PROCEDURES FILTAR
 IF OBJECT_ID('sp_Filtrar_Categorias') IS NOT NULL DROP PROCEDURE sp_Filtrar_Categorias
 GO
@@ -1021,6 +1041,28 @@ BEGIN
     (Numero_tarjeta like '%'+@Filtro+'%')
 End;
 
+IF OBJECT_ID('sp_Listar_Sucursales_Direccion_Filtro') IS NOT NULL DROP PROCEDURE sp_Listar_Sucursales_Direccion_Filtro
+GO
+
+CREATE PROCEDURE sp_Listar_Sucursales_Direccion_Filtro
+@pNombre VARCHAR(25)
+AS
+BEGIN
+  SELECT
+    Id_Sucursal
+    ,Nombre
+	,TD.Id_Direccion
+	,Activo
+	,TD.Provincia
+	,TD.Canton
+	,TD.Distrito
+	,TD.Direccion_Exacta
+  FROM 
+    T_Sucursales TS
+	INNER JOIN T_Direcciones TD ON TS.Id_Direccion=TD.Id_Direccion
+	WHERE Nombre like '%'+@pNombre+'%'
+End;
+
 --CREACION DE PROCEDURES INSERTAR
 IF OBJECT_ID('sp_Insertar_Persona]') IS NOT NULL DROP PROCEDURE sp_Insertar_Persona
 GO
@@ -1180,44 +1222,6 @@ BEGIN
 	(P.Usuario = @Usuario AND PRI.Privilegio = @Privilegio)
   END
 End
-
--- SP Listar y filtrado Sucursales
-CREATE PROCEDURE [dbo].[sp_Listar_Sucursales_Direccion_Filtro]
-@pNombre VARCHAR(25)
-AS
-BEGIN
-  SELECT
-    Id_Sucursal
-    ,Nombre
-	,TD.Id_Direccion
-	,Activo
-	,TD.Provincia
-	,TD.Canton
-	,TD.Distrito
-	,TD.Direccion_Exacta
-  FROM 
-    T_Sucursales TS
-	INNER JOIN T_Direcciones TD ON TS.Id_Direccion=TD.Id_Direccion
-	WHERE Nombre like '%'+@pNombre+'%'
-End;
-
-CREATE PROCEDURE [dbo].[sp_Listar_Sucursales_Direccion]
-AS
-BEGIN
-  SELECT
-    Id_Sucursal
-    ,Nombre
-	,TD.Id_Direccion
-	,Activo
-	,TD.Provincia
-	,TD.Canton
-	,TD.Distrito
-	,TD.Direccion_Exacta
-  FROM 
-    T_Sucursales TS
-	INNER JOIN T_Direcciones TD ON TS.Id_Direccion=TD.Id_Direccion
-End;
-
 
 --INSERTS INICIALES
 IF NOT EXISTS(SELECT 1 FROM T_Personas WHERE Usuario = 'admin')

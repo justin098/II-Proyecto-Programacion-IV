@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 
-namespace DAL.CatMan
+namespace DAL.Cat_Man
 {
-    public class clsSucursalesDAL
+    public class Cls_Sucursales_DAL
     {
 
         private DataTable _dtTabla;
-        private string _Error,_Filtro;
+        private string _sError,_sFiltro;
+        private DataTable _dtParametros;
 
         public DataTable DtTabla
         {
@@ -26,29 +27,42 @@ namespace DAL.CatMan
             }
         }
 
-        public string Error
+        public string sError
         {
             get
             {
-                return _Error;
+                return _sError;
             }
 
             set
             {
-                _Error = value;
+                _sError = value;
             }
         }
 
-        public string Filtro
+        public string sFiltro
         {
             get
             {
-                return _Filtro;
+                return _sFiltro;
             }
 
             set
             {
-                _Filtro = value;
+                _sFiltro = value;
+            }
+        }
+
+        public DataTable dtParametros
+        {
+            get
+            {
+                return _dtParametros;
+            }
+
+            set
+            {
+                _dtParametros = value;
             }
         }
     }
