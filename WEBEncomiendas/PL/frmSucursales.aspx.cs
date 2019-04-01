@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using DAL.Cat_Man;
 using BLL.Cat_Man;
+using System.Data;
 
 namespace PL
 {
@@ -24,28 +25,44 @@ namespace PL
         {
             Cls_Sucursales_BLL objBLL = new Cls_Sucursales_BLL();
             Cls_Sucursales_DAL objDAL = new Cls_Sucursales_DAL();
-            if (txtBuscar.Value == string.Empty)
-            {
-                objBLL.Listar(ref objDAL);
-            }
-            else
-            {
-                objDAL.sFiltro = txtBuscar.Value.Trim();
-                objBLL.Filtrar(ref objDAL);
-            }
 
+            objBLL.Listar(ref objDAL);
 
-            if (objDAL.sError == string.Empty && objDAL.DtTabla.Rows.Count>0)
+            if (objDAL.sError == string.Empty)
             {
-                this.gdvSucursales.DataSource = null;
-                this.gdvSucursales.DataBind();
-                this.gdvSucursales.DataSource = objDAL.DtTabla;
-                this.gdvSucursales.DataBind();
-                gdvSucursales.Visible = true;
-            }else if (objDAL.sError == string.Empty)
-            {
-                gdvSucursales.Visible = false;
-                lblMensaje.Text = "No hay datos que mostrar";
+                gdvSucursales.SelectedIndex = -1;
+                if (txtBuscar.Value == string.Empty)
+                {
+                    gdvSucursales.DataSource = objDAL.DtTabla;
+                }
+                else
+                {
+                    DataTable dt = objDAL.DtTabla;
+
+                    EnumerableRowCollection<DataRow> query = from dtSucursales in dt.AsEnumerable()
+                                                             where dtSucursales.Field<string>("Nombre").ToLower().Contains(txtBuscar.Value.ToLower())
+                                                             select dtSucursales;
+
+                    DataView view = query.AsDataView();
+
+                    gdvSucursales.DataSource = view;
+
+                }
+
+                gdvSucursales.DataBind();
+
+                if (gdvSucursales.Rows.Count > 0)
+                {
+                    gdvSucursales.Visible = true;
+                    lblMensaje.Visible = false;
+                    lblMensaje.Text = "";
+                }
+                else
+                {
+                    gdvSucursales.Visible = false;
+                    lblMensaje.Visible = true;
+                    lblMensaje.Text = "No hay datos que mostrar";
+                }
             }
             else
             {
