@@ -1181,6 +1181,44 @@ BEGIN
   END
 End
 
+-- SP Listar y filtrado Sucursales
+CREATE PROCEDURE [dbo].[sp_Listar_Sucursales_Direccion_Filtro]
+@pNombre VARCHAR(25)
+AS
+BEGIN
+  SELECT
+    Id_Sucursal
+    ,Nombre
+	,TD.Id_Direccion
+	,Activo
+	,TD.Provincia
+	,TD.Canton
+	,TD.Distrito
+	,TD.Direccion_Exacta
+  FROM 
+    T_Sucursales TS
+	INNER JOIN T_Direcciones TD ON TS.Id_Direccion=TD.Id_Direccion
+	WHERE Nombre like '%'+@pNombre+'%'
+End;
+
+CREATE PROCEDURE [dbo].[sp_Listar_Sucursales_Direccion]
+AS
+BEGIN
+  SELECT
+    Id_Sucursal
+    ,Nombre
+	,TD.Id_Direccion
+	,Activo
+	,TD.Provincia
+	,TD.Canton
+	,TD.Distrito
+	,TD.Direccion_Exacta
+  FROM 
+    T_Sucursales TS
+	INNER JOIN T_Direcciones TD ON TS.Id_Direccion=TD.Id_Direccion
+End;
+
+
 --INSERTS INICIALES
 IF NOT EXISTS(SELECT 1 FROM T_Personas WHERE Usuario = 'admin')
   INSERT INTO T_Personas
