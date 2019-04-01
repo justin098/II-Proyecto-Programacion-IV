@@ -1112,3 +1112,78 @@ Begin
 DELETE FROM T_Personas WHERE (Cedula = @Cedula);
 
 End
+
+--CREACION DE PROCEDURES MEMBERSHIP
+IF OBJECT_ID('sp_Login') IS NOT NULL DROP PROCEDURE sp_Login
+GO
+
+CREATE PROCEDURE sp_Login
+
+(
+  @UserLogin VARCHAR(15)
+  ,@Contrasena VARCHAR(12)
+)
+As
+BEGIN
+  SELECT
+    1
+  FROM
+    T_Personas
+  WHERE
+    (Email = @UserLogin AND Contrasena = @Contrasena)
+	OR (Usuario = @UserLogin AND Contrasena = @Contrasena)
+End
+
+IF OBJECT_ID('sp_Has_Privilege') IS NOT NULL DROP PROCEDURE sp_Has_Privilege
+GO
+
+CREATE PROCEDURE sp_Has_Privilege
+
+(
+  @Usuario VARCHAR(35)
+  ,@Privilegio VARCHAR(20)
+)
+As
+BEGIN
+  DECLARE @superUsuario BIT;
+  SET @superUsuario = 0;
+
+  SELECT @superUsuario = Super_Usuario FROM T_Personas WHERE Usuario = @Usuario;
+
+  IF @superUsuario = 1
+  BEGIN
+    SELECT @superUsuario Has_Privilege; 
+  END
+  ELSE
+  BEGIN
+    SELECT
+	*
+	FROM
+	T_Personas P
+	INNER JOIN
+	T_Roles_Personas RP
+	ON
+	(RP.Cedula = P.Cedula)
+	INNER JOIN
+	T_Roles R
+	ON
+	(R.Id_Rol = RP.Id_Rol)
+	INNER JOIN
+	T_Privilegios_Roles PR
+	ON
+	(PR.Id_Rol = R.Id_Rol)
+	INNER JOIN
+	T_Privilegios PRI
+	ON
+	(PRI.Id_Privilegio = PR.Id_Privilegio)
+	WHERE
+	(P.Usuario = @Usuario AND PRI.Privilegio = @Privilegio)
+  END
+End
+
+--INSERTS INICIALES
+IF NOT EXISTS(SELECT 1 FROM T_Personas WHERE Usuario = 'admin')
+  INSERT INTO T_Personas
+    (Cedula, Nombre, Primer_Apellido, Segundo_Apellido, Email, Telefono1, Telefono2, Usuario, Contrasena, Super_Usuario, Activo)
+  VALUES
+    ('1-1111-1111', 'AAAA', 'SSSS', 'LLLL', 'admin@admin.com', '22222222', '88888888', 'admin', '1234', 1, 1);

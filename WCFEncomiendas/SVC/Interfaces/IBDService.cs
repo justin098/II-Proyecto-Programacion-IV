@@ -15,8 +15,8 @@ namespace SVC.Interfaces
         DataTable ListarDatos(string sNombreSP, string sNombreTabla, ref string sMsjError);
 
         [OperationContract]
-        DataTable FiltarDatos(string sNombreSP, string sNombreTabla, string sNombreParametro, 
-                              string sTipoParametro, string sValorParametro, ref string sMsjError);
+        DataTable FiltarDatos(string sNombreSP, string sNombreTabla, DataTable dtParametros, 
+                              ref string sMsjError);
 
         [OperationContract]
         string InsertarDato(string sNombreSP, string sNombreTabla, DataTable dtParametros,
@@ -27,7 +27,7 @@ namespace SVC.Interfaces
                            ref char cAccion, ref string sMsjError);
 
         [OperationContract]
-        void EliminarDato(string sNombreSP, string sNombreTabla, string sNombreParametro,
-                               string sTipoParametro, string sValorParametro, ref string sMsjError);
+        void EliminarDato(string sNombreSP, string sNombreTabla, DataTable dtParametros,
+                          ref string sMsjError);
     }
 }

@@ -44,8 +44,8 @@ namespace SVC.Contracts
             }
         }
 
-        public DataTable FiltarDatos(string sNombreSP, string sNombreTabla, string sNombreParametro,
-                                     string sTipoParametro, string sValorParametro, ref string sMsjError)
+        public DataTable FiltarDatos(string sNombreSP, string sNombreTabla, DataTable dtParametros,
+                                     ref string sMsjError)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace SVC.Contracts
                 OBJ_DataBase_DAL.SNombreTabla = sNombreTabla;
 
                 OBJ_DataBase_BLL.Crear_Parametros(ref OBJ_DataBase_DAL);
-                OBJ_DataBase_DAL.dt_Parametros.Rows.Add(sNombreParametro, sTipoParametro, sValorParametro);
+                OBJ_DataBase_DAL.dt_Parametros = dtParametros;
 
                 OBJ_DataBase_BLL.Execute_DataAdapter(ref OBJ_DataBase_DAL);
 
@@ -152,8 +152,8 @@ namespace SVC.Contracts
             }
         }
 
-        public void EliminarDato(string sNombreSP, string sNombreTabla, string sNombreParametro,
-                                 string sTipoParametro, string sValorParametro, ref string sMsjError)
+        public void EliminarDato(string sNombreSP, string sNombreTabla, DataTable dtParametros,
+                                 ref string sMsjError)
         {
             try
             {
@@ -164,7 +164,7 @@ namespace SVC.Contracts
                 OBJ_DataBase_DAL.SNombreTabla = sNombreTabla;
 
                 OBJ_DataBase_BLL.Crear_Parametros(ref OBJ_DataBase_DAL);
-                OBJ_DataBase_DAL.dt_Parametros.Rows.Add(sNombreParametro, sTipoParametro, sValorParametro);
+                OBJ_DataBase_DAL.dt_Parametros = dtParametros;
 
                 OBJ_DataBase_BLL.Execute_NonQuery(ref OBJ_DataBase_DAL);
 
