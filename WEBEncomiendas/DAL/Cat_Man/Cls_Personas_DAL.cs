@@ -5,24 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 
-namespace Client_DAL.Cat_Man
+namespace DAL.Cat_Man
 {
     public class Cls_Personas_DAL
     {
-        private DataTable _dtTablaUsuarios;
+        private DataTable _dtTablaPersonas;
         private string _sError, _sFiltro;
         private DataTable _dtParametros;
 
-        public DataTable dtTablaUsuarios
+        public DataTable dtTablaPersonas
         {
             get
             {
-                return _dtTablaUsuarios;
+                return _dtTablaPersonas;
             }
 
             set
             {
-                _dtTablaUsuarios = value;
+                _dtTablaPersonas = value;
             }
         }
 

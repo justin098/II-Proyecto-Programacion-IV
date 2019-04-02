@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Client_DAL.Cat_Man;
+using DAL.Cat_Man;
 using System.Data;
 using BLL.WSEncomiendaBD;
 
-namespace Client_BLL.Cat_Man
+namespace BLL.Cat_Man
 {
     public class Cls_Membership_BLL
     {

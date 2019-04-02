@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Client_DAL.Cat_Man;
+using DAL.Cat_Man;
 using System.Data;
 using BLL.WSEncomiendaBD;
 
-namespace Client_BLL.Cat_Man
+namespace BLL.Cat_Man
 {
     public class Cls_Personas_BLL
     {
@@ -36,7 +36,7 @@ namespace Client_BLL.Cat_Man
 
             string vError = string.Empty;
 
-            Obj_Personas_DAL.dtTablaUsuarios = Obj_BDService.ListarDatos("sp_Listar_Personas", "Personas", ref vError);
+            Obj_Personas_DAL.dtTablaPersonas = Obj_BDService.ListarDatos("sp_Listar_Personas", "Personas", ref vError);
             Obj_Personas_DAL.sError = vError;
         }
 
@@ -48,7 +48,7 @@ namespace Client_BLL.Cat_Man
             Crear_Parametros(ref Obj_Personas_DAL);
             Obj_Personas_DAL.dtParametros.Rows.Add("@Filtro", "2", Obj_Personas_DAL.sFiltro);
 
-            Obj_Personas_DAL.dtTablaUsuarios = Obj_BDService.FiltrarDatos("sp_Filtrar_Personas", "Personas", Obj_Personas_DAL.dtParametros, ref vError);
+            Obj_Personas_DAL.dtTablaPersonas = Obj_BDService.FiltrarDatos("sp_Filtrar_Personas", "Personas", Obj_Personas_DAL.dtParametros, ref vError);
             Obj_Personas_DAL.sError = vError;
         }
     }

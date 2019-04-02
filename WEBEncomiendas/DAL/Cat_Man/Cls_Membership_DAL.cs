@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 
-namespace Client_DAL.Cat_Man
+namespace DAL.Cat_Man
 {
     public class Cls_Membership_DAL
     {
