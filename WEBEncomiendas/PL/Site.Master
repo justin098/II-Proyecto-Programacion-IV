@@ -1,0 +1,60 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="PL.Site" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+
+    <title><%: Page.Title %> - Encomiendas</title>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <nav id="nav">
+            <ul>
+                <li><a href="Inicio.aspx">Inicio</a></li>
+                <li><a href="Servicios.aspx">Servicios</a></li>
+                <li><a href="Sucursales.aspx">Sucursales</a></li>
+                <li><a href="Ingresar.aspx" class="button primary">Ingresar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <asp:ContentPlaceHolder ID="MainContent" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <hr />
+
+    <footer id="footer">
+        <ul class="icons">
+            <li><a class="icon">
+                <img src="images/phone-icon.png" /><p>+(506) 2278-0000</p>
+            </a></li>
+            <li><a class="icon">
+                <img src="images/Mobile-Smartphone-icon.png" /><p>+(506) 8882-2186</p>
+            </a></li>
+            <li><a class="icon">
+                <img src="images/email-2-icon.png" /><p>info@encomiendasnacionales.com</p>
+            </a></li>
+        </ul>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/jquery.dropotron.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
