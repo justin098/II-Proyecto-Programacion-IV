@@ -105,6 +105,12 @@ namespace BLL.BD
                                         DBType = SqlDbType.DateTime;
                                         break;
                                     }
+                                case "8":
+                                    {
+                                        DBType = SqlDbType.Bit;
+                                        break;
+                                    }
+
                                 default:
 
                                     DBType = SqlDbType.VarChar;
@@ -201,6 +207,12 @@ namespace BLL.BD
                                         DBType = SqlDbType.DateTime;
                                         break;
                                     }
+                                case "8":
+                                    {
+                                        DBType = SqlDbType.Bit;
+                                        break;
+                                    }
+
                                 default:
 
                                     DBType = SqlDbType.VarChar;
@@ -297,6 +309,12 @@ namespace BLL.BD
                                         DBType = SqlDbType.DateTime;
                                         break;
                                     }
+                                case "8":
+                                    {
+                                        DBType = SqlDbType.Bit;
+                                        break;
+                                    }
+
                                 default:
 
                                     DBType = SqlDbType.VarChar;
