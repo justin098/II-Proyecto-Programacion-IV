@@ -164,4 +164,36 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="InsertarDatoSinIdentity">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sNombreSP" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sNombreTabla" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="dtParametros" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataTable" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+              <xs:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="cAccion" type="q5:char" />
+        <xs:element minOccurs="0" name="sMsjError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarDatoSinIdentityResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsertarDatoSinIdentityResult" nillable="true" type="xs:string" />
+        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="cAccion" type="q6:char" />
+        <xs:element minOccurs="0" name="sMsjError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

@@ -29,5 +29,9 @@ namespace SVC.Interfaces
         [OperationContract]
         void EliminarDato(string sNombreSP, string sNombreTabla, DataTable dtParametros,
                           ref string sMsjError);
+
+        [OperationContract]
+        string InsertarDatoSinIdentity(string sNombreSP, string sNombreTabla, DataTable dtParametros,
+                            ref char cAccion, ref string sMsjError);
     }
 }

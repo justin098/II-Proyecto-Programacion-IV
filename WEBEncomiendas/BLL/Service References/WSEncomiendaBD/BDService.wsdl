@@ -37,6 +37,12 @@
   <wsdl:message name="IBDService_EliminarDato_OutputMessage">
     <wsdl:part name="parameters" element="tns:EliminarDatoResponse" />
   </wsdl:message>
+  <wsdl:message name="IBDService_InsertarDatoSinIdentity_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarDatoSinIdentity" />
+  </wsdl:message>
+  <wsdl:message name="IBDService_InsertarDatoSinIdentity_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarDatoSinIdentityResponse" />
+  </wsdl:message>
   <wsdl:portType name="IBDService">
     <wsdl:operation name="ListarDatos">
       <wsdl:input wsaw:Action="http://tempuri.org/IBDService/ListarDatos" message="tns:IBDService_ListarDatos_InputMessage" />
@@ -57,6 +63,10 @@
     <wsdl:operation name="EliminarDato">
       <wsdl:input wsaw:Action="http://tempuri.org/IBDService/EliminarDato" message="tns:IBDService_EliminarDato_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBDService/EliminarDatoResponse" message="tns:IBDService_EliminarDato_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarDatoSinIdentity">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBDService/InsertarDatoSinIdentity" message="tns:IBDService_InsertarDatoSinIdentity_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBDService/InsertarDatoSinIdentityResponse" message="tns:IBDService_InsertarDatoSinIdentity_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IBDService" type="tns:IBDService">
@@ -99,6 +109,15 @@
     </wsdl:operation>
     <wsdl:operation name="EliminarDato">
       <soap:operation soapAction="http://tempuri.org/IBDService/EliminarDato" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarDatoSinIdentity">
+      <soap:operation soapAction="http://tempuri.org/IBDService/InsertarDatoSinIdentity" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

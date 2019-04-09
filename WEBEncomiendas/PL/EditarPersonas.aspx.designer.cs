@@ -148,13 +148,13 @@ namespace PL {
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtDireccionExacta;
         
         /// <summary>
-        /// bntAceptar control.
+        /// btnAceptar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button bntAceptar;
+        protected global::System.Web.UI.HtmlControls.HtmlInputSubmit btnAceptar;
         
         /// <summary>
         /// btnCancelar control.
@@ -163,7 +163,7 @@ namespace PL {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancelar;
+        protected global::System.Web.UI.HtmlControls.HtmlInputButton btnCancelar;
         
         /// <summary>
         /// lblMensaje control.

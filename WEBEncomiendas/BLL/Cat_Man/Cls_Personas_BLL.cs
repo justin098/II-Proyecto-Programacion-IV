@@ -87,7 +87,7 @@ namespace BLL.Cat_Man
             Obj_Personas_DAL.dtParametros.Rows.Add("@Canton", "2", Obj_Personas_DAL.sCanton);
             Obj_Personas_DAL.dtParametros.Rows.Add("@Distrito", "2", Obj_Personas_DAL.sDistrito);
             Obj_Personas_DAL.dtParametros.Rows.Add("@Direccion_Exacta", "2", Obj_Personas_DAL.sDireccionExacta);
-            Obj_BDService.InsertarDato("sp_Insertar_Persona", "Personas", Obj_Personas_DAL.dtParametros,ref vAccion, ref vError);
+            Obj_BDService.InsertarDatoSinIdentity("sp_Insertar_Persona", "Personas", Obj_Personas_DAL.dtParametros,ref vAccion, ref vError);
             Obj_Personas_DAL.cAccion = vAccion;
             Obj_Personas_DAL.sError = vError;
         }
@@ -115,7 +115,7 @@ namespace BLL.Cat_Man
             Obj_Personas_DAL.dtParametros.Rows.Add("@Canton", "2", Obj_Personas_DAL.sCanton);
             Obj_Personas_DAL.dtParametros.Rows.Add("@Distrito", "2", Obj_Personas_DAL.sDistrito);
             Obj_Personas_DAL.dtParametros.Rows.Add("@Direccion_Exacta", "2", Obj_Personas_DAL.sDireccionExacta);
-            Obj_BDService.InsertarDato("sp_Modificar_Persona", "Personas", Obj_Personas_DAL.dtParametros, ref vAccion, ref vError);
+            Obj_BDService.ModificarDato("sp_Modificar_Persona", "Personas", Obj_Personas_DAL.dtParametros, ref vAccion, ref vError);
             Obj_Personas_DAL.cAccion = vAccion;
             Obj_Personas_DAL.sError = vError;
         }

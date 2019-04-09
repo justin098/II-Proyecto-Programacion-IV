@@ -49,6 +49,13 @@ namespace BLL.WSEncomiendaBD {
         // CODEGEN: Generating message contract since the operation has multiple return values.
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBDService/EliminarDato", ReplyAction="http://tempuri.org/IBDService/EliminarDatoResponse")]
         System.Threading.Tasks.Task<BLL.WSEncomiendaBD.EliminarDatoResponse> EliminarDatoAsync(BLL.WSEncomiendaBD.EliminarDatoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBDService/InsertarDatoSinIdentity", ReplyAction="http://tempuri.org/IBDService/InsertarDatoSinIdentityResponse")]
+        BLL.WSEncomiendaBD.InsertarDatoSinIdentityResponse InsertarDatoSinIdentity(BLL.WSEncomiendaBD.InsertarDatoSinIdentityRequest request);
+        
+        // CODEGEN: Generating message contract since the operation has multiple return values.
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBDService/InsertarDatoSinIdentity", ReplyAction="http://tempuri.org/IBDService/InsertarDatoSinIdentityResponse")]
+        System.Threading.Tasks.Task<BLL.WSEncomiendaBD.InsertarDatoSinIdentityResponse> InsertarDatoSinIdentityAsync(BLL.WSEncomiendaBD.InsertarDatoSinIdentityRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -295,6 +302,62 @@ namespace BLL.WSEncomiendaBD {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarDatoSinIdentity", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class InsertarDatoSinIdentityRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public string sNombreSP;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string sNombreTabla;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
+        public System.Data.DataTable dtParametros;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=3)]
+        public char cAccion;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=4)]
+        public string sMsjError;
+        
+        public InsertarDatoSinIdentityRequest() {
+        }
+        
+        public InsertarDatoSinIdentityRequest(string sNombreSP, string sNombreTabla, System.Data.DataTable dtParametros, char cAccion, string sMsjError) {
+            this.sNombreSP = sNombreSP;
+            this.sNombreTabla = sNombreTabla;
+            this.dtParametros = dtParametros;
+            this.cAccion = cAccion;
+            this.sMsjError = sMsjError;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="InsertarDatoSinIdentityResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class InsertarDatoSinIdentityResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public string InsertarDatoSinIdentityResult;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public char cAccion;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
+        public string sMsjError;
+        
+        public InsertarDatoSinIdentityResponse() {
+        }
+        
+        public InsertarDatoSinIdentityResponse(string InsertarDatoSinIdentityResult, char cAccion, string sMsjError) {
+            this.InsertarDatoSinIdentityResult = InsertarDatoSinIdentityResult;
+            this.cAccion = cAccion;
+            this.sMsjError = sMsjError;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IBDServiceChannel : BLL.WSEncomiendaBD.IBDService, System.ServiceModel.IClientChannel {
     }
@@ -421,6 +484,28 @@ namespace BLL.WSEncomiendaBD {
         
         public System.Threading.Tasks.Task<BLL.WSEncomiendaBD.EliminarDatoResponse> EliminarDatoAsync(BLL.WSEncomiendaBD.EliminarDatoRequest request) {
             return base.Channel.EliminarDatoAsync(request);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        BLL.WSEncomiendaBD.InsertarDatoSinIdentityResponse BLL.WSEncomiendaBD.IBDService.InsertarDatoSinIdentity(BLL.WSEncomiendaBD.InsertarDatoSinIdentityRequest request) {
+            return base.Channel.InsertarDatoSinIdentity(request);
+        }
+        
+        public string InsertarDatoSinIdentity(string sNombreSP, string sNombreTabla, System.Data.DataTable dtParametros, ref char cAccion, ref string sMsjError) {
+            BLL.WSEncomiendaBD.InsertarDatoSinIdentityRequest inValue = new BLL.WSEncomiendaBD.InsertarDatoSinIdentityRequest();
+            inValue.sNombreSP = sNombreSP;
+            inValue.sNombreTabla = sNombreTabla;
+            inValue.dtParametros = dtParametros;
+            inValue.cAccion = cAccion;
+            inValue.sMsjError = sMsjError;
+            BLL.WSEncomiendaBD.InsertarDatoSinIdentityResponse retVal = ((BLL.WSEncomiendaBD.IBDService)(this)).InsertarDatoSinIdentity(inValue);
+            cAccion = retVal.cAccion;
+            sMsjError = retVal.sMsjError;
+            return retVal.InsertarDatoSinIdentityResult;
+        }
+        
+        public System.Threading.Tasks.Task<BLL.WSEncomiendaBD.InsertarDatoSinIdentityResponse> InsertarDatoSinIdentityAsync(BLL.WSEncomiendaBD.InsertarDatoSinIdentityRequest request) {
+            return base.Channel.InsertarDatoSinIdentityAsync(request);
         }
     }
 }

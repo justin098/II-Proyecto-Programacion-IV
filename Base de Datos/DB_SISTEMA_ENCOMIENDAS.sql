@@ -1,5 +1,6 @@
 --CREACION DE LA BASE DE DATOS
 USE MASTER;
+GO
 
 IF EXISTS(SELECT 1 FROM MASTER.SYS.SYSDATABASES WHERE NAME ='DB_SISTEMA_ENCOMIENDAS')
 BEGIN
@@ -7,9 +8,11 @@ BEGIN
 END;
 
 CREATE DATABASE DB_SISTEMA_ENCOMIENDAS;
+GO
 
 --CREACION DE LAS TABLAS
 USE DB_SISTEMA_ENCOMIENDAS;
+
 IF OBJECT_ID (N'T_Privilegios', N'U') IS NULL
 BEGIN
   CREATE TABLE T_Privilegios 
@@ -565,6 +568,7 @@ BEGIN
   FROM 
     T_Categorias
 End;
+GO
 
 IF OBJECT_ID('sp_Listar_Direcciones') IS NOT NULL DROP PROCEDURE sp_Listar_Direcciones
 GO
@@ -581,6 +585,7 @@ BEGIN
   FROM 
     T_Direcciones
 End;
+GO
 
 IF OBJECT_ID('sp_Listar_Estados') IS NOT NULL DROP PROCEDURE sp_Listar_Estados
 GO
@@ -594,6 +599,7 @@ BEGIN
   FROM 
     T_Estados
 End; 
+GO
 
 IF OBJECT_ID('sp_Listar_Paquetes') IS NOT NULL DROP PROCEDURE sp_Listar_Paquetes
 GO
@@ -613,6 +619,7 @@ BEGIN
   FROM 
     T_Paquetes
 End; 
+GO
 
 IF OBJECT_ID('sp_Listar_Personas') IS NOT NULL DROP PROCEDURE sp_Listar_Personas
 GO
@@ -644,6 +651,7 @@ BEGIN
   ON
     (P.Id_Direccion = D.Id_Direccion)
 End; 
+GO
 
 IF OBJECT_ID('sp_Listar_Privilegios') IS NOT NULL DROP PROCEDURE sp_Listar_Privilegios
 GO
@@ -658,6 +666,7 @@ BEGIN
   FROM 
     T_Privilegios
 End; 
+GO
 
 IF OBJECT_ID('sp_Listar_Promociones') IS NOT NULL DROP PROCEDURE sp_Listar_Prmociones
 GO
@@ -673,6 +682,7 @@ BEGIN
   FROM 
     T_Promociones
 End;
+GO
 
 IF OBJECT_ID('sp_Listar_Recibos') IS NOT NULL DROP PROCEDURE sp_Listar_Recibos
 GO
@@ -690,6 +700,7 @@ BEGIN
   FROM 
     T_Recibos
 End; 
+GO
 
 IF OBJECT_ID('sp_Listar_Roles') IS NOT NULL DROP PROCEDURE sp_Listar_Roles
 GO
@@ -704,6 +715,7 @@ BEGIN
   FROM 
     T_Roles
 End; 
+GO
 
 IF OBJECT_ID('sp_Listar_Roles_Personas') IS NOT NULL DROP PROCEDURE sp_Listar_Roles_Personas
 GO
@@ -718,6 +730,7 @@ BEGIN
   FROM 
     T_Roles_Personas
 End;
+GO
 
 IF OBJECT_ID('sp_Listar_Roles_Privilegios') IS NOT NULL DROP PROCEDURE sp_Listar_Roles_Privilegios
 GO
@@ -732,6 +745,7 @@ BEGIN
   FROM 
     T_Roles_Privilegios
 End;
+GO
 
 IF OBJECT_ID('sp_Listar_Sucursales') IS NOT NULL DROP PROCEDURE sp_Listar_Sucursales
 GO
@@ -747,6 +761,7 @@ BEGIN
   FROM 
     T_Sucursales
 End;
+GO
 
 IF OBJECT_ID('sp_Listar_Tarjetas') IS NOT NULL DROP PROCEDURE sp_Listar_Tarjetas
 GO
@@ -760,6 +775,7 @@ BEGIN
   FROM 
     T_Tarjetas
 End;
+GO
 
 IF OBJECT_ID('sp_Listar_Sucursales_Direccion') IS NOT NULL DROP PROCEDURE sp_Listar_Sucursales_Direccion
 GO
@@ -780,6 +796,7 @@ BEGIN
     T_Sucursales TS
 	INNER JOIN T_Direcciones TD ON TS.Id_Direccion=TD.Id_Direccion
 End;
+GO
 
 --CREACION DE PROCEDURES FILTAR
 IF OBJECT_ID('sp_Filtrar_Categorias') IS NOT NULL DROP PROCEDURE sp_Filtrar_Categorias
@@ -801,6 +818,7 @@ BEGIN
   WHERE
     (Nombre like '%'+@Filtro+'%')
 End;
+GO
 
 IF OBJECT_ID('sp_Filtrar_Direcciones') IS NOT NULL DROP PROCEDURE sp_Filtrar_Direcciones
 GO
@@ -822,6 +840,7 @@ BEGIN
   WHERE
     (Provincia like '%'+@Filtro+'%')
 End;
+GO
 
 IF OBJECT_ID('sp_Filtrar_Estados') IS NOT NULL DROP PROCEDURE sp_Filtrar_Estados
 GO
@@ -840,6 +859,7 @@ BEGIN
   WHERE
     (Id_Estado like '%'+@Filtro+'%')
 End;
+GO
 
 IF OBJECT_ID('sp_Filtrar_Paquetes') IS NOT NULL DROP PROCEDURE sp_Filtrar_Paquetes
 GO
@@ -864,6 +884,7 @@ BEGIN
   WHERE
     (Id_Paquete like '%'+@Filtro+'%')
 End;
+GO
 
 IF OBJECT_ID('sp_Filtrar_Personas') IS NOT NULL DROP PROCEDURE sp_Filtrar_Personas
 GO
@@ -892,6 +913,7 @@ BEGIN
   WHERE
     (Nombre like '%'+@Filtro+'%')
 End;
+GO
 
 IF OBJECT_ID('sp_Filtrar_Privilegios') IS NOT NULL DROP PROCEDURE sp_Filtrar_Privilegios
 GO
@@ -911,6 +933,7 @@ BEGIN
   WHERE
     (Privilegio like '%'+@Filtro+'%')
 End;
+GO
 
 IF OBJECT_ID('sp_Filtrar_Privilegios_Roles') IS NOT NULL DROP PROCEDURE sp_Filtrar_Privilegios_Roles
 GO
@@ -930,6 +953,7 @@ BEGIN
   WHERE
     (Id_Privilegio_Rol like '%'+@Filtro+'%')
 End;
+GO
 
 IF OBJECT_ID('sp_Filtrar_Promociones') IS NOT NULL DROP PROCEDURE sp_Filtrar_Promociones
 GO
@@ -950,6 +974,7 @@ BEGIN
   WHERE
     (Id_Promocion like '%'+@Filtro+'%')
 End;
+GO
 
 IF OBJECT_ID('sp_Filtrar_Recibos') IS NOT NULL DROP PROCEDURE sp_Filtrar_Recibos
 GO
@@ -972,6 +997,7 @@ BEGIN
   WHERE
     (Id_Recibo like '%'+@Filtro+'%')
 End;
+GO
 
 IF OBJECT_ID('sp_Filtrar_Roles') IS NOT NULL DROP PROCEDURE sp_Filtrar_Roles
 GO
@@ -991,6 +1017,7 @@ BEGIN
   WHERE
     (Descripcion like '%'+@Filtro+'%')
 End;
+GO
 
 IF OBJECT_ID('sp_Filtrar_Roles_Personas') IS NOT NULL DROP PROCEDURE sp_Filtrar_Roles_Personas
 GO
@@ -1010,6 +1037,7 @@ BEGIN
   WHERE
     (Id_Rol_Persona like '%'+@Filtro+'%')
 End;
+GO
 
 IF OBJECT_ID('sp_Filtrar_Sucursales') IS NOT NULL DROP PROCEDURE sp_Filtrar_Sucursales
 GO
@@ -1030,6 +1058,7 @@ BEGIN
   WHERE
     (Nombre like '%'+@Filtro+'%')
 End;
+GO
 
 IF OBJECT_ID('sp_Filtrar_Tarjetas') IS NOT NULL DROP PROCEDURE sp_Filtrar_Tarjetas
 GO
@@ -1048,6 +1077,7 @@ BEGIN
   WHERE
     (Numero_tarjeta like '%'+@Filtro+'%')
 End;
+GO
 
 IF OBJECT_ID('sp_Listar_Sucursales_Direccion_Filtro') IS NOT NULL DROP PROCEDURE sp_Listar_Sucursales_Direccion_Filtro
 GO
@@ -1070,6 +1100,7 @@ BEGIN
 	INNER JOIN T_Direcciones TD ON TS.Id_Direccion=TD.Id_Direccion
 	WHERE Nombre like '%'+@pNombre+'%'
 End;
+GO
 
 --CREACION DE PROCEDURES INSERTAR
 IF OBJECT_ID('sp_Insertar_Persona]') IS NOT NULL DROP PROCEDURE sp_Insertar_Persona
@@ -1096,40 +1127,48 @@ Create Procedure sp_Insertar_Persona
 )
 As
 BEGIN
-  BEGIN TRY
---    BEGIN TRAN InsertarPersona;
-    DECLARE @IdDireccion INT;
+  BEGIN TRAN InsertarPersona;
+    BEGIN TRY
 
-    INSERT INTO T_Direcciones
-	            (Provincia, Canton, Distrito, Direccion_Exacta)
-    VALUES
-	            (@Provincia, @Canton, @Distrito,@Direccion_Exacta);
+      DECLARE @IdDireccion INT;
 
-    SELECT TOP 1 @IdDireccion = Id_Direccion FROM T_Direcciones ORDER BY Id_Direccion DESC; 
+      INSERT INTO T_Direcciones
+	              (Provincia, Canton, Distrito, Direccion_Exacta)
+      VALUES
+	              (@Provincia, @Canton, @Distrito,@Direccion_Exacta);
 
-    INSERT INTO T_Personas
-               (Cedula,Nombre,Primer_Apellido,Segundo_Apellido,Email,Telefono1
-               ,Telefono2,Usuario,Contrasena,Id_Direccion,Super_Usuario,Activo)
-    VALUES
-               (@Cedula,@Nombre,@Primer_Apellido,@Segundo_Apellido,@Email,@Telefono1
-               ,@Telefono2,@Usuario,@Contrasena,@IdDireccion,@Super_Usuario,@Activo);
+      SELECT TOP 1 @IdDireccion = Id_Direccion FROM T_Direcciones ORDER BY Id_Direccion DESC; 
 
-    COMMIT TRAN InsertarPersona;
+      INSERT INTO T_Personas
+                 (Cedula,Nombre,Primer_Apellido,Segundo_Apellido,Email,Telefono1
+                 ,Telefono2,Usuario,Contrasena,Id_Direccion,Super_Usuario,Activo)
+      VALUES
+                 (@Cedula,@Nombre,@Primer_Apellido,@Segundo_Apellido,@Email,@Telefono1
+                 ,@Telefono2,@Usuario,@Contrasena,@IdDireccion,@Super_Usuario,@Activo);
+
+      COMMIT TRAN InsertarPersona;
   END TRY
   BEGIN CATCH
-    SELECT 
-	  ERROR_NUMBER() AS errNumber
-      ,ERROR_SEVERITY() AS errSeverity 
-      ,ERROR_STATE() AS errState
-      ,ERROR_PROCEDURE() AS errProcedure
-      ,ERROR_LINE() AS errLine
-      ,ERROR_MESSAGE() AS errMessage
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
 
-    ROLLBACK TRAN InsertarPersona;
+	ROLLBACK TRAN InsertarPersona;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
 
   END CATCH
 
 END
+GO
 
 --CREACION DE PROCEDURES MODIFICAR
 IF OBJECT_ID('sp_Modificar_Persona]') IS NOT NULL DROP PROCEDURE sp_Modificar_Persona
@@ -1156,54 +1195,61 @@ Create Procedure sp_Modificar_Persona
 )
 As
 BEGIN
-  BEGIN TRY
-    --BEGIN TRAN ModificarPersona;
-    DECLARE @IdDireccion INT;
+  BEGIN TRAN ModificarPersona;
+    BEGIN TRY
+      DECLARE @IdDireccion INT;
 
-	SELECT TOP 1 @IdDireccion = Id_Direccion FROM T_Personas WHERE Cedula = @Cedula;
+	  SELECT TOP 1 @IdDireccion = Id_Direccion FROM T_Personas WHERE Cedula = @Cedula;
 
-    UPDATE 
-      T_Personas
-    SET
-	  Nombre = @Nombre,
-  	  Primer_Apellido = @Primer_Apellido,
-	  Segundo_Apellido = @Segundo_Apellido,
-	  Email = @Email,
-	  Telefono1 = @Telefono1,
-	  Telefono2 = @Telefono2,
-	  Usuario = @Usuario,
-	  Contrasena = @Contrasena,
-	  Super_Usuario = @Super_Usuario,
-	  Activo = @Activo
-    WHERE
-      (Cedula = @Cedula)
+      UPDATE 
+        T_Personas
+      SET
+  	    Nombre = @Nombre,
+  	    Primer_Apellido = @Primer_Apellido,
+	    Segundo_Apellido = @Segundo_Apellido,
+	    Email = @Email,
+	    Telefono1 = @Telefono1,
+	    Telefono2 = @Telefono2,
+	    Usuario = @Usuario,
+	    Contrasena = @Contrasena,
+	    Super_Usuario = @Super_Usuario,
+	    Activo = @Activo
+      WHERE
+        (Cedula = @Cedula)
 
-    UPDATE 
-      T_Direcciones
-    SET
-	  Provincia = @Provincia,
-	  Canton = @Canton,
-	  Distrito = @Distrito,
-	  Direccion_Exacta = @Direccion_Exacta
-    WHERE
-      (Id_Direccion = @IdDireccion)
+      UPDATE 
+        T_Direcciones
+      SET
+	    Provincia = @Provincia,
+	    Canton = @Canton,
+	    Distrito = @Distrito,
+	    Direccion_Exacta = @Direccion_Exacta
+      WHERE
+        (Id_Direccion = @IdDireccion)
 
-    COMMIT TRAN ModificarPersona;
+      COMMIT TRAN ModificarPersona;
   END TRY
   BEGIN CATCH
-    SELECT 
-	  ERROR_NUMBER() AS errNumber
-      ,ERROR_SEVERITY() AS errSeverity 
-      ,ERROR_STATE() AS errState
-      ,ERROR_PROCEDURE() AS errProcedure
-      ,ERROR_LINE() AS errLine
-      ,ERROR_MESSAGE() AS errMessage
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
 
-    ROLLBACK TRAN ModificarPersona;
+	ROLLBACK TRAN ModificarPersona;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
 
   END CATCH
 
 END
+GO
 
 
 --CREACION DE PROCEDURES ELIMINAR
@@ -1217,32 +1263,39 @@ Create Procedure sp_Eliminar_Persona
 )
 As
 BEGIN
-  BEGIN TRY
-    --BEGIN TRAN EliminarPersona;
-    --DECLARE @IdDireccion INT;
+  BEGIN TRAN EliminarPersona;
+    BEGIN TRY
+      DECLARE @IdDireccion INT;
 
-    --SELECT TOP 1 @IdDireccion = Id_Direccion FROM T_Personas WHERE Cedula = @Cedula;
+      SELECT TOP 1 @IdDireccion = Id_Direccion FROM T_Personas WHERE Cedula = @Cedula;
 
-    --DELETE FROM T_Direcciones WHERE (Id_Direccion = @IdDireccion);
-    DELETE FROM T_Personas WHERE (Cedula = @Cedula);
+      DELETE FROM T_Direcciones WHERE (Id_Direccion = @IdDireccion);
+      DELETE FROM T_Personas WHERE (Cedula = @Cedula);
 
-    COMMIT TRAN EliminarPersona;
-  END TRY
+      COMMIT TRAN EliminarPersona;
+    END TRY
   BEGIN CATCH
-    SELECT 
-	  ERROR_NUMBER() AS errNumber
-      ,ERROR_SEVERITY() AS errSeverity 
-      ,ERROR_STATE() AS errState
-      ,ERROR_PROCEDURE() AS errProcedure
-      ,ERROR_LINE() AS errLine
-      ,ERROR_MESSAGE() AS errMessage
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
 
-    ROLLBACK TRAN EliminarPersona;
+	ROLLBACK TRAN EliminarPersona;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
 
   END CATCH
 
 
 END
+GO
 
 --CREACION DE PROCEDURES MEMBERSHIP
 IF OBJECT_ID('sp_Login') IS NOT NULL DROP PROCEDURE sp_Login
@@ -1264,6 +1317,7 @@ BEGIN
     (Email = @UserLogin AND Contrasena = @Contrasena)
 	OR (Usuario = @UserLogin AND Contrasena = @Contrasena)
 End
+GO
 
 IF OBJECT_ID('sp_Has_Privilege') IS NOT NULL DROP PROCEDURE sp_Has_Privilege
 GO
@@ -1319,10 +1373,10 @@ BEGIN
 
   END
 End
+GO
 
 --INSERTS INICIALES
 IF NOT EXISTS(SELECT 1 FROM T_Personas WHERE Usuario = 'admin')
-  INSERT INTO T_Personas
-    (Cedula, Nombre, Primer_Apellido, Segundo_Apellido, Email, Telefono1, Telefono2, Usuario, Contrasena, Super_Usuario, Activo)
-  VALUES
-    ('2-2222-2222', 'rrr', 'ttt', 'yy', 'prueba@prueba.com', '55555555', '77777777', 'admin2', '1234', 1, 1);
+EXEC sp_Insertar_Persona '1-1111-1111', 'Adrian', 'Soto', 'Loria', 'prueba@prueba.com', '2222-2222', '8888-8888', 
+                         'admin', '1234', 1, 1, 'San José', 'Goicoechea', 'Guadalupe', 'Barrio Minerva'
+

@@ -84,6 +84,9 @@
     <None Include="Service References\WSEncomiendaBD\BLL.WSEncomiendaBD.InsertarDatoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\WSEncomiendaBD\BLL.WSEncomiendaBD.InsertarDatoSinIdentityResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\WSEncomiendaBD\BLL.WSEncomiendaBD.ListarDatosResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
