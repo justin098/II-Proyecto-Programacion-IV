@@ -1375,6 +1375,159 @@ BEGIN
 End
 GO
 
+CREATE PROCEDURE [dbo].[sp_Eliminar_Sucursal]
+
+(
+	@Id_Sucursal INT
+)
+As
+BEGIN
+  BEGIN TRAN EliminarSucursal;
+    BEGIN TRY
+      DECLARE @IdDireccion INT;
+
+      SELECT TOP 1 @IdDireccion = Id_Direccion FROM T_Sucursales WHERE Id_Sucursal = @Id_Sucursal;
+
+      DELETE FROM T_Direcciones WHERE (Id_Direccion = @IdDireccion);
+      DELETE FROM T_Sucursales WHERE (Id_Sucursal = @Id_Sucursal);
+
+      COMMIT TRAN EliminarSucursal;
+    END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN EliminarSucursal;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+
+END
+
+CREATE PROCEDURE [dbo].[sp_Insertar_Sucursal]
+
+(
+   @Nombre VARCHAR(25)
+  ,@Activo BIT
+  ,@Provincia VARCHAR(10)
+  ,@Canton VARCHAR(10)
+  ,@Distrito VARCHAR(10)
+  ,@Direccion_Exacta VARCHAR(250)
+)
+As
+BEGIN
+  BEGIN TRAN InsertarSucursal;
+    BEGIN TRY
+
+      DECLARE @IdDireccion INT;
+
+      INSERT INTO T_Direcciones
+	              (Provincia, Canton, Distrito, Direccion_Exacta)
+      VALUES
+	              (@Provincia, @Canton, @Distrito,@Direccion_Exacta);
+
+      SELECT TOP 1 @IdDireccion = Id_Direccion FROM T_Direcciones ORDER BY Id_Direccion DESC; 
+
+      INSERT INTO T_Sucursales
+                 (Nombre,Id_Direccion,Activo)
+      VALUES
+                 (@Nombre,@IdDireccion,@Activo);
+
+      COMMIT TRAN InsertarSucursal;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN InsertarSucursal;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+
+CREATE PROCEDURE [dbo].[sp_Modificar_Sucursal]
+
+(
+   @Nombre VARCHAR(25)
+  ,@Id_Sucursal INT
+  ,@Activo BIT
+  ,@Provincia VARCHAR(10)
+  ,@Canton VARCHAR(10)
+  ,@Distrito VARCHAR(10)
+  ,@Direccion_Exacta VARCHAR(250)
+)
+As
+BEGIN
+  BEGIN TRAN ModificarSucursal;
+    BEGIN TRY
+      DECLARE @IdDireccion INT;
+
+	  SELECT TOP 1 @IdDireccion = Id_Direccion FROM T_Sucursales WHERE Id_Sucursal = @Id_Sucursal;
+
+      UPDATE 
+        T_Sucursales
+      SET
+  	    Nombre = @Nombre,
+  	    Activo = @Activo
+      WHERE
+        (Id_Sucursal = @Id_Sucursal)
+
+      UPDATE 
+        T_Direcciones
+      SET
+	    Provincia = @Provincia,
+	    Canton = @Canton,
+	    Distrito = @Distrito,
+	    Direccion_Exacta = @Direccion_Exacta
+      WHERE
+        (Id_Direccion = @IdDireccion)
+
+      COMMIT TRAN ModificarSucursal;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN ModificarSucursal;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+
+
 --INSERTS INICIALES
 IF NOT EXISTS(SELECT 1 FROM T_Personas WHERE Usuario = 'admin')
 EXEC sp_Insertar_Persona '1-1111-1111', 'Adrian', 'Soto', 'Loria', 'prueba@prueba.com', '2222-2222', '8888-8888', 
