@@ -91,11 +91,12 @@ namespace PL
 
         protected void gdvSucursal_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int index = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = gdvSucursal.Rows[index];
-            String idSucursal = gdvSucursal.Rows[index].Cells[2].Text;
+
             if (e.CommandName == "Editar")
             {
+                int index = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = gdvSucursal.Rows[index];
+                String idSucursal = gdvSucursal.Rows[index].Cells[2].Text;
                 lblHeader.InnerText = "Editar Sucursal";
                 updpnlModalHeader.Update();
                 txtIdSucursal.Value = idSucursal;
@@ -115,6 +116,9 @@ namespace PL
             }
             else if (e.CommandName == "Borrar")
             {
+                int index = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = gdvSucursal.Rows[index];
+                String idSucursal = gdvSucursal.Rows[index].Cells[2].Text;
                 lblMensaje.Visible = false;
                 Cls_Sucursales_BLL objBLL = new Cls_Sucursales_BLL();
                 Cls_Sucursales_DAL objDAL = new Cls_Sucursales_DAL();
