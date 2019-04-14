@@ -195,6 +195,8 @@ BEGIN
   CREATE TABLE T_Tarjetas 
   (
 	Numero_tarjeta VARCHAR(20) NOT NULL,
+	Fecha_Vencimiento DATETIME NOT NULL,
+	Codigo_Seguridad SMALLINT NOT NULL,
 	Cedula VARCHAR(15) NOT NULL,
     CONSTRAINT  PK_Numero_tarjeta PRIMARY KEY NONCLUSTERED
     (
@@ -438,7 +440,40 @@ BEGIN
     ALLOW_ROW_LOCKS = ON,
     ALLOW_PAGE_LOCKS = ON
     ) ON [PRIMARY];
-END;  
+END; 
+
+IF OBJECT_ID (N'T_Servicios', N'U') IS NULL
+BEGIN
+  CREATE TABLE T_Servicios 
+  (
+	Tipo_Servicio VARCHAR (50) NOT NULL,
+	Id_Paquete INT NOT NULL IDENTITY(1,1)
+
+    CONSTRAINT PK_Tipo_Servicio  PRIMARY KEY NONCLUSTERED
+    (
+	  Tipo_Servicio  ASC
+    ) WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+  ) ON [PRIMARY]
+
+  CREATE UNIQUE CLUSTERED INDEX IX_T_Servicios_Sequential
+  ON T_Servicios (Tipo_Servicio)
+    WITH(
+    STATISTICS_NORECOMPUTE = OFF,
+    IGNORE_DUP_KEY = OFF,
+    ALLOW_ROW_LOCKS = ON,
+    ALLOW_PAGE_LOCKS = ON
+    ) ON [PRIMARY];
+
+  CREATE NONCLUSTERED INDEX FK_T_Servicios_Id_Paquete
+  ON T_Servicios(Id_Paquete)
+    WITH(
+    STATISTICS_NORECOMPUTE = OFF,
+    IGNORE_DUP_KEY = OFF,
+    ALLOW_ROW_LOCKS = ON,
+    ALLOW_PAGE_LOCKS = ON
+    ) ON [PRIMARY];
+
+END; 
 
 IF OBJECT_ID (N'T_Paquetes', N'U') IS NULL
 BEGIN
@@ -450,8 +485,9 @@ BEGIN
 	Id_Categoria INT NOT NULL,
 	Id_Estado INT NOT NULL,
 	Id_Sucursal INT NOT NULL,
+	Tipo_Servicio VARCHAR (50) NOT NULL,
 	Cedula VARCHAR(15) NOT NULL,
-	Id_Recibo INT NOT NULL
+	Id_Recibo INT NOT NULL,
     CONSTRAINT  PK_Id_Paquete PRIMARY KEY NONCLUSTERED
     (
 	  Id_Paquete  ASC
@@ -487,6 +523,15 @@ BEGIN
 
   CREATE NONCLUSTERED INDEX FK_T_Paquetes_Id_Sucursal
   ON T_Paquetes(Id_Sucursal)
+    WITH(
+    STATISTICS_NORECOMPUTE = OFF,
+    IGNORE_DUP_KEY = OFF,
+    ALLOW_ROW_LOCKS = ON,
+    ALLOW_PAGE_LOCKS = ON
+    ) ON [PRIMARY];
+
+  CREATE NONCLUSTERED INDEX FK_T_Paquetes_Tipo_Servicio
+  ON T_Paquetes(Tipo_Servicio)
     WITH(
     STATISTICS_NORECOMPUTE = OFF,
     IGNORE_DUP_KEY = OFF,
@@ -535,6 +580,14 @@ BEGIN
     ON UPDATE CASCADE
     ON DELETE CASCADE
     NOT FOR REPLICATION;
+	
+  ALTER TABLE T_Paquetes
+    ADD CONSTRAINT FK_T_Paquetes_Tipo_Servicio
+    FOREIGN KEY(Tipo_Servicio)
+    REFERENCES T_Servicios(Tipo_Servicio)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+    NOT FOR REPLICATION;
 
   ALTER TABLE T_Paquetes
     ADD CONSTRAINT FK_T_Paquetes_Cedula
@@ -551,7 +604,9 @@ BEGIN
     ON UPDATE CASCADE
     ON DELETE CASCADE
     NOT FOR REPLICATION;
+
 END;  
+
 
 --CREACION DE PROCEDURES LISTAR
 IF OBJECT_ID('sp_Listar_Categorias') IS NOT NULL DROP PROCEDURE sp_Listar_Categorias
@@ -1532,4 +1587,6 @@ END
 IF NOT EXISTS(SELECT 1 FROM T_Personas WHERE Usuario = 'admin')
 EXEC sp_Insertar_Persona '1-1111-1111', 'Adrian', 'Soto', 'Loria', 'prueba@prueba.com', '2222-2222', '8888-8888', 
                          'admin', '1234', 1, 1, 'San José', 'Goicoechea', 'Guadalupe', 'Barrio Minerva'
+
+
 
