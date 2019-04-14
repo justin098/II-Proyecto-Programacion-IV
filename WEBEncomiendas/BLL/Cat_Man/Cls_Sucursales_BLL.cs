@@ -91,5 +91,56 @@ namespace BLL.Cat_Man
             }
         }
 
+        public void Insertar(ref Cls_Sucursales_DAL objSucDAL)
+        {
+            BDServiceClient Obj_BDService = new BDServiceClient();
+
+            string vError = string.Empty;
+            char vAccion = objSucDAL.CAccion;
+            Crear_Parametros(ref objSucDAL);
+
+            objSucDAL.dtParametros.Rows.Add("@Nombre", "2", objSucDAL.SNombre);
+            objSucDAL.dtParametros.Rows.Add("@Activo", "8", objSucDAL.SActivo);
+            objSucDAL.dtParametros.Rows.Add("@Provincia", "2", objSucDAL.SProvincia);
+            objSucDAL.dtParametros.Rows.Add("@Canton", "2", objSucDAL.SCanton);
+            objSucDAL.dtParametros.Rows.Add("@Distrito", "2", objSucDAL.SDistrito);
+            objSucDAL.dtParametros.Rows.Add("@Direccion_Exacta", "2", objSucDAL.SDireccionExacta);
+
+            Obj_BDService.InsertarDatoSinIdentity("sp_Insertar_Sucursal", "Sucursales", objSucDAL.dtParametros, ref vAccion, ref vError);
+            objSucDAL.CAccion = vAccion;
+            objSucDAL.sError = vError;
+        }
+        public void Editar(ref Cls_Sucursales_DAL objSucDAL)
+        {
+            BDServiceClient Obj_BDService = new BDServiceClient();
+
+            string vError = string.Empty;
+            char vAccion = objSucDAL.CAccion;
+            Crear_Parametros(ref objSucDAL);
+            objSucDAL.dtParametros.Rows.Add("@Id_Sucursal", "1", objSucDAL.SId_Sucursal);
+            objSucDAL.dtParametros.Rows.Add("@Nombre", "2", objSucDAL.SNombre);
+            objSucDAL.dtParametros.Rows.Add("@Activo", "8", objSucDAL.SActivo);
+            objSucDAL.dtParametros.Rows.Add("@Provincia", "2", objSucDAL.SProvincia);
+            objSucDAL.dtParametros.Rows.Add("@Canton", "2", objSucDAL.SCanton);
+            objSucDAL.dtParametros.Rows.Add("@Distrito", "2", objSucDAL.SDistrito);
+            objSucDAL.dtParametros.Rows.Add("@Direccion_Exacta", "2", objSucDAL.SDireccionExacta);
+            Obj_BDService.ModificarDato("sp_Modificar_Sucursal", "Sucursal", objSucDAL.dtParametros, ref vAccion, ref vError);
+            objSucDAL.CAccion = vAccion;
+            objSucDAL.sError = vError;
+        }
+
+
+        public void Eliminar(ref Cls_Sucursales_DAL objSucDAL)
+        {
+            BDServiceClient Obj_BDService = new BDServiceClient();
+
+            string vError = string.Empty;
+            Crear_Parametros(ref objSucDAL);
+            objSucDAL.dtParametros.Rows.Add("@Id_Sucursal", "1", objSucDAL.SId_Sucursal);
+
+            Obj_BDService.EliminarDato("sp_Eliminar_Sucursal", "Sucursales", objSucDAL.dtParametros, ref vError);
+            objSucDAL.sError = vError;
+        }
+
     }
 }

@@ -59,10 +59,10 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-lg-7">
-                            <input type="submit" id="btnAceptar" runat="server" value="Aceptar" onserverclick="bntAceptar_Click"/>
+                            <input type="submit" id="btnAceptar" runat="server" value="Aceptar" />
                         </div>
                         <div class="col-lg-8">
-                            <input type="button" id="btnCancelar" runat="server" value="Cancelar" onserverclick="btnCancelar_Click"/>
+                            <input type="button" id="btnCancelar" runat="server" value="Cancelar"/>
                         </div>
                     </div>
                 </div>

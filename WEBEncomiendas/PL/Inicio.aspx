@@ -4,11 +4,7 @@
     <script>
 
     </script>
-
-    <body class="is-preload landing">
-        <div id="page-wrapper">
-
-            <!-- Banner -->
+                <!-- Banner -->
             <section id="banner">
                 <div class="content">
                     <header>
@@ -28,12 +24,13 @@
                         </p>
                     </header>
 
-                    <span class="image fit main">
-                        <img src="images/LogoSample_ByTailorBrands (8).jpg" alt="Logo" /></span>
-
+                    <span class="image fit main"><img src="images/Imagen3.png" /> alt="Logo" /></span>
+                    
                 </div>
                 <a href="#one" class="goto-next scrolly">Next</a>
             </section>
+           
+           <!-- One -->
 
             <section id="one" class="spotlight style1 bottom">
                 <span class="image fit main">
@@ -111,6 +108,5 @@
                 </div>
                 <a href="#four" class="goto-next scrolly">Next</a>
             </section>
-    </body>
 
 </asp:Content>

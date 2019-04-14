@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="assets/css/noscript.css" />
 
-    <title><%: Page.Title %> - Encomiendas</title>
+
+    <title>Encomiendas Nacionales</title>
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -20,25 +21,46 @@
     <header id="header">
         <nav id="nav">
             <ul>
-                <li><a href="Inicio.aspx">Inicio</a></li>
-                <li><a href="Servicios.aspx">Servicios</a></li>
+                <li><a href="Inicio.aspx">Inicio</a></li> <%--Nivel cliente--%>
+                <li><a href="Servicios.aspx">Servicios</a></li> <%--Nivel cliente--%>
+                <li><a href="Sucursales.aspx">Sucursales</a></li> <%--Nivel cliente--%>
+                             
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Empleado <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="Cambiar_Estado.aspx">Cambiar estado</a></li> <%--Nivel administrativo--%>
+                        <li><a href="Solicitud_Paquete.aspx">Solicitud de paquete</a></li> <%--Nivel administrativo--%>
+                    </ul>
+                </li>
 
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Administración <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="Personas.aspx">Personas</a></li>
-                        <li><a href="Sucursales.aspx">Sucursales</a></li>
+                        <li><a href="EditarSucursales.aspx">Sucursales</a></li> <%--Nivel administrativo--%>
+                        <li><a href="Usuarios.aspx">Usuarios</a></li> <%--Nivel administrativo--%>
+                        <li><a href="Roles.aspx">Roles</a></li> <%--Nivel administrativo--%>
+                        <li><a href="RolesporUsuario.aspx">Roles por usuario</a></li> <%--Nivel administrativo--%>
+
                     </ul>
                 </li>
 
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Mi Cuenta <span class="caret"></span></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Entrar <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="Ingresar.aspx">Ingresar</a></li>
-                        <li><a href="#">Perfil</a></li>
-                        <li><a href="#">Cerrar Sesión</a></li>
+
+                       <li><a href="Registrarse.aspx">Mi cuenta</a></li> <%--Nivel cliente--%>    
+                       <li><a href="Perfil.aspx">Perfil</a></li> <%--Nivel cliente--%>    
+                       <li><a href="CrearSolicitud.aspx">Crear solicitud</a></li> <%--Nivel cliente--%> 
+                       <li><a href="Historicos.aspx">Históricos</a></li> <%--Nivel cliente--%>
+                       <li><a href="#">Cerrar sesión</a></li> <%--AMBOS--%>   
+                   
+
+
                     </ul>
                 </li>
+
+                <li><a href="Contactenos.aspx">Contáctenos</a></li> <%--Nivel cliente--%>
+
             </ul>
         </nav>
     </header>
@@ -46,7 +68,6 @@
     <asp:ContentPlaceHolder ID="MainContent" runat="server">
     </asp:ContentPlaceHolder>
 
-    <hr />
 
     <footer id="footer">
         <ul class="icons">
