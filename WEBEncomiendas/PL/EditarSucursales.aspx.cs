@@ -44,7 +44,7 @@ namespace PL
                     DataTable dt = objDAL.DtTabla;
 
                     EnumerableRowCollection<DataRow> query = from dtSucursales in dt.AsEnumerable()
-                                                             where dtSucursales.Field<string>("Nombre").ToLower().Contains(txtBuscar.Value.ToLower())
+                                                             where dtSucursales.Field<string>("Nombre").ToLower().Replace(" ","").Contains(txtBuscar.Value.ToLower().Replace(" ",""))
                                                              select dtSucursales;
 
                     DataView view = query.AsDataView();

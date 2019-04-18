@@ -20,10 +20,10 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-1">
-                                    <input type="text" id="txtBuscar" runat="server" maxlength="25" name="txtBuscar" value="" placeholder="Nombre sucursal" />
+                                    <input type="text" id="txtBuscar" runat="server" maxlength="25" name="txtBuscar" value="" placeholder="Filtrar por nombre" />
                                 </div>
                                 <div class="col-lg-7">
-                                    <asp:Button ID="bntBuscar" runat="server" Text="Buscar" Width="150px" class="submit" OnClick="bntBuscar_Click" />
+                                    <asp:Button ID="bntBuscar" runat="server" Text="Buscar sucursal" class="submit" OnClick="bntBuscar_Click" />
                                 </div>
                                 <div class="col-lg-8">
                                     <asp:Button ID="btnAgregar" runat="server" Text="Agregar" Width="150px" class="submit" OnClientClick="return openModal();" OnClick="btnAgregar_Click" />
