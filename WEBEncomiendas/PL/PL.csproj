@@ -83,6 +83,7 @@
     <Content Include="assets\js\jquery.scrolly.min.js" />
     <Content Include="assets\js\main.js" />
     <Content Include="assets\js\util.js" />
+    <Content Include="Categoria.aspx" />
     <Content Include="Contactenos.aspx" />
     <Content Include="Cambiar_Estado.aspx" />
     <Content Include="CrearSolicitud.aspx" />
@@ -142,6 +143,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Categoria.aspx.cs">
+      <DependentUpon>Categoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Categoria.aspx.designer.cs">
+      <DependentUpon>Categoria.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contactenos.aspx.cs">
       <DependentUpon>Contactenos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
