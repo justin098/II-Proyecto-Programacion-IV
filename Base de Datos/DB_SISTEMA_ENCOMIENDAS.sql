@@ -122,8 +122,8 @@ BEGIN
   (
     Id_Direccion INT NOT NULL IDENTITY(1,1),
 	Provincia VARCHAR(10) NOT NULL,
-	Canton VARCHAR(10) NOT NULL,
-	Distrito VARCHAR(10) NOT NULL,
+	Canton VARCHAR(20) NOT NULL,
+	Distrito VARCHAR(25) NOT NULL,
 	Direccion_Exacta VARCHAR(250) NOT NULL,
     CONSTRAINT  PK_Id_Direccion PRIMARY KEY NONCLUSTERED
     (
@@ -426,7 +426,7 @@ BEGIN
   (
     Id_Categoria INT NOT NULL IDENTITY(1,1),
 	Nombre VARCHAR(25) NOT NULL,
-	Arancel DECIMAL NOT NULL DEFAULT(0),
+	Descripcion VARCHAR (15) NOT NULL
     CONSTRAINT  PK_Id_Categoria PRIMARY KEY NONCLUSTERED
     (
 	  Id_Categoria  ASC
@@ -612,6 +612,7 @@ BEGIN
     Id_Categoria
     ,Nombre
     ,Arancel
+    ,Costo_Por_Kilo
   FROM 
     T_Categorias
 End;
@@ -859,6 +860,7 @@ BEGIN
     Id_Categoria
     ,Nombre
     ,Arancel
+    ,Costo_Por_Kilo
   FROM 
     T_Categorias
   WHERE
@@ -1421,10 +1423,7 @@ BEGIN
 End
 GO
 
-IF OBJECT_ID('sp_Eliminar_Sucursal') IS NOT NULL DROP PROCEDURE sp_Eliminar_Sucursal
-GO
-
-CREATE PROCEDURE sp_Eliminar_Sucursal
+CREATE PROCEDURE [dbo].[sp_Eliminar_Sucursal]
 
 (
 	@Id_Sucursal INT
@@ -1464,10 +1463,7 @@ BEGIN
 
 END
 
-IF OBJECT_ID('sp_Insertar_Sucursal') IS NOT NULL DROP PROCEDURE sp_Insertar_Sucursal
-GO
-
-CREATE PROCEDURE sp_Insertar_Sucursal
+CREATE PROCEDURE [dbo].[sp_Insertar_Sucursal]
 
 (
    @Nombre VARCHAR(25)
@@ -1519,10 +1515,7 @@ BEGIN
 
 END
 
-IF OBJECT_ID('sp_Modificar_Sucursal') IS NOT NULL DROP PROCEDURE sp_Modificar_Sucursal
-GO
-
-CREATE PROCEDURE sp_Modificar_Sucursal
+CREATE PROCEDURE [dbo].[sp_Modificar_Sucursal]
 
 (
    @Nombre VARCHAR(25)
@@ -1581,138 +1574,6 @@ BEGIN
   END CATCH
 
 END
-GO
-IF OBJECT_ID('sp_Eliminar_Categoria') IS NOT NULL DROP PROCEDURE sp_Eliminar_Categoria
-GO
-
-Create Procedure sp_Eliminar_Categoria
-
-(
-	 @Id_Categoria Int
-)
-As
-BEGIN
-  BEGIN TRAN EliminarCategoria;
-    BEGIN TRY
-
-      DELETE FROM T_Categorias WHERE (Id_Categoria = @Id_Categoria);
-     
-      COMMIT TRAN EliminarCategoria;
-    END TRY
-  BEGIN CATCH
-    DECLARE @ErrorMessage NVARCHAR(4000);  
-    DECLARE @ErrorSeverity INT;  
-    DECLARE @ErrorState INT;  
-
-	ROLLBACK TRAN EliminarCategoria;
-  
-    SELECT   
-        @ErrorMessage = ERROR_MESSAGE(),  
-        @ErrorSeverity = ERROR_SEVERITY(),  
-        @ErrorState = ERROR_STATE();  
-  
-    RAISERROR (@ErrorMessage, -- Message text.  
-               @ErrorSeverity, -- Severity.  
-               @ErrorState -- State.  
-               );
-
-  END CATCH
-
-
-END
-GO
-IF OBJECT_ID('sp_Modificar_Categoria]') IS NOT NULL DROP PROCEDURE sp_Modificar_Categtoria
-GO
-
-Create Procedure sp_Modificar_Categoria
-
-(
-   @Id_Categoria INT
-  ,@Nombre VARCHAR(25)
-  ,@Arancel DECIMAL
- 
-)
-As
-BEGIN
-  BEGIN TRAN ModificarCategoria;
-    BEGIN TRY
-
-      UPDATE 
-        T_Categorias
-      SET	   
-  	    Nombre = @Nombre,
-  	    Arancel = @Arancel
-	    
-      WHERE
-        (Id_Categoria = @Id_Categoria)               
-
-      COMMIT TRAN ModificarCategoria;
-  END TRY
-  BEGIN CATCH
-    DECLARE @ErrorMessage NVARCHAR(4000);  
-    DECLARE @ErrorSeverity INT;  
-    DECLARE @ErrorState INT;  
-
-	ROLLBACK TRAN ModificarCategoria;
-  
-    SELECT   
-        @ErrorMessage = ERROR_MESSAGE(),  
-        @ErrorSeverity = ERROR_SEVERITY(),  
-        @ErrorState = ERROR_STATE();  
-  
-    RAISERROR (@ErrorMessage, -- Message text.  
-               @ErrorSeverity, -- Severity.  
-               @ErrorState -- State.  
-               );
-
-  END CATCH
-
-END
-GO
-IF OBJECT_ID('sp_Insertar_Categoria]') IS NOT NULL DROP PROCEDURE sp_Insertar_Categtoria
-GO
-
-Create Procedure sp_Insertar_Categoria
-
-(
-   
-  @Nombre VARCHAR(25)
- ,@Arancel DECIMAL
-  
-)
-As
-BEGIN
-  BEGIN TRAN InsertarCategoria;
-    BEGIN TRY
-
-       INSERT INTO T_Categorias
-                 (Nombre,Arancel)
-      VALUES
-                 (@Nombre,@Arancel);
-
-      COMMIT TRAN InsertarCategoria;
-  END TRY
-  BEGIN CATCH
-    DECLARE @ErrorMessage NVARCHAR(4000);  
-    DECLARE @ErrorSeverity INT;  
-    DECLARE @ErrorState INT;  
-
-	ROLLBACK TRAN InsertarCategoria;
-  
-    SELECT   
-        @ErrorMessage = ERROR_MESSAGE(),  
-        @ErrorSeverity = ERROR_SEVERITY(),  
-        @ErrorState = ERROR_STATE();  
-  
-    RAISERROR (@ErrorMessage, -- Message text.  
-               @ErrorSeverity, -- Severity.  
-               @ErrorState -- State.  
-               );
-
-  END CATCH
-
-END
-GO
 
 
 --INSERTS INICIALES
