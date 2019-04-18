@@ -426,8 +426,7 @@ BEGIN
   (
     Id_Categoria INT NOT NULL IDENTITY(1,1),
 	Nombre VARCHAR(25) NOT NULL,
-	Arancel MONEY NOT NULL DEFAULT(0),
-	Costo_Por_Kilo MONEY NOT NULL DEFAULT(0),
+	Arancel DECIMAL NOT NULL DEFAULT(0),
     CONSTRAINT  PK_Id_Categoria PRIMARY KEY NONCLUSTERED
     (
 	  Id_Categoria  ASC
@@ -613,7 +612,6 @@ BEGIN
     Id_Categoria
     ,Nombre
     ,Arancel
-    ,Costo_Por_Kilo
   FROM 
     T_Categorias
 End;
@@ -861,7 +859,6 @@ BEGIN
     Id_Categoria
     ,Nombre
     ,Arancel
-    ,Costo_Por_Kilo
   FROM 
     T_Categorias
   WHERE
@@ -1424,7 +1421,10 @@ BEGIN
 End
 GO
 
-CREATE PROCEDURE [dbo].[sp_Eliminar_Sucursal]
+IF OBJECT_ID('sp_Eliminar_Sucursal') IS NOT NULL DROP PROCEDURE sp_Eliminar_Sucursal
+GO
+
+CREATE PROCEDURE sp_Eliminar_Sucursal
 
 (
 	@Id_Sucursal INT
@@ -1464,7 +1464,10 @@ BEGIN
 
 END
 
-CREATE PROCEDURE [dbo].[sp_Insertar_Sucursal]
+IF OBJECT_ID('sp_Insertar_Sucursal') IS NOT NULL DROP PROCEDURE sp_Insertar_Sucursal
+GO
+
+CREATE PROCEDURE sp_Insertar_Sucursal
 
 (
    @Nombre VARCHAR(25)
@@ -1516,7 +1519,10 @@ BEGIN
 
 END
 
-CREATE PROCEDURE [dbo].[sp_Modificar_Sucursal]
+IF OBJECT_ID('sp_Modificar_Sucursal') IS NOT NULL DROP PROCEDURE sp_Modificar_Sucursal
+GO
+
+CREATE PROCEDURE sp_Modificar_Sucursal
 
 (
    @Nombre VARCHAR(25)
@@ -1575,6 +1581,138 @@ BEGIN
   END CATCH
 
 END
+GO
+IF OBJECT_ID('sp_Eliminar_Categoria') IS NOT NULL DROP PROCEDURE sp_Eliminar_Categoria
+GO
+
+Create Procedure sp_Eliminar_Categoria
+
+(
+	 @Id_Categoria Int
+)
+As
+BEGIN
+  BEGIN TRAN EliminarCategoria;
+    BEGIN TRY
+
+      DELETE FROM T_Categorias WHERE (Id_Categoria = @Id_Categoria);
+     
+      COMMIT TRAN EliminarCategoria;
+    END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN EliminarCategoria;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+
+END
+GO
+IF OBJECT_ID('sp_Modificar_Categoria]') IS NOT NULL DROP PROCEDURE sp_Modificar_Categtoria
+GO
+
+Create Procedure sp_Modificar_Categoria
+
+(
+   @Id_Categoria INT
+  ,@Nombre VARCHAR(25)
+  ,@Arancel DECIMAL
+ 
+)
+As
+BEGIN
+  BEGIN TRAN ModificarCategoria;
+    BEGIN TRY
+
+      UPDATE 
+        T_Categorias
+      SET	   
+  	    Nombre = @Nombre,
+  	    Arancel = @Arancel
+	    
+      WHERE
+        (Id_Categoria = @Id_Categoria)               
+
+      COMMIT TRAN ModificarCategoria;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN ModificarCategoria;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+GO
+IF OBJECT_ID('sp_Insertar_Categoria]') IS NOT NULL DROP PROCEDURE sp_Insertar_Categtoria
+GO
+
+Create Procedure sp_Insertar_Categoria
+
+(
+   
+  @Nombre VARCHAR(25)
+ ,@Arancel DECIMAL
+  
+)
+As
+BEGIN
+  BEGIN TRAN InsertarCategoria;
+    BEGIN TRY
+
+       INSERT INTO T_Categorias
+                 (Nombre,Arancel)
+      VALUES
+                 (@Nombre,@Arancel);
+
+      COMMIT TRAN InsertarCategoria;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN InsertarCategoria;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+GO
 
 
 --INSERTS INICIALES

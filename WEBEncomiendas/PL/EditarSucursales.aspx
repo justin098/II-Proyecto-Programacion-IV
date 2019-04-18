@@ -8,7 +8,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <section id="four" class="wrapper style1 special fade-up">
-        <div class="container">
+        <div class="container" style="min-height: 600px;">
             <header class="major">
                 <h2>Sucursales</h2>
             </header>
@@ -20,10 +20,10 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-1">
-                                    <input type="text" id="txtBuscar" runat="server" name="txtBuscar" value="" placeholder="Nombre sucursal" />
+                                    <input type="text" id="txtBuscar" runat="server" maxlength="25" name="txtBuscar" value="" placeholder="Filtrar por nombre" />
                                 </div>
                                 <div class="col-lg-7">
-                                    <asp:Button ID="bntBuscar" runat="server" Text="Buscar" Width="150px" class="submit" OnClick="bntBuscar_Click" />
+                                    <asp:Button ID="bntBuscar" runat="server" Text="Buscar sucursal" class="submit" OnClick="bntBuscar_Click" />
                                 </div>
                                 <div class="col-lg-8">
                                     <asp:Button ID="btnAgregar" runat="server" Text="Agregar" Width="150px" class="submit" OnClientClick="return openModal();" OnClick="btnAgregar_Click" />
@@ -59,11 +59,6 @@
                                         <asp:BoundField DataField="Distrito" HeaderText="Distrito" />
                                         <asp:BoundField DataField="Direccion_Exacta" HeaderText="Dirección Exacta" />
                                         <asp:CheckBoxField DataField="Activo" Text=" " HeaderText="Estado" />
-<%--                                        <asp:TemplateField HeaderText="Activo">
-                                            <ItemTemplate>
-                                                <asp:CheckBox ID="chkSelect" runat="server" Text=" " Enabled="false" Checked='<%# Eval("Activo") %>' />
-                                            </ItemTemplate>
-                                        </asp:TemplateField>--%>
                                     </Columns>
 
                                 </asp:GridView>
@@ -94,16 +89,16 @@
                                         <div class="col-lg-1">
                                             <asp:Label Text="ID de sucursal:" ID="lblIdSucursal" runat="server" />
 
-                                            <input type="text" id="txtIdSucursal" readonly="true" runat="server" name="txtIdSucursal" value="" />
+                                            <input type="text" id="txtIdSucursal" style="height:40px;" readonly="true" runat="server" name="txtIdSucursal" value="" />
                                         </div>
                                         <div class="col-lg-1">
                                             <asp:Label Text="Nombre de sucursal:" ID="lblNombreSucursal" runat="server" />
 
-                                            <input type="text" id="txtNombreSucursal" runat="server" name="txtNombreSucursal" value="" placeholder="Nombre sucursal" />
+                                            <input type="text" id="txtNombreSucursal" style="height:40px;" maxlength="25" runat="server" name="txtNombreSucursal" value="" placeholder="Nombre sucursal" />
                                         </div>
                                         <div class="col-lg-1">
                                             <asp:Label Text="Provincia:" ID="lblProvincia" runat="server" />
-                                            <select class="form-control" id="cmbProvincias" name="cmbProvincia" runat="server">
+                                            <select class="form-control" id="cmbProvincias" style="height:40px;" name="cmbProvincia" runat="server">
                                                 <option>San José</option>
                                                 <option>Alajuela</option>
                                                 <option>Cartago</option>
@@ -116,21 +111,21 @@
                                         <div class="col-lg-1">
                                             <asp:Label Text="Cantón" ID="lblCanton" runat="server" />
 
-                                            <input type="text" id="txtCanton" runat="server" name="txtCanton" value="" placeholder="Cantón" />
+                                            <input type="text" id="txtCanton" runat="server" maxlength="20" style="height:40px;" name="txtCanton" value="" placeholder="Cantón" />
                                         </div>
                                         <div class="col-lg-1">
-                                            <asp:Label Text="Distrito:" ID="lblDistrito" runat="server" />
+                                            <asp:Label Text="Distrito:" ID="lblDistrito" maxlength="20" runat="server" />
 
-                                            <input type="text" id="txtDistrito" runat="server" name="txtDistrito" value="" placeholder="Distrito" />
+                                            <input type="text" id="txtDistrito" runat="server" maxlength="20" style="height:40px;" name="txtDistrito" value="" placeholder="Distrito" />
                                         </div>
                                         <div class="col-lg-1">
                                             <asp:Label Text="Dirección exacta:" ID="lblDireccion" runat="server" />
 
-                                            <input type="text" id="txtDireccion" runat="server" name="txtDireccion" value="" placeholder="Dirección Exacta" />
+                                            <input type="text" id="txtDireccion" runat="server" maxlength="250" style="height:40px;" name="txtDireccion" value="" placeholder="Dirección Exacta" />
                                         </div>
                                         <div class="align-left">
                                             <br />
-                                            <asp:CheckBox ID="chkActivo" runat="server" Text="Activo" />
+                                            <asp:CheckBox ID="chkActivo" runat="server" style="height:40px;" Text="Activo" />
                                         </div>
                                     </div>
                                 </ContentTemplate>

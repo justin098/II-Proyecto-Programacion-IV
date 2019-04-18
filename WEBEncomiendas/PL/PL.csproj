@@ -83,13 +83,14 @@
     <Content Include="assets\js\jquery.scrolly.min.js" />
     <Content Include="assets\js\main.js" />
     <Content Include="assets\js\util.js" />
+    <Content Include="Categoria.aspx" />
     <Content Include="Contactenos.aspx" />
     <Content Include="Cambiar_Estado.aspx" />
     <Content Include="CrearSolicitud.aspx" />
     <Content Include="css\demo.css" />
     <Content Include="css\reset.css" />
     <Content Include="css\style.css" />
-    <Content Include="EditarPersonas.aspx" />
+    <Content Include="EditarUsuarios.aspx" />
     <Content Include="Empleado.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Historicos.aspx" />
@@ -136,13 +137,19 @@
     <Content Include="Registro.aspx" />
     <Content Include="Roles.aspx" />
     <Content Include="RolesporUsuario.aspx" />
-    <Content Include="Usuarios.aspx" />
     <Content Include="Servicios.aspx" />
     <Content Include="Sucursales.aspx" />
     <Content Include="Solicitud_Paquete.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Categoria.aspx.cs">
+      <DependentUpon>Categoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Categoria.aspx.designer.cs">
+      <DependentUpon>Categoria.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contactenos.aspx.cs">
       <DependentUpon>Contactenos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -157,19 +164,19 @@
     <Compile Include="CrearSolicitud.aspx.designer.cs">
       <DependentUpon>CrearSolicitud.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EditarPersonas.aspx.cs">
-      <DependentUpon>EditarPersonas.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="EditarPersonas.aspx.designer.cs">
-      <DependentUpon>EditarPersonas.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Cambiar_Estado.aspx.cs">
       <DependentUpon>Cambiar_Estado.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cambiar_Estado.aspx.designer.cs">
       <DependentUpon>Cambiar_Estado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditarUsuarios.aspx.cs">
+      <DependentUpon>EditarUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditarUsuarios.aspx.designer.cs">
+      <DependentUpon>EditarUsuarios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Empleado.aspx.cs">
       <DependentUpon>Empleado.aspx</DependentUpon>
@@ -243,13 +250,6 @@
     </Compile>
     <Compile Include="RolesporUsuario.aspx.designer.cs">
       <DependentUpon>RolesporUsuario.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Usuarios.aspx.cs">
-      <DependentUpon>Usuarios.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Usuarios.aspx.designer.cs">
-      <DependentUpon>Usuarios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicios.aspx.cs">
