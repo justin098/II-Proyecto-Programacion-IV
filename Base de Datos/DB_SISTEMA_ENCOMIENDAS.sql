@@ -336,6 +336,8 @@ BEGIN
     Id_Sucursal INT NOT NULL IDENTITY(1,1),
 	Nombre VARCHAR(25) NOT NULL,
 	Id_Direccion INT NULL,
+	Hora_Apertura TIME NOT NULL,
+	Hora_Cierre TIME NOT NULL,
 	Activo BIT NOT NULL DEFAULT(0),
     CONSTRAINT  PK_Id_Sucursal PRIMARY KEY NONCLUSTERED
     (
@@ -446,26 +448,18 @@ IF OBJECT_ID (N'T_Servicios', N'U') IS NULL
 BEGIN
   CREATE TABLE T_Servicios 
   (
-	Tipo_Servicio VARCHAR (50) NOT NULL,
-	Id_Paquete INT NOT NULL IDENTITY(1,1)
+	Id_Servicio INT NOT NULL IDENTITY(1,1),
+	Tipo_Servicio VARCHAR (50) NOT NULL
+	
 
-    CONSTRAINT PK_Tipo_Servicio  PRIMARY KEY NONCLUSTERED
+    CONSTRAINT PK_Servicio  PRIMARY KEY NONCLUSTERED
     (
-	  Tipo_Servicio  ASC
+	  Id_Servicio  ASC
     ) WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
   ) ON [PRIMARY]
 
   CREATE UNIQUE CLUSTERED INDEX IX_T_Servicios_Sequential
-  ON T_Servicios (Tipo_Servicio)
-    WITH(
-    STATISTICS_NORECOMPUTE = OFF,
-    IGNORE_DUP_KEY = OFF,
-    ALLOW_ROW_LOCKS = ON,
-    ALLOW_PAGE_LOCKS = ON
-    ) ON [PRIMARY];
-
-  CREATE NONCLUSTERED INDEX FK_T_Servicios_Id_Paquete
-  ON T_Servicios(Id_Paquete)
+  ON T_Servicios (Id_Servicio)
     WITH(
     STATISTICS_NORECOMPUTE = OFF,
     IGNORE_DUP_KEY = OFF,
@@ -485,7 +479,7 @@ BEGIN
 	Id_Categoria INT NOT NULL,
 	Id_Estado INT NOT NULL,
 	Id_Sucursal INT NOT NULL,
-	Tipo_Servicio VARCHAR (50) NOT NULL,
+	Id_Servicio INT NOT NULL IDENTITY(1,1),
 	Cedula VARCHAR(15) NOT NULL,
 	Id_Recibo INT NOT NULL,
     CONSTRAINT  PK_Id_Paquete PRIMARY KEY NONCLUSTERED
@@ -530,8 +524,8 @@ BEGIN
     ALLOW_PAGE_LOCKS = ON
     ) ON [PRIMARY];
 
-  CREATE NONCLUSTERED INDEX FK_T_Paquetes_Tipo_Servicio
-  ON T_Paquetes(Tipo_Servicio)
+  CREATE NONCLUSTERED INDEX FK_T_Paquetes_Id_Servicio
+  ON T_Paquetes(Id_Servicio)
     WITH(
     STATISTICS_NORECOMPUTE = OFF,
     IGNORE_DUP_KEY = OFF,
