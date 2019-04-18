@@ -1430,7 +1430,10 @@ BEGIN
 End
 GO
 
-CREATE PROCEDURE [dbo].[sp_Eliminar_Sucursal]
+IF OBJECT_ID('sp_Eliminar_Sucursal') IS NOT NULL DROP PROCEDURE sp_Eliminar_Sucursal
+GO
+
+CREATE PROCEDURE sp_Eliminar_Sucursal
 
 (
 	@Id_Sucursal INT
@@ -1470,7 +1473,10 @@ BEGIN
 
 END
 
-CREATE PROCEDURE [dbo].[sp_Insertar_Sucursal]
+IF OBJECT_ID('sp_Insertar_Sucursal') IS NOT NULL DROP PROCEDURE sp_Insertar_Sucursal
+GO
+
+CREATE PROCEDURE sp_Insertar_Sucursal
 
 (
    @Nombre VARCHAR(25)
@@ -1522,7 +1528,10 @@ BEGIN
 
 END
 
-CREATE PROCEDURE [dbo].[sp_Modificar_Sucursal]
+IF OBJECT_ID('sp_Modificar_Sucursal') IS NOT NULL DROP PROCEDURE sp_Modificar_Sucursal
+GO
+
+CREATE PROCEDURE sp_Modificar_Sucursal
 
 (
    @Nombre VARCHAR(25)

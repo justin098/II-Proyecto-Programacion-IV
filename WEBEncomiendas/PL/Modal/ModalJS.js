@@ -36,6 +36,16 @@ function eliminarSucursal() {
     }
 }
 
+function eliminarUsuario() {
+    var mensaje;
+    var opcion = confirm("¿Deseas realmente eliminar el usuario?");
+    if (opcion == true) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 // Get DOM Elements
 /*const modal2 = document.querySelector('#my-modal2');
 const modalBtn2 = document.querySelector('#modal-btn2');

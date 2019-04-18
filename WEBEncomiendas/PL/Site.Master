@@ -37,7 +37,7 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Administración <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="EditarSucursales.aspx">Sucursales</a></li> <%--Nivel administrativo--%>
-                        <li><a href="Usuarios.aspx">Usuarios</a></li> <%--Nivel administrativo--%>
+                        <li><a href="EditarUsuarios.aspx">Usuarios</a></li> <%--Nivel administrativo--%>
                         <li><a href="Roles.aspx">Roles</a></li> <%--Nivel administrativo--%>
                         <li><a href="RolesporUsuario.aspx">Roles por usuario</a></li> <%--Nivel administrativo--%>
 
