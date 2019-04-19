@@ -84,6 +84,7 @@
     <Content Include="assets\js\main.js" />
     <Content Include="assets\js\util.js" />
     <Content Include="Categoria.aspx" />
+    <Content Include="Cerrar.aspx" />
     <Content Include="Contactenos.aspx" />
     <Content Include="Cambiar_Estado.aspx" />
     <Content Include="CrearSolicitud.aspx" />
@@ -150,6 +151,13 @@
     </Compile>
     <Compile Include="Categoria.aspx.designer.cs">
       <DependentUpon>Categoria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cerrar.aspx.cs">
+      <DependentUpon>Cerrar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cerrar.aspx.designer.cs">
+      <DependentUpon>Cerrar.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contactenos.aspx.cs">
       <DependentUpon>Contactenos.aspx</DependentUpon>
