@@ -130,6 +130,7 @@
     <Content Include="js\main.js" />
     <Content Include="js\placeholders.min.js" />
     <Content Include="EditarSucursales.aspx" />
+    <Content Include="js\Sucursales\SucursalesJS.js" />
     <Content Include="Modal\Modal.css" />
     <Content Include="Modal\ModalJS.js" />
     <Content Include="Perfil.aspx" />

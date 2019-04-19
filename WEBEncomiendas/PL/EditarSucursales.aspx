@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditarSucursales.aspx.cs" Inherits="PL.MantSucursales" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="True" CodeBehind="EditarSucursales.aspx.cs" Inherits="PL.MantSucursales" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
@@ -40,7 +40,8 @@
                             <div class="table-responsive" style="overflow-x: auto;">
                                 <asp:GridView ID="gdvSucursal" HorizontalAlign="Center" ShowFooter="true" AutoGenerateColumns="false" runat="server"
                                     AllowPaging="true" Height="100%" Width="100%" DataKeyNames="Id_Sucursal"
-                                    OnRowCommand="gdvSucursal_RowCommand" OnPageIndexChanging="gdvSucursales_PageIndexChanging" PageSize="5">
+                                    OnRowCommand="gdvSucursal_RowCommand" OnPageIndexChanging="gdvSucursales_PageIndexChanging" PageSize="10">
+                                    <PagerStyle ForeColor="White" Font-Size="Large" />
                                     <Columns>
                                         <asp:TemplateField HeaderStyle-ForeColor="Black">
                                             <ItemTemplate>
@@ -89,52 +90,45 @@
                                         <div class="col-lg-1">
                                             <asp:Label Text="ID de sucursal:" ID="lblIdSucursal" runat="server" />
 
-                                            <input type="text" id="txtIdSucursal" style="height:40px;" readonly="true" runat="server" name="txtIdSucursal" value="" />
+                                            <input type="text" id="txtIdSucursal" style="height: 40px;" readonly="true" runat="server" name="txtIdSucursal" value="" />
                                         </div>
                                         <div class="col-lg-1">
                                             <asp:Label Text="Nombre de sucursal:" ID="lblNombreSucursal" runat="server" />
 
-                                            <input type="text" id="txtNombreSucursal" style="height:40px;" maxlength="25" runat="server" name="txtNombreSucursal" value="" placeholder="Nombre sucursal" />
+                                            <input type="text" id="txtNombreSucursal" style="height: 40px;" maxlength="25" runat="server" name="txtNombreSucursal" value="" placeholder="Nombre sucursal" />
                                         </div>
                                         <div class="col-lg-1">
                                             <asp:Label Text="Provincia:" ID="lblProvincia" runat="server" />
-                                            <select class="form-control" id="cmbProvincias" style="height:40px;" name="cmbProvincia" runat="server">
-                                                <option>San José</option>
-                                                <option>Alajuela</option>
-                                                <option>Cartago</option>
-                                                <option>Heredia</option>
-                                                <option>Puntarenas</option>
-                                                <option>Limón</option>
-                                                <option>Guanacaste</option>
-                                            </select>
+                                            <asp:DropDownList ID="cmbProvincias" Style="height: 40px;" runat="server" OnSelectedIndexChanged="cmbProvincias_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                                         </div>
                                         <div class="col-lg-1">
                                             <asp:Label Text="Cantón" ID="lblCanton" runat="server" />
-
-                                            <input type="text" id="txtCanton" runat="server" maxlength="20" style="height:40px;" name="txtCanton" value="" placeholder="Cantón" />
+                                            <asp:DropDownList ID="cmbCantones" runat="server" Style="height: 40px;" OnSelectedIndexChanged="cmbCantones_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                                         </div>
                                         <div class="col-lg-1">
                                             <asp:Label Text="Distrito:" ID="lblDistrito" maxlength="20" runat="server" />
-
-                                            <input type="text" id="txtDistrito" runat="server" maxlength="20" style="height:40px;" name="txtDistrito" value="" placeholder="Distrito" />
+                                            <asp:DropDownList ID="cmbDistritos" runat="server" Style="height: 40px;"></asp:DropDownList>
                                         </div>
                                         <div class="col-lg-1">
                                             <asp:Label Text="Dirección exacta:" ID="lblDireccion" runat="server" />
 
-                                            <input type="text" id="txtDireccion" runat="server" maxlength="250" style="height:40px;" name="txtDireccion" value="" placeholder="Dirección Exacta" />
+                                            <input type="text" id="txtDireccion" runat="server" maxlength="250" style="height: 40px;" name="txtDireccion" value="" placeholder="Dirección Exacta" />
                                         </div>
                                         <div class="align-left">
                                             <br />
-                                            <asp:CheckBox ID="chkActivo" runat="server" style="height:40px;" Text="Activo" />
+                                            <asp:CheckBox ID="chkActivo" runat="server" Style="height: 40px;" Text="Activo" />
                                         </div>
                                     </div>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
                         <div class="modal-footer">
-                            <asp:Button ID="btnGuardar" OnClientClick="return closeModal();" OnClick="btnGuardar_Click" runat="server" Text="Guardar" Width="150px" class="submit" />
-                            <asp:Button ID="btnCancelar" OnClientClick="return closeModal();" runat="server" Text="Cancelar" Width="150px" class="submit" />
-
+                            <asp:UpdatePanel runat="server" ID="upodBTN" UpdateMode="Always">
+                                <ContentTemplate>
+                                    <asp:Button ID="btnGuardar" OnClientClick="return GuardarModal();" OnClick="btnGuardar_Click" runat="server" Text="Guardar" Width="150px" class="submit" />
+                                    <asp:Button ID="btnCancelar" OnClientClick="return closeModal();" runat="server" Text="Cancelar" Width="150px" class="submit" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </div>
                     </div>
                 </div>
@@ -146,5 +140,6 @@
 
 
     </section>
+    <script src="js/Sucursales/SucursalesJS.js"></script>
     <script src="Modal/ModalJS.js"></script>
 </asp:Content>
