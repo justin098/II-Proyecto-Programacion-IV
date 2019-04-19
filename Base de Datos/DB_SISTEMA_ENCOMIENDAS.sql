@@ -480,6 +480,9 @@ BEGIN
 	Id_Sucursal INT NOT NULL,
 	Id_Servicio INT NOT NULL,
 	Cedula VARCHAR(15) NOT NULL,
+	Retiro_Domicilio BIT NOT NULL DEFAULT 1,
+	Entrega_Domicilio BIT NOT NULL DEFAULT 1,
+	Direccion_Entrega VARCHAR(250) NULL,
 	Id_Recibo INT NOT NULL,
     CONSTRAINT  PK_Id_Paquete PRIMARY KEY NONCLUSTERED
     (
