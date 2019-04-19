@@ -478,7 +478,7 @@ BEGIN
 	Id_Categoria INT NOT NULL,
 	Id_Estado INT NOT NULL,
 	Id_Sucursal INT NOT NULL,
-	Id_Servicio INT NOT NULL IDENTITY(1,1),
+	Id_Servicio INT NOT NULL,
 	Cedula VARCHAR(15) NOT NULL,
 	Id_Recibo INT NOT NULL,
     CONSTRAINT  PK_Id_Paquete PRIMARY KEY NONCLUSTERED
@@ -576,8 +576,8 @@ BEGIN
 	
   ALTER TABLE T_Paquetes
     ADD CONSTRAINT FK_T_Paquetes_Tipo_Servicio
-    FOREIGN KEY(Tipo_Servicio)
-    REFERENCES T_Servicios(Tipo_Servicio)
+    FOREIGN KEY(Id_Servicio)
+    REFERENCES T_Servicios(Id_Servicio)
     ON UPDATE CASCADE
     ON DELETE CASCADE
     NOT FOR REPLICATION;
@@ -611,8 +611,6 @@ BEGIN
   SELECT
     Id_Categoria
     ,Nombre
-    ,Arancel
-    ,Costo_Por_Kilo
   FROM 
     T_Categorias
 End;
@@ -780,18 +778,18 @@ BEGIN
 End;
 GO
 
-IF OBJECT_ID('sp_Listar_Roles_Privilegios') IS NOT NULL DROP PROCEDURE sp_Listar_Roles_Privilegios
+IF OBJECT_ID('sp_Listar_Privilegios_Roles') IS NOT NULL DROP PROCEDURE sp_Listar_Roles_Privilegios
 GO
 
-CREATE PROCEDURE sp_Listar_Roles_Privilegios
+CREATE PROCEDURE sp_Listar_Privilegios_Roles
 AS
 BEGIN
   SELECT
-    Id_Rol_Privilegio
+    Id_Privilegio
     ,Id_Rol
-	,Id_Privilegio
+	Descripcion
   FROM 
-    T_Roles_Privilegios
+    T_Privilegios_Roles
 End;
 GO
 
@@ -859,8 +857,7 @@ BEGIN
   SELECT
     Id_Categoria
     ,Nombre
-    ,Arancel
-    ,Costo_Por_Kilo
+
   FROM 
     T_Categorias
   WHERE
@@ -1463,6 +1460,8 @@ BEGIN
 
 END
 
+GO
+
 CREATE PROCEDURE [dbo].[sp_Insertar_Sucursal]
 
 (
@@ -1514,6 +1513,8 @@ BEGIN
   END CATCH
 
 END
+
+GO
 
 CREATE PROCEDURE [dbo].[sp_Modificar_Sucursal]
 
@@ -1575,6 +1576,7 @@ BEGIN
 
 END
 
+GO
 
 --INSERTS INICIALES
 IF NOT EXISTS(SELECT 1 FROM T_Personas WHERE Usuario = 'admin')
