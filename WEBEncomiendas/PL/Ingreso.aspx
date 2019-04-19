@@ -7,7 +7,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-     <script>
+    <script>
 
     </script>
 
@@ -17,26 +17,24 @@
                 <h2>Ingresar</h2>
             </header>
 
-      <form runat="server">
+            <form runat="server">
                 <input type="text" id="txtusuario" name="txtusuario" runat="server" placeholder="Usuario" maxlength="15" required="required" />
                 <br />
-                <input type="text" id="txtcontraseña" name="txtcontraseña" runat="server" placeholder="Contraseña" maxlength="15" required="required"/>
+                <input type="password" id="txtcontrasenia" name="txtcontrasenia" runat="server" placeholder="Contraseña" maxlength="15" required="required" />
                 <br />
-               
-           <div class="row">
-                        <div class="col-lg-7">
-                            <input type="submit" id="btnAceptar" runat="server" value="Aceptar"/>
-                        </div>
-                        <div class="col-lg-8">
-                            <input type="button" id="btnCancelar" runat="server" value="Cancelar" />
-                        </div>
-                         <div class="col-lg-8">
-                            <input type="button" id="btnregresar" runat="server" value="Regresar" />
-                        </div>
+
+                <div class="row">
+                    <div class="col-lg-7">
+                        <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" Width="150px" class="submit" OnClick="btnAceptar_Click" />
                     </div>
+                    <div class="col-lg-8">
+                        <input type="button" id="btnCancelar" onclick="location.href = 'Inicio.aspx' " runat="server" value="Cancelar" />
+                    </div>
+                </div>
 
-          </form>
+                <asp:Label Text="" ID="lblMensaje" runat="server" Font-Size="XX-Large" />
+            </form>
 
-            </div>
-        </section>
+        </div>
+    </section>
 </asp:Content>

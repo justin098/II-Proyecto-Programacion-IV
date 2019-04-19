@@ -11,6 +11,29 @@ namespace PL
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            lblMensaje.Visible = false;
+
+        }
+
+        protected void btnAceptar_Click(object sender, EventArgs e)
+        {
+            DAL.Cat_Man.Cls_Membership_DAL objDAL = new DAL.Cat_Man.Cls_Membership_DAL();
+            BLL.Cat_Man.Cls_Membership_BLL objBLL = new BLL.Cat_Man.Cls_Membership_BLL();
+            objDAL.sUserLogin = txtusuario.Value;
+            objDAL.sContrasena = txtcontrasenia.Value;
+            if (objBLL.Login(ref objDAL))
+            {
+                Session["UserLogin"] = objDAL.sUserLogin;
+                Response.Redirect("/Perfil.aspx");
+            }
+            else
+            {
+                lblMensaje.Text = "Usuario o contraseña incorrecta";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                lblMensaje.Visible = true;
+            }
+
+
 
         }
     }

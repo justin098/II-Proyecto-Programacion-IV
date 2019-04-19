@@ -10,7 +10,7 @@ namespace DAL.Cat_Man
     public class Cls_Membership_DAL
     {
         private DataTable _dtTablaMembership;
-        private string _sUserLogin, _sContrasena, _sUsuario, _sPrivilegio, _sError;
+        private string _sUserLogin, _sContrasena, _sPrivilegio, _sError;
         private DataTable _dtParametros;
 
         public DataTable dtTablMembership
@@ -49,19 +49,6 @@ namespace DAL.Cat_Man
             set
             {
                 _sContrasena = value;
-            }
-        }
-
-        public string sUsuario
-        {
-            get
-            {
-                return _sUsuario;
-            }
-
-            set
-            {
-                _sUsuario = value;
             }
         }
 
