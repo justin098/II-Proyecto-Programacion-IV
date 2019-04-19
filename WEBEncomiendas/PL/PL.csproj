@@ -131,13 +131,15 @@
     <Content Include="js\main.js" />
     <Content Include="js\placeholders.min.js" />
     <Content Include="EditarSucursales.aspx" />
+    <Content Include="js\Roles\RolesJS.js" />
     <Content Include="js\Sucursales\SucursalesJS.js" />
+    <Content Include="js\Usuarios\UsuariosJS.js" />
     <Content Include="Modal\Modal.css" />
     <Content Include="Modal\ModalJS.js" />
     <Content Include="Perfil.aspx" />
     <Content Include="Registrarse.aspx" />
     <Content Include="Registro.aspx" />
-    <Content Include="Roles.aspx" />
+    <Content Include="EditarRoles.aspx" />
     <Content Include="RolesporUsuario.aspx" />
     <Content Include="Servicios.aspx" />
     <Content Include="Sucursales.aspx" />
@@ -246,12 +248,12 @@
     <Compile Include="Registro.aspx.designer.cs">
       <DependentUpon>Registro.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Roles.aspx.cs">
-      <DependentUpon>Roles.aspx</DependentUpon>
+    <Compile Include="EditarRoles.aspx.cs">
+      <DependentUpon>EditarRoles.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Roles.aspx.designer.cs">
-      <DependentUpon>Roles.aspx</DependentUpon>
+    <Compile Include="EditarRoles.aspx.designer.cs">
+      <DependentUpon>EditarRoles.aspx</DependentUpon>
     </Compile>
     <Compile Include="RolesporUsuario.aspx.cs">
       <DependentUpon>RolesporUsuario.aspx</DependentUpon>
