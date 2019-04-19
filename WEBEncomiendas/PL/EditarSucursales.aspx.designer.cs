@@ -163,7 +163,7 @@ namespace PL {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect cmbProvincias;
+        protected global::System.Web.UI.WebControls.DropDownList cmbProvincias;
         
         /// <summary>
         /// Control lblCanton.
@@ -175,13 +175,13 @@ namespace PL {
         protected global::System.Web.UI.WebControls.Label lblCanton;
         
         /// <summary>
-        /// Control txtCanton.
+        /// Control cmbCantones.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtCanton;
+        protected global::System.Web.UI.WebControls.DropDownList cmbCantones;
         
         /// <summary>
         /// Control lblDistrito.
@@ -193,13 +193,13 @@ namespace PL {
         protected global::System.Web.UI.WebControls.Label lblDistrito;
         
         /// <summary>
-        /// Control txtDistrito.
+        /// Control cmbDistritos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtDistrito;
+        protected global::System.Web.UI.WebControls.DropDownList cmbDistritos;
         
         /// <summary>
         /// Control lblDireccion.
@@ -227,6 +227,15 @@ namespace PL {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkActivo;
+        
+        /// <summary>
+        /// Control upodBTN.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upodBTN;
         
         /// <summary>
         /// Control btnGuardar.
