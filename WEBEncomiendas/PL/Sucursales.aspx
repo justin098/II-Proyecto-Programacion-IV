@@ -3,9 +3,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <script>
 
-    </script>
+</script>
 
-   <section id="four" class="wrapper style1 special fade-up">
+    <section id="four" class="wrapper style1 special fade-up">
         <div class="container">
             <header class="major">
                 <h2>Sucursales a nivel nacional</h2>
@@ -33,7 +33,9 @@
                                 Dirección Exacta:
                                 <asp:Label ID="lblDirExacta" Text='<%#Eval("Direccion_Exacta") %>' runat="server" />
                                 <br />
-                                Horario: </h3>
+                                Hora apertura:
+                                <asp:Label ID="lblApertura" Text='<%#Eval("Hora_Apertura") %>' runat="server" />&nbsp;Hora cierre:
+                                <asp:Label ID="lblCierre" Text='<%#Eval("Hora_Cierre") %>' runat="server" /></h3>
                             </p>
                         </section>
                     </ItemTemplate>

@@ -55,6 +55,8 @@
                                         </asp:TemplateField>
                                         <asp:BoundField DataField="Id_Sucursal" HeaderText="ID Sucursal" />
                                         <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+                                        <asp:BoundField DataField="Hora_Apertura" HeaderText="Hora apertura" />
+                                        <asp:BoundField DataField="Hora_Cierre" HeaderText="Hora cierre" />
                                         <asp:BoundField DataField="Provincia" HeaderText="Provincia" />
                                         <asp:BoundField DataField="Canton" HeaderText="Cantón" />
                                         <asp:BoundField DataField="Distrito" HeaderText="Distrito" />
@@ -113,6 +115,16 @@
                                             <asp:Label Text="Dirección exacta:" ID="lblDireccion" runat="server" />
 
                                             <input type="text" id="txtDireccion" runat="server" maxlength="250" style="height: 40px;" name="txtDireccion" value="" placeholder="Dirección Exacta" />
+                                        </div>
+                                        <br />
+                                        <div class="align-left">
+                                            <asp:Label Text="Hora apertura:" ID="lblApertura" runat="server" style="float: left;"/>
+                                            <input type="time" name="hora" id="tmApertura" runat="server" value="00:00"  max="23:59" min="00:00" style="color: black; font-weight: bold; height: 40px;" />
+                                        </div>
+                                        <br />
+                                        <div class="align-left">
+                                            <asp:Label Text="Hora cierre:" ID="lblCierre" runat="server" style="float: left;" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <input type="time" name="hora" id="tmCierre" runat="server" max="23:59" value="00:00" min="00:00" style="color: black; font-weight: bold; height: 40px; " />
                                         </div>
                                         <div class="align-left">
                                             <br />
