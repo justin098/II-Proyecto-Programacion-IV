@@ -101,14 +101,16 @@ namespace PL
                 updpnlModalHeader.Update();
                 txtIdSucursal.Value = idSucursal;
                 txtNombreSucursal.Value = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[3].Text);
+                tmApertura.Value = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[4].Text);
+                tmCierre.Value = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[5].Text);
                 CargarCombos();
-                cmbProvincias.Text = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[4].Text);
+                cmbProvincias.Text = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[6].Text);
                 SeleccionProvincia();
-                cmbCantones.Text = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[5].Text);
+                cmbCantones.Text = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[7].Text);
                 SeleccionCanton();
-                cmbDistritos.Text = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[6].Text);
-                txtDireccion.Value = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[7].Text);
-                CheckBox cbox = (CheckBox)row.Cells[8].Controls[0];
+                cmbDistritos.Text = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[8].Text);
+                txtDireccion.Value = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[9].Text);
+                CheckBox cbox = (CheckBox)row.Cells[10].Controls[0];
                 chkActivo.Checked = cbox.Checked;
 
                 updpnlGrid.Update();
@@ -140,8 +142,7 @@ namespace PL
                 {
                     CargarSucursales();
                     lblMensaje.Visible = true;
-                    lblMensaje.Text = "Registro eliminado correctamente";
-                    lblMensaje.ForeColor = System.Drawing.Color.Green;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowPopup", "Eliminado();", true);
                     updpnlGrid.Update();
                 }
 
@@ -180,6 +181,8 @@ namespace PL
                 objDAL.SCanton = cmbCantones.SelectedItem.ToString().Trim();
                 objDAL.SDistrito = cmbDistritos.SelectedItem.ToString().Trim();
                 objDAL.SDireccionExacta = txtDireccion.Value.ToString().Trim();
+                objDAL.sHoraApertura = tmApertura.Value.ToString().Trim();
+                objDAL.sHoraCierre = tmCierre.Value.ToString().Trim();
                 if (txtIdSucursal.Visible == false)
                 {
                     objDAL.CAccion = 'I';
@@ -1226,6 +1229,8 @@ namespace PL
             txtNombreSucursal.Value = string.Empty;
             txtDireccion.Value = string.Empty;
             chkActivo.Checked = false;
+            tmApertura.Value = string.Empty;
+            tmCierre.Value = string.Empty;
             CargarCombos();
             updpnlModal.Update();
         }

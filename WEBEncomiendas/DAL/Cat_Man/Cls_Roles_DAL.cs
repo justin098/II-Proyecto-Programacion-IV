@@ -7,42 +7,28 @@ using System.Data;
 
 namespace DAL.Cat_Man
 {
-    public class Cls_Categoria_DAL
+    public class Cls_Roles_DAL
     {
-
-        private DataTable _dtTablaCategoria;
+        private DataTable _dtTabla;
+        private string _sError, _sFiltro, _sRol, _sDescripcion;
         private DataTable _dtParametros;
-        private string _sError, _sFiltro, _sNombre, _sDescripcion;
-        private int _sIdcategoria;
+        private int _iId_Rol;
         private char _cAccion;
 
-        public DataTable DtTablaCategoria
+        public DataTable dtTabla
         {
             get
             {
-                return _dtTablaCategoria;
+                return _dtTabla;
             }
 
             set
             {
-                _dtTablaCategoria = value;
+                _dtTabla = value;
             }
         }
 
-        public DataTable DtParametros
-        {
-            get
-            {
-                return _dtParametros;
-            }
-
-            set
-            {
-                _dtParametros = value;
-            }
-        }
-
-        public string SError
+        public string sError
         {
             get
             {
@@ -55,7 +41,7 @@ namespace DAL.Cat_Man
             }
         }
 
-        public string SFiltro
+        public string sFiltro
         {
             get
             {
@@ -68,33 +54,20 @@ namespace DAL.Cat_Man
             }
         }
 
-        public string SNombre
+        public string sRol
         {
             get
             {
-                return _sNombre;
+                return _sRol;
             }
 
             set
             {
-                _sNombre = value;
+                _sRol = value;
             }
         }
 
-        public int SIdcategoria
-        {
-            get
-            {
-                return _sIdcategoria;
-            }
-
-            set
-            {
-                _sIdcategoria = value;
-            }
-        }
-
-        public string SDescripcion
+        public string sDescripcion
         {
             get
             {
@@ -107,8 +80,33 @@ namespace DAL.Cat_Man
             }
         }
 
+        public DataTable dtParametros
+        {
+            get
+            {
+                return _dtParametros;
+            }
 
-        public char CAccion
+            set
+            {
+                _dtParametros = value;
+            }
+        }
+
+        public int iId_Rol
+        {
+            get
+            {
+                return _iId_Rol;
+            }
+
+            set
+            {
+                _iId_Rol = value;
+            }
+        }
+
+        public char cAccion
         {
             get
             {
@@ -120,6 +118,5 @@ namespace DAL.Cat_Man
                 _cAccion = value;
             }
         }
-
     }
 }

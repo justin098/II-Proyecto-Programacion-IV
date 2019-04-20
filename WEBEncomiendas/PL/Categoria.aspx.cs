@@ -98,7 +98,7 @@ namespace PL
                 updpnlModalHeader.Update();
                 txtIdCategoria.Value = idCategoria;
                 txtNombreCategoria.Value = Server.HtmlDecode(gdvCategorias.Rows[index].Cells[3].Text);
-                txtArancel.Value = Server.HtmlDecode(gdvCategorias.Rows[index].Cells[4].Text);
+                txtDescripcion.Value = Server.HtmlDecode(gdvCategorias.Rows[index].Cells[4].Text);
 
 
 
@@ -167,7 +167,7 @@ namespace PL
                 Cls_Categoria_DAL objDAL = new Cls_Categoria_DAL();
 
                 objDAL.SNombre = txtNombreCategoria.Value.ToString().Trim();
-                objDAL.SArancel = Convert.ToDecimal(txtArancel.Value.ToString().Trim());
+                objDAL.SDescripcion = txtDescripcion.Value.ToString().Trim();
 
                 if (txtIdCategoria.Visible == false)
                 {

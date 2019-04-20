@@ -307,7 +307,7 @@ namespace PL {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect cmbProvincias;
+        protected global::System.Web.UI.WebControls.DropDownList cmbProvincias;
         
         /// <summary>
         /// lblCanton control.
@@ -319,13 +319,13 @@ namespace PL {
         protected global::System.Web.UI.WebControls.Label lblCanton;
         
         /// <summary>
-        /// txtCanton control.
+        /// cmbCantones control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtCanton;
+        protected global::System.Web.UI.WebControls.DropDownList cmbCantones;
         
         /// <summary>
         /// lblDistrito control.
@@ -337,13 +337,13 @@ namespace PL {
         protected global::System.Web.UI.WebControls.Label lblDistrito;
         
         /// <summary>
-        /// txtDistrito control.
+        /// cmbDistritos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtDistrito;
+        protected global::System.Web.UI.WebControls.DropDownList cmbDistritos;
         
         /// <summary>
         /// lblDireccion control.

@@ -105,6 +105,8 @@ namespace BLL.Cat_Man
             objSucDAL.dtParametros.Rows.Add("@Canton", "2", objSucDAL.SCanton);
             objSucDAL.dtParametros.Rows.Add("@Distrito", "2", objSucDAL.SDistrito);
             objSucDAL.dtParametros.Rows.Add("@Direccion_Exacta", "2", objSucDAL.SDireccionExacta);
+            objSucDAL.dtParametros.Rows.Add("@Hora_Apertura","9",objSucDAL.sHoraApertura);
+            objSucDAL.dtParametros.Rows.Add("@Hora_Cierre", "9", objSucDAL.sHoraCierre);
 
             Obj_BDService.InsertarDatoSinIdentity("sp_Insertar_Sucursal", "Sucursales", objSucDAL.dtParametros, ref vAccion, ref vError);
             objSucDAL.CAccion = vAccion;
@@ -124,6 +126,8 @@ namespace BLL.Cat_Man
             objSucDAL.dtParametros.Rows.Add("@Canton", "2", objSucDAL.SCanton);
             objSucDAL.dtParametros.Rows.Add("@Distrito", "2", objSucDAL.SDistrito);
             objSucDAL.dtParametros.Rows.Add("@Direccion_Exacta", "2", objSucDAL.SDireccionExacta);
+            objSucDAL.dtParametros.Rows.Add("@Hora_Apertura", "9", objSucDAL.sHoraApertura);
+            objSucDAL.dtParametros.Rows.Add("@Hora_Cierre", "9", objSucDAL.sHoraCierre);
             Obj_BDService.ModificarDato("sp_Modificar_Sucursal", "Sucursal", objSucDAL.dtParametros, ref vAccion, ref vError);
             objSucDAL.CAccion = vAccion;
             objSucDAL.sError = vError;

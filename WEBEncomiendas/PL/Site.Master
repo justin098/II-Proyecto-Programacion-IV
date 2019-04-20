@@ -46,7 +46,7 @@
                         objDAL.sPrivilegio = "Administrar_Roles";
                         if (objBLL.HasPrivilege(ref objDAL))
                         { %>
-                            <li><a href="Roles.aspx">Roles</a></li> <%--Nivel administrativo--%>
+                            <li><a href="EditarRoles.aspx">Roles</a></li> <%--Nivel administrativo--%>
                             <li><a href="RolesporUsuario.aspx">Roles por usuario</a></li> <%--Nivel administrativo--%>
                     <% } %>
                     <%
