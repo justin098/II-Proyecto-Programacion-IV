@@ -101,16 +101,18 @@ namespace PL
                 updpnlModalHeader.Update();
                 txtIdSucursal.Value = idSucursal;
                 txtNombreSucursal.Value = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[3].Text);
-                tmApertura.Value = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[4].Text);
-                tmCierre.Value = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[5].Text);
+                cmbDiaApertura.Text= Server.HtmlDecode(gdvSucursal.Rows[index].Cells[4].Text);
+                cmbDiaCierre.Text = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[5].Text);
+                tmApertura.Value = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[6].Text);
+                tmCierre.Value = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[7].Text);
                 CargarCombos();
-                cmbProvincias.Text = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[6].Text);
+                cmbProvincias.Text = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[8].Text);
                 SeleccionProvincia();
-                cmbCantones.Text = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[7].Text);
+                cmbCantones.Text = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[9].Text);
                 SeleccionCanton();
-                cmbDistritos.Text = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[8].Text);
-                txtDireccion.Value = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[9].Text);
-                CheckBox cbox = (CheckBox)row.Cells[10].Controls[0];
+                cmbDistritos.Text = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[10].Text);
+                txtDireccion.Value = Server.HtmlDecode(gdvSucursal.Rows[index].Cells[11].Text);
+                CheckBox cbox = (CheckBox)row.Cells[12].Controls[0];
                 chkActivo.Checked = cbox.Checked;
 
                 updpnlGrid.Update();
@@ -176,6 +178,8 @@ namespace PL
                 Cls_Sucursales_DAL objDAL = new Cls_Sucursales_DAL();
 
                 objDAL.SNombre = txtNombreSucursal.Value.ToString().Trim();
+                objDAL.sDiaApertura = cmbDiaApertura.SelectedItem.ToString().Trim();
+                objDAL.sDiaCierre = cmbDiaCierre.SelectedItem.ToString().Trim();
                 objDAL.SActivo = chkActivo.Checked;
                 objDAL.SProvincia = cmbProvincias.SelectedItem.ToString().Trim();
                 objDAL.SCanton = cmbCantones.SelectedItem.ToString().Trim();
