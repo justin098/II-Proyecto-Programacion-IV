@@ -18,7 +18,7 @@ BEGIN
   CREATE TABLE T_Privilegios 
   (
     Id_Privilegio INT NOT NULL IDENTITY(1,1),
-	Privilegio VARCHAR(20) NOT NULL,
+	Privilegio VARCHAR(30) NOT NULL,
 	Descripcion VARCHAR(50) NOT NULL,
     CONSTRAINT  PK_Id_Privilegio  PRIMARY KEY NONCLUSTERED
     (
@@ -336,6 +336,8 @@ BEGIN
     Id_Sucursal INT NOT NULL IDENTITY(1,1),
 	Nombre VARCHAR(25) NOT NULL,
 	Id_Direccion INT NULL,
+	Dia_Apertura DATETIME NOT NULL,
+	Dia_Cierre DATETIME NOT NULL,
 	Hora_Apertura TIME NOT NULL,
 	Hora_Cierre TIME NOT NULL,
 	Activo BIT NOT NULL DEFAULT(0),
@@ -614,6 +616,8 @@ BEGIN
   SELECT
     Id_Categoria
     ,Nombre
+    ,Descripcion
+
   FROM 
     T_Categorias
 End;
@@ -836,6 +840,8 @@ BEGIN
     Id_Sucursal
     ,Nombre
 	,TD.Id_Direccion
+	,Hora_Apertura
+	,Hora_Cierre
 	,Activo
 	,TD.Provincia
 	,TD.Canton
@@ -1218,6 +1224,50 @@ BEGIN
 END
 GO
 
+IF OBJECT_ID('sp_Insertar_Rol]') IS NOT NULL DROP PROCEDURE sp_Insertar_Rol
+GO
+
+Create Procedure sp_Insertar_Rol
+
+(
+  @Rol VARCHAR(20)
+  ,@Descripcion VARCHAR(50)
+)
+As
+BEGIN
+  BEGIN TRAN InsertarRol;
+    BEGIN TRY
+
+      INSERT INTO T_Roles
+	    (Rol, Descripcion)
+      VALUES
+	    (@Rol, @Descripcion);
+
+      COMMIT TRAN InsertarRol;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN InsertarRol;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+GO
+
+
 --CREACION DE PROCEDURES MODIFICAR
 IF OBJECT_ID('sp_Modificar_Persona]') IS NOT NULL DROP PROCEDURE sp_Modificar_Persona
 GO
@@ -1299,6 +1349,52 @@ BEGIN
 END
 GO
 
+IF OBJECT_ID('sp_Modificar_Rol]') IS NOT NULL DROP PROCEDURE sp_Modificar_Rol
+GO
+
+Create Procedure sp_Modificar_Rol
+
+(
+  @idRol INT
+  ,@Rol VARCHAR(20)
+  ,@Descripcion VARCHAR(50)
+)
+As
+BEGIN
+  BEGIN TRAN ModificarRol;
+    BEGIN TRY
+
+      UPDATE 
+	    T_Roles
+	  SET
+	    Rol = @Rol
+	    ,Descripcion = @Descripcion
+      WHERE
+	    (Id_Rol = @idRol);
+
+      COMMIT TRAN ModificarRol;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN ModificarRol;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+GO
 
 --CREACION DE PROCEDURES ELIMINAR
 IF OBJECT_ID('sp_Eliminar_Persona') IS NOT NULL DROP PROCEDURE sp_Eliminar_Persona
@@ -1341,6 +1437,48 @@ BEGIN
 
   END CATCH
 
+
+END
+GO
+
+IF OBJECT_ID('sp_Eliminar_Rol]') IS NOT NULL DROP PROCEDURE sp_Eliminar_Rol
+GO
+
+Create Procedure sp_Eliminar_Rol
+
+(
+  @idRol INT
+)
+As
+BEGIN
+  BEGIN TRAN EliminarRol;
+    BEGIN TRY
+
+      DELETE 
+	    T_Roles
+      WHERE
+	    (Id_Rol = @idRol);
+
+      COMMIT TRAN EliminarRol;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN EliminarRol;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
 
 END
 GO
@@ -1469,10 +1607,12 @@ CREATE PROCEDURE [dbo].[sp_Insertar_Sucursal]
 
 (
    @Nombre VARCHAR(25)
+  ,@Hora_Apertura TIME
+  ,@Hora_Cierre TIME
   ,@Activo BIT
   ,@Provincia VARCHAR(10)
-  ,@Canton VARCHAR(10)
-  ,@Distrito VARCHAR(10)
+  ,@Canton VARCHAR(20)
+  ,@Distrito VARCHAR(25)
   ,@Direccion_Exacta VARCHAR(250)
 )
 As
@@ -1490,9 +1630,9 @@ BEGIN
       SELECT TOP 1 @IdDireccion = Id_Direccion FROM T_Direcciones ORDER BY Id_Direccion DESC; 
 
       INSERT INTO T_Sucursales
-                 (Nombre,Id_Direccion,Activo)
+                 (Nombre,Id_Direccion,Hora_Apertura,Hora_Cierre,Activo)
       VALUES
-                 (@Nombre,@IdDireccion,@Activo);
+                 (@Nombre,@IdDireccion,@Hora_Apertura,@Hora_Cierre,@Activo);
 
       COMMIT TRAN InsertarSucursal;
   END TRY
@@ -1526,8 +1666,10 @@ CREATE PROCEDURE [dbo].[sp_Modificar_Sucursal]
   ,@Id_Sucursal INT
   ,@Activo BIT
   ,@Provincia VARCHAR(10)
-  ,@Canton VARCHAR(10)
-  ,@Distrito VARCHAR(10)
+  ,@Canton VARCHAR(20)
+  ,@Hora_Apertura TIME
+  ,@Hora_Cierre TIME
+  ,@Distrito VARCHAR(20)
   ,@Direccion_Exacta VARCHAR(250)
 )
 As
@@ -1542,7 +1684,9 @@ BEGIN
         T_Sucursales
       SET
   	    Nombre = @Nombre,
-  	    Activo = @Activo
+  	    Activo = @Activo,
+		Hora_Apertura=@Hora_Apertura,
+		Hora_Cierre=@Hora_Cierre
       WHERE
         (Id_Sucursal = @Id_Sucursal)
 
@@ -1581,10 +1725,174 @@ END
 
 GO
 
+IF OBJECT_ID('sp_Insertar_Categoria]') IS NOT NULL DROP PROCEDURE sp_Insertar_Categtoria
+GO
+
+Create Procedure sp_Insertar_Categoria
+
+(
+   
+  @Nombre VARCHAR(25)
+ ,@Descripcion VARCHAR(75)
+  
+)
+As
+BEGIN
+  BEGIN TRAN InsertarCategoria;
+    BEGIN TRY
+
+       INSERT INTO T_Categorias
+                 (Nombre,Descripcion)
+      VALUES
+                 (@Nombre,@Descripcion);
+
+      COMMIT TRAN InsertarCategoria;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN InsertarCategoria;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+GO
+
+IF OBJECT_ID('sp_Modificar_Categoria]') IS NOT NULL DROP PROCEDURE sp_Modificar_Categtoria
+GO
+
+Create Procedure sp_Modificar_Categoria
+
+(
+   @Id_Categoria INT
+  ,@Nombre VARCHAR(25)
+  ,@Descripcion VARCHAR(75)
+ 
+)
+As
+BEGIN
+  BEGIN TRAN ModificarCategoria;
+    BEGIN TRY
+
+      UPDATE 
+        T_Categorias
+      SET	   
+  	    Nombre = @Nombre,
+  	    Descripcion = @Descripcion
+	    
+      WHERE
+        (Id_Categoria = @Id_Categoria)               
+
+      COMMIT TRAN ModificarCategoria;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN ModificarCategoria;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+GO
+
+IF OBJECT_ID('sp_Eliminar_Categoria') IS NOT NULL DROP PROCEDURE sp_Eliminar_Categoria
+GO
+
+Create Procedure sp_Eliminar_Categoria
+
+(
+	 @Id_Categoria Int
+)
+As
+BEGIN
+  BEGIN TRAN EliminarCategoria;
+    BEGIN TRY
+
+      DELETE FROM T_Categorias WHERE (Id_Categoria = @Id_Categoria);
+     
+      COMMIT TRAN EliminarCategoria;
+    END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN EliminarCategoria;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+
+END
+GO
+
+
 --INSERTS INICIALES
 IF NOT EXISTS(SELECT 1 FROM T_Personas WHERE Usuario = 'admin')
-EXEC sp_Insertar_Persona '1-1111-1111', 'Adrian', 'Soto', 'Loria', 'prueba@prueba.com', '2222-2222', '8888-8888', 
-                         'admin', '1234', 1, 1, 'San José', 'Goicoechea', 'Guadalupe', 'Barrio Minerva'
+BEGIN
+  EXEC sp_Insertar_Persona '1-1111-1111', 'Adrian', 'Soto', 'Loria', 'prueba@prueba.com', '2222-2222', '8888-8888', 
+                           'admin', '1234', 1, 1, 'San Jose', 'San Jose', 'Carmen', 'Barrio Minerva'
+END
 
+INSERT INTO T_Privilegios
+  (Privilegio, Descripcion)
+VALUES
+  ('Administrar_usuarios', 'Permite administrar los usuarios del sistema');
 
+INSERT INTO T_Privilegios
+  (Privilegio, Descripcion)
+VALUES
+  ('Administrar_Roles', 'Permite administrar los roles del sistema');
 
+INSERT INTO T_Privilegios
+  (Privilegio, Descripcion)
+VALUES
+  ('Administrar_Sucursales', 'Permite administrar las sucursales del sistema');
+
+INSERT INTO T_Privilegios
+  (Privilegio, Descripcion)
+VALUES
+  ('Administrar_Categorias', 'Permite administrar las categorias del sistema');
+
+INSERT INTO T_Privilegios
+  (Privilegio, Descripcion)
+VALUES
+  ('Cambiar_Estado', 'Permite cambiar el estado de los paquetes');
+
+INSERT INTO T_Privilegios
+  (Privilegio, Descripcion)
+VALUES
+  ('Crear_Solicitud', 'Permite crear la solicitud de un paquete');
