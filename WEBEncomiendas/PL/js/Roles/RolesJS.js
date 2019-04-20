@@ -26,3 +26,13 @@ function GuardarModal() {
     }
 
 }
+
+function eliminarPrivilegio() {
+    var mensaje;
+    var opcion = confirm("¿Deseas realmente eliminar el Privilegio?");
+    if (opcion == true) {
+        return true;
+    } else {
+        return false;
+    }
+}
