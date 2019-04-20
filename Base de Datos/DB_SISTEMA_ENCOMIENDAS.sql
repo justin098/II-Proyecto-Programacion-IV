@@ -336,8 +336,8 @@ BEGIN
     Id_Sucursal INT NOT NULL IDENTITY(1,1),
 	Nombre VARCHAR(25) NOT NULL,
 	Id_Direccion INT NULL,
-	Dia_Apertura DATETIME NOT NULL,
-	Dia_Cierre DATETIME NOT NULL,
+	Dia_Apertura VARCHAR(9) NOT NULL,
+	Dia_Cierre VARCHAR(9) NOT NULL,
 	Hora_Apertura TIME NOT NULL,
 	Hora_Cierre TIME NOT NULL,
 	Activo BIT NOT NULL DEFAULT(0),
@@ -839,6 +839,8 @@ BEGIN
   SELECT
     Id_Sucursal
     ,Nombre
+	,Dia_Apertura
+	,Dia_Cierre
 	,TD.Id_Direccion
 	,Hora_Apertura
 	,Hora_Cierre
@@ -994,21 +996,18 @@ GO
 
 CREATE PROCEDURE sp_Filtrar_Privilegios_Roles
 (
-	@Filtro INT
+	@Filtro varchar(25)
 )
 AS
 BEGIN
   SELECT
-    T_Privilegios_Roles.Id_Privilegio_Rol
-	,T_Privilegios.Descripcion
+    Id_Privilegio_Rol
+	,Id_Rol
+	,Id_Privilegio
   FROM 
     T_Privilegios_Roles
-  INNER JOIN
-    T_Privilegios
-  ON
-    (T_Privilegios_Roles.Id_Privilegio = T_Privilegios.Id_Privilegio)
   WHERE
-    (T_Privilegios_Roles.Id_Rol =  @Filtro)
+    (Id_Privilegio_Rol like '%'+@Filtro+'%')
 End;
 GO
 
@@ -1270,51 +1269,6 @@ BEGIN
 END
 GO
 
-IF OBJECT_ID('sp_Insertar_Privilegio_Rol]') IS NOT NULL DROP PROCEDURE sp_Insertar_Privilegio_Rol
-GO
-
-CREATE Procedure sp_Insertar_Privilegio_Rol
-
-(
-  @idRol INT
-  ,@IdPrivilegio INT
-)
-As
-BEGIN
-  BEGIN TRAN InsertarPrivilegio_Rol;
-    BEGIN TRY
-
-	  IF NOT EXISTS(SELECT 1 FROM T_Privilegios_Roles WHERE Id_Rol = @idRol AND Id_Privilegio = @IdPrivilegio)
-	  BEGIN
-        INSERT INTO T_Privilegios_Roles
-	      (Id_Rol, Id_Privilegio)
-        VALUES
-	      (@idRol, @IdPrivilegio);
-	  END
-
-      COMMIT TRAN InsertarPrivilegio_Rol;
-  END TRY
-  BEGIN CATCH
-    DECLARE @ErrorMessage NVARCHAR(4000);  
-    DECLARE @ErrorSeverity INT;  
-    DECLARE @ErrorState INT;  
-
-	ROLLBACK TRAN InsertarPrivilegio_Rol;
-  
-    SELECT   
-        @ErrorMessage = ERROR_MESSAGE(),  
-        @ErrorSeverity = ERROR_SEVERITY(),  
-        @ErrorState = ERROR_STATE();  
-  
-    RAISERROR (@ErrorMessage, -- Message text.  
-               @ErrorSeverity, -- Severity.  
-               @ErrorState -- State.  
-               );
-
-  END CATCH
-
-END
-GO
 
 --CREACION DE PROCEDURES MODIFICAR
 IF OBJECT_ID('sp_Modificar_Persona]') IS NOT NULL DROP PROCEDURE sp_Modificar_Persona
@@ -1531,49 +1485,6 @@ BEGIN
 END
 GO
 
-IF OBJECT_ID('sp_Eliminar_Privilegio_Rol]') IS NOT NULL DROP PROCEDURE sp_Eliminar_Privilegio_Rol
-GO
-
-Create Procedure sp_Eliminar_Privilegio_Rol
-
-(
-  @idPrivilegioRol INT
-)
-As
-BEGIN
-  BEGIN TRAN EliminarPrivilegioRol;
-    BEGIN TRY
-
-      DELETE 
-	    T_Privilegios_Roles
-      WHERE
-	    (Id_Privilegio_Rol = @idPrivilegioRol);
-
-      COMMIT TRAN EliminarPrivilegioRol;
-  END TRY
-  BEGIN CATCH
-    DECLARE @ErrorMessage NVARCHAR(4000);  
-    DECLARE @ErrorSeverity INT;  
-    DECLARE @ErrorState INT;  
-
-	ROLLBACK TRAN EliminarPrivilegioRol;
-  
-    SELECT   
-        @ErrorMessage = ERROR_MESSAGE(),  
-        @ErrorSeverity = ERROR_SEVERITY(),  
-        @ErrorState = ERROR_STATE();  
-  
-    RAISERROR (@ErrorMessage, -- Message text.  
-               @ErrorSeverity, -- Severity.  
-               @ErrorState -- State.  
-               );
-
-  END CATCH
-
-END
-GO
-
-
 --CREACION DE PROCEDURES MEMBERSHIP
 IF OBJECT_ID('sp_Login') IS NOT NULL DROP PROCEDURE sp_Login
 GO
@@ -1698,6 +1609,8 @@ CREATE PROCEDURE [dbo].[sp_Insertar_Sucursal]
 
 (
    @Nombre VARCHAR(25)
+  ,@Dia_Apertura VARCHAR(9)
+  ,@Dia_Cierre VARCHAR(9)
   ,@Hora_Apertura TIME
   ,@Hora_Cierre TIME
   ,@Activo BIT
@@ -1721,9 +1634,9 @@ BEGIN
       SELECT TOP 1 @IdDireccion = Id_Direccion FROM T_Direcciones ORDER BY Id_Direccion DESC; 
 
       INSERT INTO T_Sucursales
-                 (Nombre,Id_Direccion,Hora_Apertura,Hora_Cierre,Activo)
+                 (Nombre,Id_Direccion,Dia_Apertura,Dia_Cierre,Hora_Apertura,Hora_Cierre,Activo)
       VALUES
-                 (@Nombre,@IdDireccion,@Hora_Apertura,@Hora_Cierre,@Activo);
+                 (@Nombre,@IdDireccion,@Dia_Apertura,@Dia_Cierre,@Hora_Apertura,@Hora_Cierre,@Activo);
 
       COMMIT TRAN InsertarSucursal;
   END TRY
@@ -1754,6 +1667,8 @@ CREATE PROCEDURE [dbo].[sp_Modificar_Sucursal]
 
 (
    @Nombre VARCHAR(25)
+  ,@Dia_Apertura VARCHAR(9)
+  ,@Dia_Cierre VARCHAR(9)
   ,@Id_Sucursal INT
   ,@Activo BIT
   ,@Provincia VARCHAR(10)
@@ -1775,6 +1690,8 @@ BEGIN
         T_Sucursales
       SET
   	    Nombre = @Nombre,
+		Dia_Apertura=@Dia_Apertura,
+		Dia_Cierre = @Dia_Cierre,
   	    Activo = @Activo,
 		Hora_Apertura=@Hora_Apertura,
 		Hora_Cierre=@Hora_Cierre
