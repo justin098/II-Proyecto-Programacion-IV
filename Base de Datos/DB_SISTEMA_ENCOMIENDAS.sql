@@ -836,6 +836,8 @@ BEGIN
     Id_Sucursal
     ,Nombre
 	,TD.Id_Direccion
+	,Hora_Apertura
+	,Hora_Cierre
 	,Activo
 	,TD.Provincia
 	,TD.Canton
@@ -1601,10 +1603,12 @@ CREATE PROCEDURE [dbo].[sp_Insertar_Sucursal]
 
 (
    @Nombre VARCHAR(25)
+  ,@Hora_Apertura TIME
+  ,@Hora_Cierre TIME
   ,@Activo BIT
   ,@Provincia VARCHAR(10)
-  ,@Canton VARCHAR(10)
-  ,@Distrito VARCHAR(10)
+  ,@Canton VARCHAR(20)
+  ,@Distrito VARCHAR(25)
   ,@Direccion_Exacta VARCHAR(250)
 )
 As
@@ -1622,9 +1626,9 @@ BEGIN
       SELECT TOP 1 @IdDireccion = Id_Direccion FROM T_Direcciones ORDER BY Id_Direccion DESC; 
 
       INSERT INTO T_Sucursales
-                 (Nombre,Id_Direccion,Activo)
+                 (Nombre,Id_Direccion,Hora_Apertura,Hora_Cierre,Activo)
       VALUES
-                 (@Nombre,@IdDireccion,@Activo);
+                 (@Nombre,@IdDireccion,@Hora_Apertura,@Hora_Cierre,@Activo);
 
       COMMIT TRAN InsertarSucursal;
   END TRY
@@ -1658,8 +1662,10 @@ CREATE PROCEDURE [dbo].[sp_Modificar_Sucursal]
   ,@Id_Sucursal INT
   ,@Activo BIT
   ,@Provincia VARCHAR(10)
-  ,@Canton VARCHAR(10)
-  ,@Distrito VARCHAR(10)
+  ,@Canton VARCHAR(20)
+  ,@Hora_Apertura TIME
+  ,@Hora_Cierre TIME
+  ,@Distrito VARCHAR(20)
   ,@Direccion_Exacta VARCHAR(250)
 )
 As
@@ -1674,7 +1680,9 @@ BEGIN
         T_Sucursales
       SET
   	    Nombre = @Nombre,
-  	    Activo = @Activo
+  	    Activo = @Activo,
+		Hora_Apertura=@Hora_Apertura,
+		Hora_Cierre=@Hora_Cierre
       WHERE
         (Id_Sucursal = @Id_Sucursal)
 
