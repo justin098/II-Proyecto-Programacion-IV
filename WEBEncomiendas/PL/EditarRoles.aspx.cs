@@ -94,14 +94,18 @@ namespace PL
                 String idRol = gdvRoles.Rows[index].Cells[2].Text;
                 lblHeader.InnerText = "Editar Rol";
                 updpnlModalHeader.Update();
-
                 txtIdRol.Value = idRol;
                 txtRol.Value = Server.HtmlDecode(gdvRoles.Rows[index].Cells[3].Text);
                 txtDescripcion.Value = Server.HtmlDecode(gdvRoles.Rows[index].Cells[4].Text);
                 CargarCombos();
+                CargarPrivilegios(Convert.ToInt16(idRol));
                 updpnlGrid.Update();
                 lblIdRol.Visible = true;
                 txtIdRol.Visible = true;
+                lblPrivilegios.Visible = true;
+                gdvPrivilegios.Visible = true;
+                cmbPrivilegios.Visible = true;
+                btnAgregarPrivilegio.Visible = true;
                 updpnlModal.Update();
             }
             else if (e.CommandName == "Borrar")
@@ -141,6 +145,10 @@ namespace PL
                 lblHeader.InnerText = "Agregar Rol";
                 lblIdRol.Visible = false;
                 txtIdRol.Visible = false;
+                lblPrivilegios.Visible = false;
+                gdvPrivilegios.Visible = false;
+                cmbPrivilegios.Visible = false;
+                btnAgregarPrivilegio.Visible = false;
                 LimpiarCampos();
                 updpnlModalHeader.Update();
                 updpnlModal.Update();
@@ -207,7 +215,25 @@ namespace PL
 
         public void CargarCombos()
         {
+            Cls_Privilegios_BLL objBLL = new Cls_Privilegios_BLL();
+            Cls_Privilegios_DAL objDAL = new Cls_Privilegios_DAL();
 
+            objBLL.Listar(ref objDAL);
+
+            if (objDAL.sError == string.Empty)
+            {
+                cmbPrivilegios.DataSource = null;
+                cmbPrivilegios.DataSource = objDAL.dtTabla;
+
+                cmbPrivilegios.DataTextField = "Descripcion";
+                cmbPrivilegios.DataValueField = "Id_Privilegio";
+                cmbPrivilegios.DataBind();
+                cmbPrivilegios.SelectedIndex = 0;
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowPopup", "alert('Se presento un problema a la hora de cargar el combo de privilegios');", true);
+            }
         }
 
         private void LimpiarCampos()
@@ -215,8 +241,93 @@ namespace PL
             txtIdRol.Value = string.Empty;
             txtRol.Value = string.Empty;
             txtDescripcion.Value = string.Empty;
-            CargarCombos();
             updpnlModal.Update();
+        }
+
+        private void CargarPrivilegios(int idRol)
+        {
+            Cls_Privilegios_Roles_BLL objBLL = new Cls_Privilegios_Roles_BLL();
+            Cls_Privilegios_Roles_DAL objDAL = new Cls_Privilegios_Roles_DAL();
+            objDAL.iFiltro = idRol;
+
+            gdvPrivilegios.DataSource = null;
+            gdvPrivilegios.DataBind();
+
+            objBLL.Filtrar(ref objDAL);
+            if (objDAL.sError == string.Empty)
+            {
+                gdvPrivilegios.SelectedIndex = -1;
+                gdvPrivilegios.DataSource = objDAL.dtTabla;
+                gdvPrivilegios.DataBind();
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowPopup", "alert('Se presento un problema a la hora de cargar el los privilegios');", true);
+            }
+        }
+
+        protected void gdvPrivilegios_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gdvPrivilegios.PageIndex = e.NewPageIndex;
+            CargarPrivilegios(Convert.ToInt16(txtIdRol.Value.ToString().Trim()));
+        }
+
+        protected void gdvPrivilegios_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Borrar")
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = gdvPrivilegios.Rows[index];
+                String idPrivilegioRol = gdvPrivilegios.Rows[index].Cells[1].Text;
+
+                Cls_Privilegios_Roles_BLL objBLL = new Cls_Privilegios_Roles_BLL();
+                Cls_Privilegios_Roles_DAL objDAL = new Cls_Privilegios_Roles_DAL();
+
+                objDAL.iPrivilegioRol = Convert.ToInt32(idPrivilegioRol.Trim());
+                objBLL.Eliminar(ref objDAL);
+
+                if (!string.IsNullOrEmpty(objDAL.sError))
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowPopup", "alert('Se presento un problema a la hora de eliminar el registro');", true);
+                }
+                else
+                {
+                    CargarPrivilegios(Convert.ToInt16(txtIdRol.Value.ToString().Trim()));
+                }
+            }
+        }
+
+        protected void btnAgregarPrivilegio_Click(object sender, EventArgs e)
+        {
+            Cls_Privilegios_Roles_BLL objBLL = new Cls_Privilegios_Roles_BLL();
+            Cls_Privilegios_Roles_DAL objDAL = new Cls_Privilegios_Roles_DAL();
+
+            bool existRecord = false;
+
+            for (int i = 0; i < gdvPrivilegios.Rows.Count; i++)
+            {
+                String Privilegio = gdvPrivilegios.Rows[i].Cells[2].Text;
+
+                if (cmbPrivilegios.SelectedItem.Text == Privilegio)
+                {
+                    existRecord = true;
+                    break;
+                }
+            }
+
+            if (!existRecord)
+            {
+                objDAL.iRol = Convert.ToInt16(txtIdRol.Value.ToString().Trim());
+                objDAL.iPrivilegio = Convert.ToInt16(cmbPrivilegios.SelectedValue.ToString().Trim());
+
+                objBLL.Insertar(ref objDAL);
+
+                CargarPrivilegios(objDAL.iRol);
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowPopup", "alert('El privilegio ya existe en el Rol');", true);
+            }
         }
     }
 }

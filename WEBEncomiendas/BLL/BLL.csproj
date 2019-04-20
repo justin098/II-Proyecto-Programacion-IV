@@ -45,6 +45,8 @@
     <Compile Include="Cat_Man\Cls_Categoria_BLL.cs" />
     <Compile Include="Cat_Man\Cls_Membership_BLL.cs" />
     <Compile Include="Cat_Man\Cls_Personas_BLL.cs" />
+    <Compile Include="Cat_Man\Cls_Privilegios_BLL.cs" />
+    <Compile Include="Cat_Man\Cls_Privilegios_Roles_BLL.cs" />
     <Compile Include="Cat_Man\Cls_Roles_BLL.cs" />
     <Compile Include="Cat_Man\Cls_Sucursales_BLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

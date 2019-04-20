@@ -336,8 +336,8 @@ BEGIN
     Id_Sucursal INT NOT NULL IDENTITY(1,1),
 	Nombre VARCHAR(25) NOT NULL,
 	Id_Direccion INT NULL,
-	Dia_Apertura DATETIME NOT NULL,
-	Dia_Cierre DATETIME NOT NULL,
+	Dia_Apertura VARCHAR(9) NOT NULL,
+	Dia_Cierre VARCHAR(9) NOT NULL,
 	Hora_Apertura TIME NOT NULL,
 	Hora_Cierre TIME NOT NULL,
 	Activo BIT NOT NULL DEFAULT(0),
@@ -839,6 +839,8 @@ BEGIN
   SELECT
     Id_Sucursal
     ,Nombre
+	,Dia_Apertura
+	,Dia_Cierre
 	,TD.Id_Direccion
 	,Hora_Apertura
 	,Hora_Cierre
@@ -1607,8 +1609,8 @@ CREATE PROCEDURE [dbo].[sp_Insertar_Sucursal]
 
 (
    @Nombre VARCHAR(25)
-  ,@Dia_Apertura DATETIME
-  ,@Dia_Cierre DATETIME
+  ,@Dia_Apertura VARCHAR(9)
+  ,@Dia_Cierre VARCHAR(9)
   ,@Hora_Apertura TIME
   ,@Hora_Cierre TIME
   ,@Activo BIT
@@ -1632,9 +1634,9 @@ BEGIN
       SELECT TOP 1 @IdDireccion = Id_Direccion FROM T_Direcciones ORDER BY Id_Direccion DESC; 
 
       INSERT INTO T_Sucursales
-                 (Nombre,Id_Direccion,Hora_Apertura,Hora_Cierre,Activo)
+                 (Nombre,Id_Direccion,Dia_Apertura,Dia_Cierre,Hora_Apertura,Hora_Cierre,Activo)
       VALUES
-                 (@Nombre,@IdDireccion,@Hora_Apertura,@Hora_Cierre,@Activo);
+                 (@Nombre,@IdDireccion,@Dia_Apertura,@Dia_Cierre,@Hora_Apertura,@Hora_Cierre,@Activo);
 
       COMMIT TRAN InsertarSucursal;
   END TRY
@@ -1665,12 +1667,12 @@ CREATE PROCEDURE [dbo].[sp_Modificar_Sucursal]
 
 (
    @Nombre VARCHAR(25)
+  ,@Dia_Apertura VARCHAR(9)
+  ,@Dia_Cierre VARCHAR(9)
   ,@Id_Sucursal INT
   ,@Activo BIT
   ,@Provincia VARCHAR(10)
   ,@Canton VARCHAR(20)
-  ,@Dia_Apertura DATETIME
-  ,@Dia_Cierre DATETIME
   ,@Hora_Apertura TIME
   ,@Hora_Cierre TIME
   ,@Distrito VARCHAR(20)
@@ -1688,6 +1690,8 @@ BEGIN
         T_Sucursales
       SET
   	    Nombre = @Nombre,
+		Dia_Apertura=@Dia_Apertura,
+		Dia_Cierre = @Dia_Cierre,
   	    Activo = @Activo,
 		Hora_Apertura=@Hora_Apertura,
 		Hora_Cierre=@Hora_Cierre
@@ -1870,7 +1874,6 @@ BEGIN
   EXEC sp_Insertar_Persona '1-1111-1111', 'Adrian', 'Soto', 'Loria', 'prueba@prueba.com', '2222-2222', '8888-8888', 
                            'admin', '1234', 1, 1, 'San Jose', 'San Jose', 'Carmen', 'Barrio Minerva'
 END
-GO
 
 INSERT INTO T_Privilegios
   (Privilegio, Descripcion)

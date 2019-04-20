@@ -100,6 +100,8 @@ namespace BLL.Cat_Man
             Crear_Parametros(ref objSucDAL);
 
             objSucDAL.dtParametros.Rows.Add("@Nombre", "2", objSucDAL.SNombre);
+            objSucDAL.dtParametros.Rows.Add("@Dia_Apertura", "2", objSucDAL.sDiaApertura);
+            objSucDAL.dtParametros.Rows.Add("@Dia_Cierre", "2", objSucDAL.sDiaCierre);
             objSucDAL.dtParametros.Rows.Add("@Activo", "8", objSucDAL.SActivo);
             objSucDAL.dtParametros.Rows.Add("@Provincia", "2", objSucDAL.SProvincia);
             objSucDAL.dtParametros.Rows.Add("@Canton", "2", objSucDAL.SCanton);
@@ -121,6 +123,8 @@ namespace BLL.Cat_Man
             Crear_Parametros(ref objSucDAL);
             objSucDAL.dtParametros.Rows.Add("@Id_Sucursal", "1", objSucDAL.SId_Sucursal);
             objSucDAL.dtParametros.Rows.Add("@Nombre", "2", objSucDAL.SNombre);
+            objSucDAL.dtParametros.Rows.Add("@Dia_Apertura", "2", objSucDAL.sDiaApertura);
+            objSucDAL.dtParametros.Rows.Add("@Dia_Cierre", "2", objSucDAL.sDiaCierre);
             objSucDAL.dtParametros.Rows.Add("@Activo", "8", objSucDAL.SActivo);
             objSucDAL.dtParametros.Rows.Add("@Provincia", "2", objSucDAL.SProvincia);
             objSucDAL.dtParametros.Rows.Add("@Canton", "2", objSucDAL.SCanton);

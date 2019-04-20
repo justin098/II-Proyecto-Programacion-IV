@@ -238,6 +238,15 @@ namespace PL {
         protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl tmApertura;
         
         /// <summary>
+        /// Control cmbDiaApertura.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList cmbDiaApertura;
+        
+        /// <summary>
         /// Control lblCierre.
         /// </summary>
         /// <remarks>
@@ -254,6 +263,15 @@ namespace PL {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl tmCierre;
+        
+        /// <summary>
+        /// Control cmbDiaCierre.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList cmbDiaCierre;
         
         /// <summary>
         /// Control chkActivo.

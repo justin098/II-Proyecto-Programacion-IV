@@ -11,7 +11,7 @@ namespace DAL.Cat_Man
     {
 
         private DataTable _dtTabla;
-        private string _sError, _sFiltro, _sNombre, _sProvincia, _sCanton, _sDistrito, _sDireccionExacta,_sHoraApertura,_sHoraCierre;
+        private string _sError, _sFiltro, _sNombre, _sProvincia, _sCanton, _sDistrito, _sDireccionExacta,_sHoraApertura,_sHoraCierre,_sDiaApertura,_sDiaCierre;
         private DataTable _dtParametros;
         private int _sId_Sucursal, _sId_Direccion;
         private bool _sActivo;
@@ -65,6 +65,32 @@ namespace DAL.Cat_Man
             set
             {
                 _sHoraCierre = value;
+            }
+        }
+
+        public string sDiaApertura
+        {
+            get
+            {
+                return _sDiaApertura;
+            }
+
+            set
+            {
+                _sDiaApertura = value;
+            }
+        }
+
+        public string sDiaCierre
+        {
+            get
+            {
+                return _sDiaCierre;
+            }
+
+            set
+            {
+                _sDiaCierre = value;
             }
         }
 
