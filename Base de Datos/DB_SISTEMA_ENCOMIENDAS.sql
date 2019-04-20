@@ -614,6 +614,8 @@ BEGIN
   SELECT
     Id_Categoria
     ,Nombre
+    ,Descripcion
+
   FROM 
     T_Categorias
 End;
@@ -1720,6 +1722,141 @@ BEGIN
 END
 
 GO
+
+IF OBJECT_ID('sp_Insertar_Categoria]') IS NOT NULL DROP PROCEDURE sp_Insertar_Categtoria
+GO
+
+Create Procedure sp_Insertar_Categoria
+
+(
+   
+  @Nombre VARCHAR(25)
+ ,@Descripcion VARCHAR(75)
+  
+)
+As
+BEGIN
+  BEGIN TRAN InsertarCategoria;
+    BEGIN TRY
+
+       INSERT INTO T_Categorias
+                 (Nombre,Descripcion)
+      VALUES
+                 (@Nombre,@Descripcion);
+
+      COMMIT TRAN InsertarCategoria;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN InsertarCategoria;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+GO
+
+IF OBJECT_ID('sp_Modificar_Categoria]') IS NOT NULL DROP PROCEDURE sp_Modificar_Categtoria
+GO
+
+Create Procedure sp_Modificar_Categoria
+
+(
+   @Id_Categoria INT
+  ,@Nombre VARCHAR(25)
+  ,@Descripcion VARCHAR(75)
+ 
+)
+As
+BEGIN
+  BEGIN TRAN ModificarCategoria;
+    BEGIN TRY
+
+      UPDATE 
+        T_Categorias
+      SET	   
+  	    Nombre = @Nombre,
+  	    Descripcion = @Descripcion
+	    
+      WHERE
+        (Id_Categoria = @Id_Categoria)               
+
+      COMMIT TRAN ModificarCategoria;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN ModificarCategoria;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+GO
+
+IF OBJECT_ID('sp_Eliminar_Categoria') IS NOT NULL DROP PROCEDURE sp_Eliminar_Categoria
+GO
+
+Create Procedure sp_Eliminar_Categoria
+
+(
+	 @Id_Categoria Int
+)
+As
+BEGIN
+  BEGIN TRAN EliminarCategoria;
+    BEGIN TRY
+
+      DELETE FROM T_Categorias WHERE (Id_Categoria = @Id_Categoria);
+     
+      COMMIT TRAN EliminarCategoria;
+    END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN EliminarCategoria;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+
+END
+GO
+
 
 --INSERTS INICIALES
 IF NOT EXISTS(SELECT 1 FROM T_Personas WHERE Usuario = 'admin')

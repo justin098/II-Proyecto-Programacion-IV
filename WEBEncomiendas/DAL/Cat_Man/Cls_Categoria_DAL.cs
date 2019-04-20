@@ -12,9 +12,8 @@ namespace DAL.Cat_Man
 
         private DataTable _dtTablaCategoria;
         private DataTable _dtParametros;
-        private string _sError, _sFiltro, _sNombre;
+        private string _sError, _sFiltro, _sNombre, _sDescripcion;
         private int _sIdcategoria;
-        private decimal _sArancel;
         private char _cAccion;
 
         public DataTable DtTablaCategoria
@@ -95,16 +94,16 @@ namespace DAL.Cat_Man
             }
         }
 
-        public decimal SArancel
+        public string SDescripcion
         {
             get
             {
-                return _sArancel;
+                return _sDescripcion;
             }
 
             set
             {
-                _sArancel = value;
+                _sDescripcion = value;
             }
         }
 

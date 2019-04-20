@@ -148,22 +148,22 @@ namespace PL {
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtNombreCategoria;
         
         /// <summary>
-        /// Control lblArancel.
+        /// Control lblDescripcion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblArancel;
+        protected global::System.Web.UI.WebControls.Label lblDescripcion;
         
         /// <summary>
-        /// Control txtArancel.
+        /// Control txtDescripcion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtArancel;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtDescripcion;
         
         /// <summary>
         /// Control btnGuardar.

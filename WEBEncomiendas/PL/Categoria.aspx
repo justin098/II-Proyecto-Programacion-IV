@@ -51,7 +51,7 @@
                                         </asp:TemplateField>
                                         <asp:BoundField DataField="Id_Categoria" HeaderText="ID Categoria" />
                                         <asp:BoundField DataField="Nombre" HeaderText="Nombre Categoria" />
-                                        <asp:BoundField DataField="Arancel" HeaderText="Arancel" />
+                                        <asp:BoundField DataField="Descripcion" HeaderText="Descripcion" />
                                     </Columns>
                                 </asp:GridView>
                             </div>
@@ -85,9 +85,9 @@
                                             <input type="text" id="txtNombreCategoria" style="height: 40px;" maxlength="25" runat="server" name="txtNombreCtaegoria" value="" placeholder="Nombre Categoria" />
                                         </div>
                                         <div class="col-lg-1">
-                                            <asp:Label Text="Arancel" ID="lblArancel" runat="server" />
+                                            <asp:Label Text="Descripcion" ID="lblDescripcion" runat="server" />
 
-                                            <input type="text" id="txtArancel" runat="server" maxlength="20" style="height: 40px;" name="txtArancel" value="" placeholder="Arancel" />
+                                            <input type="text" id="txtDescripcion" runat="server" maxlength="20" style="height:40px;" name="txtDescripcion" value="" placeholder="Descripcion" />
                                         </div>
                                     </div>
                                 </ContentTemplate>

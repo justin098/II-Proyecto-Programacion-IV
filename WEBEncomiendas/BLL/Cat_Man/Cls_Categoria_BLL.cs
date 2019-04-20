@@ -112,7 +112,7 @@ namespace BLL.Cat_Man
 
 
             Obj_Categoria_DAL.DtParametros.Rows.Add("@Nombre", "2", Obj_Categoria_DAL.SNombre);
-            Obj_Categoria_DAL.DtParametros.Rows.Add("@Arancel", "6", Obj_Categoria_DAL.SArancel);
+            Obj_Categoria_DAL.DtParametros.Rows.Add("@Descripcion", "2", Obj_Categoria_DAL.SDescripcion);
             Obj_BDService.InsertarDatoSinIdentity("sp_Insertar_Categoria", "Categorias", Obj_Categoria_DAL.DtParametros, ref vAccion, ref vError);
             Obj_Categoria_DAL.CAccion = vAccion;
             Obj_Categoria_DAL.SError = vError;
@@ -127,7 +127,7 @@ namespace BLL.Cat_Man
 
             Obj_Categoria_DAL.DtParametros.Rows.Add("@Id_Categoria", "1", Obj_Categoria_DAL.SIdcategoria);
             Obj_Categoria_DAL.DtParametros.Rows.Add("@Nombre", "2", Obj_Categoria_DAL.SNombre);
-            Obj_Categoria_DAL.DtParametros.Rows.Add("@Arancel", "6", Obj_Categoria_DAL.SArancel);
+            Obj_Categoria_DAL.DtParametros.Rows.Add("@Descripcion", "2", Obj_Categoria_DAL.SDescripcion);
             Obj_BDService.ModificarDato("sp_Modificar_Categoria", "Categorias", Obj_Categoria_DAL.DtParametros, ref vAccion, ref vError);
             Obj_Categoria_DAL.CAccion = vAccion;
             Obj_Categoria_DAL.SError = vError;
