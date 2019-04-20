@@ -194,7 +194,7 @@ IF OBJECT_ID (N'T_Tarjetas', N'U') IS NULL
 BEGIN
   CREATE TABLE T_Tarjetas 
   (
-	Numero_tarjeta VARCHAR(20) NOT NULL,
+	Numero_tarjeta VARCHAR(16) NOT NULL,
 	Fecha_Vencimiento DATETIME NOT NULL,
 	Codigo_Seguridad SMALLINT NOT NULL,
 	Cedula VARCHAR(15) NOT NULL,
@@ -428,7 +428,7 @@ BEGIN
   (
     Id_Categoria INT NOT NULL IDENTITY(1,1),
 	Nombre VARCHAR(25) NOT NULL,
-	Descripcion VARCHAR (15) NOT NULL
+	Descripcion VARCHAR (35) NOT NULL
     CONSTRAINT  PK_Id_Categoria PRIMARY KEY NONCLUSTERED
     (
 	  Id_Categoria  ASC
@@ -1607,6 +1607,8 @@ CREATE PROCEDURE [dbo].[sp_Insertar_Sucursal]
 
 (
    @Nombre VARCHAR(25)
+  ,@Dia_Apertura DATETIME
+  ,@Dia_Cierre DATETIME
   ,@Hora_Apertura TIME
   ,@Hora_Cierre TIME
   ,@Activo BIT
@@ -1667,6 +1669,8 @@ CREATE PROCEDURE [dbo].[sp_Modificar_Sucursal]
   ,@Activo BIT
   ,@Provincia VARCHAR(10)
   ,@Canton VARCHAR(20)
+  ,@Dia_Apertura DATETIME
+  ,@Dia_Cierre DATETIME
   ,@Hora_Apertura TIME
   ,@Hora_Cierre TIME
   ,@Distrito VARCHAR(20)
@@ -1866,6 +1870,7 @@ BEGIN
   EXEC sp_Insertar_Persona '1-1111-1111', 'Adrian', 'Soto', 'Loria', 'prueba@prueba.com', '2222-2222', '8888-8888', 
                            'admin', '1234', 1, 1, 'San Jose', 'San Jose', 'Carmen', 'Barrio Minerva'
 END
+GO
 
 INSERT INTO T_Privilegios
   (Privilegio, Descripcion)
