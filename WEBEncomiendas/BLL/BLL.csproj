@@ -44,11 +44,14 @@
   <ItemGroup>
     <Compile Include="Cat_Man\Cls_Categoria_BLL.cs" />
     <Compile Include="Cat_Man\Cls_Membership_BLL.cs" />
+    <Compile Include="Cat_Man\Cls_Paquetes_BLL.cs" />
     <Compile Include="Cat_Man\Cls_Personas_BLL.cs" />
     <Compile Include="Cat_Man\Cls_Privilegios_BLL.cs" />
     <Compile Include="Cat_Man\Cls_Privilegios_Roles_BLL.cs" />
     <Compile Include="Cat_Man\Cls_Roles_BLL.cs" />
+    <Compile Include="Cat_Man\Cls_Servicios_BLL.cs" />
     <Compile Include="Cat_Man\Cls_Sucursales_BLL.cs" />
+    <Compile Include="Cat_Man\Cls_Tarjetas_BLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\WSEncomiendaBD\Reference.cs">
       <AutoGen>True</AutoGen>

@@ -1,0 +1,203 @@
+﻿
+
+.rechnungsdaten {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 65% 2% 33%;
+    grid-template-columns: 65% 2% 33%;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 600px) {
+    .rechnungsdaten {
+        -ms-grid-columns: 13% 2% 8% 2% 8% 2% 13% 4% 13% 2% 8% 2% 8% 2% 13%;
+        grid-template-columns: 13% 2% 8% 2% 8% 2% 13% 4% 13% 2% 8% 2% 8% 2% 13%;
+    }
+}
+
+.teilnehmer {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr;
+    grid-template-columns: 1fr;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+    .teilnehmer hr {
+        border: none;
+        background-color: #ccc;
+        display: block;
+        margin-bottom: 20px;
+        height: 2px;
+        width: 100%;
+    }
+
+@media (min-width: 600px) {
+    .teilnehmer {
+        -ms-grid-columns: 28% 2% 34% 2% 34%;
+        grid-template-columns: 28% 2% 34% 2% 34%;
+    }
+
+        .teilnehmer hr {
+            grid-column: 1 / span 5;
+        }
+}
+
+.form__group {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    margin-bottom: 20px;
+}
+
+.form__group--radio-wrapper span span {
+    display: flex;
+    align-items: flex-start;
+}
+
+    .form__group--radio-wrapper span span span:first-child {
+        width: 25px;
+    }
+
+    .form__group--radio-wrapper span span label {
+        width: 50%;
+    }
+
+    .form__group--radio-wrapper span span span:nth-of-type(2) {
+        padding-left: 20px;
+        width: 20%;
+    }
+
+    .form__group--radio-wrapper span span span:nth-of-type(3) {
+        padding-left: 20px;
+    }
+
+.rechnungsdaten .form__group {
+    grid-column: 1 / span 3;
+}
+
+    .rechnungsdaten .form__group.ort, .rechnungsdaten .form__group.strasse {
+        grid-column: 1 / span 1;
+    }
+
+    .rechnungsdaten .form__group.plz, .rechnungsdaten .form__group.hausnummer {
+        grid-column: 3 / span 1;
+    }
+
+@media (min-width: 600px) {
+    .rechnungsdaten .form__group:nth-child(odd) {
+        grid-column: 1 / span 7;
+    }
+
+    .rechnungsdaten .form__group:nth-child(even) {
+        grid-column: 9 / span 7;
+    }
+
+    .rechnungsdaten .form__group.anrede {
+        grid-column: 1 / span 3;
+    }
+
+    .rechnungsdaten .form__group.titel {
+        grid-column: 5 / span 3;
+    }
+
+    .rechnungsdaten .form__group.plz, .rechnungsdaten .form__group.hausnummer {
+        grid-column: 9 / span 1;
+    }
+
+    .rechnungsdaten .form__group.land {
+        grid-column: 11 / span 5;
+    }
+
+    .rechnungsdaten .form__group.email {
+        grid-column: 1 / span 7;
+    }
+
+    .rechnungsdaten .form__group.telefon {
+        grid-column: 9 / span 7;
+    }
+
+    .rechnungsdaten .form__group.textarea {
+        grid-column: 1 / span 15;
+    }
+}
+
+@media (min-width: 600px) {
+    .teilnehmer .form__group.anrede {
+        grid-column: 1 / span 1;
+    }
+
+    .teilnehmer .form__group.vorname {
+        grid-column: 3 / span 1;
+    }
+
+    .teilnehmer .form__group.nachname {
+        grid-column: 5 / span 1;
+    }
+
+    .teilnehmer .form__group.geburtsdatum {
+        grid-column: 3 / span 1;
+    }
+
+    .teilnehmer .form__group.nationalitaet {
+        grid-column: 5 / span 1;
+    }
+}
+
+h1 {
+    font-size: 20px;
+    margin: 0 0 20px;
+    padding: 0;
+}
+
+textarea, select, input[type="text"] {
+    border: 1px solid #ccc;
+    padding: 10px 5px;
+    width: 100%;
+}
+
+.error textarea,
+.error select,
+.error input[type="text"] {
+    border: 1px solid #f00;
+    margin-bottom: 5px;
+}
+
+select,
+input[type="text"] {
+    border: 1px solid #ccc;
+    height: 50px;
+    padding: 10px 5px;
+    width: 100%;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+textarea {
+    height: 170px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 5px;
+}
+
+.form__group--radio-wrapper label {
+    display: inline-block;
+}
+
+em {
+    font-style: normal;
+}
+
+.error {
+    color: #f00;
+}
+

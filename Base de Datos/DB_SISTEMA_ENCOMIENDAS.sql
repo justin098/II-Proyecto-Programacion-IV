@@ -1877,6 +1877,101 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [dbo].[sp_Listar_Tarjetas_Persona]
+@Usuario VARCHAR(15)
+AS
+BEGIN
+DECLARE @Cedula VARCHAR(15);
+SELECT TOP 1 @Cedula = Cedula FROM T_Personas WHERE Usuario = @Usuario ORDER BY Cedula DESC;
+  SELECT
+    Numero_tarjeta
+	,Cedula
+  FROM 
+    T_Tarjetas
+	WHERE Cedula = @Cedula
+End;
+GO
+
+CREATE PROCEDURE [dbo].[sp_Listar_Servicios]
+AS
+BEGIN
+  SELECT
+    Id_Servicio
+    ,Tipo_Servicio
+  FROM 
+    T_Servicios
+End;
+GO
+
+CREATE PROCEDURE [dbo].[sp_Insertar_Paquete]
+(
+   @Descripcion VARCHAR(25)
+  ,@Peso FLOAT
+  ,@Id_Categoria INT
+  ,@Id_Estado INT
+  ,@Id_Sucursal INT
+  ,@Id_Servicio INT
+  ,@Usuario VARCHAR(15)
+  ,@Retiro_Domicilio BIT
+  ,@Entrega_Domicilio BIT
+  ,@Direccion_Entrega VARCHAR(250)
+  ,@Sub_Total MONEY
+  ,@Impuesto MONEY
+  ,@Envio MONEY
+  ,@Total MONEY
+  ,@Pagado BIT
+  ,@Numero_tarjeta VARCHAR(16)
+)
+As
+BEGIN
+  BEGIN TRAN InsertarPaquete;
+    BEGIN TRY
+
+      DECLARE @Id_Recibo INT;
+
+      INSERT INTO T_Recibos
+	              (Sub_Total, Impuesto, Envio, Total,Pagado,Numero_tarjeta)
+      VALUES
+	              (@Sub_Total, @Impuesto, @Envio,@Total,@Pagado,@Numero_tarjeta);
+
+      SELECT TOP 1 @Id_Recibo = Id_Recibo FROM T_Recibos ORDER BY Id_Recibo DESC; 
+
+	  DECLARE @Cedula VARCHAR(15);
+	  SELECT TOP 1 @Cedula = Cedula FROM T_Personas WHERE Usuario = @Usuario ORDER BY Cedula DESC;
+
+      INSERT INTO T_Paquetes
+                 (Descripcion,Peso,Id_Categoria,Id_Estado,Id_Sucursal,Id_Servicio,Cedula,Retiro_Domicilio,Entrega_Domicilio,
+				 Direccion_Entrega,Id_Recibo)
+      VALUES
+                 (@Descripcion,@Peso,@Id_Categoria,@Id_Estado,@Id_Sucursal,@Id_Servicio,@Cedula,@Retiro_Domicilio,@Entrega_Domicilio,
+				 @Direccion_Entrega,@Id_Recibo);
+
+      COMMIT TRAN InsertarPaquete;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN InsertarPaquete;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+
+GO
+
+
 
 --INSERTS INICIALES
 IF NOT EXISTS(SELECT 1 FROM T_Personas WHERE Usuario = 'admin')

@@ -42,11 +42,14 @@
   <ItemGroup>
     <Compile Include="Cat_Man\Cls_Categoria_DAL.cs" />
     <Compile Include="Cat_Man\Cls_Membership_DAL.cs" />
+    <Compile Include="Cat_Man\Cls_Paquetes_DAL.cs" />
     <Compile Include="Cat_Man\Cls_Personas_DAL.cs" />
     <Compile Include="Cat_Man\Cls_Privilegios_DAL.cs" />
     <Compile Include="Cat_Man\Cls_Privilegios_Roles_DAL.cs" />
     <Compile Include="Cat_Man\Cls_Roles_DAL.cs" />
+    <Compile Include="Cat_Man\Cls_Servicios_DAL.cs" />
     <Compile Include="Cat_Man\Cls_Sucursales_DAL.cs" />
+    <Compile Include="Cat_Man\Cls_Tarjetas_DAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
