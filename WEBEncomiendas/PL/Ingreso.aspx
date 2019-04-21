@@ -18,10 +18,13 @@
             </header>
 
             <form runat="server">
+
+                <div class="Contenido1">
                 <input type="text" id="txtusuario" name="txtusuario" runat="server" placeholder="Usuario" maxlength="15" required="required" />
                 <br />
                 <input type="password" id="txtcontrasenia" name="txtcontrasenia" runat="server" placeholder="Contraseña" maxlength="15" required="required" />
                 <br />
+                    </div>
 
                 <div class="row">
                     <div class="col-lg-7">

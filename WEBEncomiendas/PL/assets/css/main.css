@@ -3412,8 +3412,8 @@ html, body {
 
 	#banner {
 		background-attachment: fixed;
-		background-color: #272833;
-		background-image: url("../../images/banner.jpg");
+		background-color:#e44c65;
+		/*background-image: url("../../images/banner.jpg");*/
 		background-position: center center;
 		background-size: cover;
 		box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.25);
@@ -3849,7 +3849,7 @@ html, body {
 			}
 
 				#titleBar .title {
-					color: #ffffff;
+					color: #272833;
 					display: block;
 					font-weight: 300;
 					height: 44px;
