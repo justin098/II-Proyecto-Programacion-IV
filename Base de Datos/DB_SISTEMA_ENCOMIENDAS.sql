@@ -1006,18 +1006,21 @@ GO
 
 CREATE PROCEDURE sp_Filtrar_Privilegios_Roles
 (
-	@Filtro varchar(25)
+	@Filtro INT
 )
 AS
 BEGIN
   SELECT
-    Id_Privilegio_Rol
-	,Id_Rol
-	,Id_Privilegio
+    T_Privilegios_Roles.Id_Privilegio_Rol
+	,T_Privilegios.Descripcion
   FROM 
     T_Privilegios_Roles
+  INNER JOIN
+    T_Privilegios
+  ON
+    (T_Privilegios_Roles.Id_Privilegio = T_Privilegios.Id_Privilegio)
   WHERE
-    (Id_Privilegio_Rol like '%'+@Filtro+'%')
+    (T_Privilegios_Roles.Id_Rol =  @Filtro)
 End;
 GO
 
