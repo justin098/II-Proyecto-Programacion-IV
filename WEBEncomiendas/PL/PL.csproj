@@ -125,6 +125,7 @@
     <Content Include="Ingreso.aspx" />
     <Content Include="Inicio.aspx" />
     <Content Include="js\main.js" />
+    <Content Include="js\Pedidos\PedidosEmpleadoJS.js" />
     <Content Include="js\Pedidos\PedidosJS.js" />
     <Content Include="js\placeholders.min.js" />
     <Content Include="EditarSucursales.aspx" />
