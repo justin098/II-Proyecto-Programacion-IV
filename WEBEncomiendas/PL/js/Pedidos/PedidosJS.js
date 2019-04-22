@@ -145,7 +145,7 @@ function costoSolicitud() {
 
     var impuesto = subtotal * 0.13;
 
-    document.getElementById("MainContent_txtTotal").value = subtotal - impuesto;
+    document.getElementById("MainContent_txtTotal").value = subtotal + impuesto;
 
 }
 
@@ -171,10 +171,17 @@ function validacionGuardar() {
     var tarjeta = document.getElementById("MainContent_ddlTarjetas");
     tarjetapago = tarjeta.options[tarjeta.selectedIndex].text;
 
+    var validacionCero = parseFloat(peso.replace(".", ""));
+    calculoCostos(peso);
+
     if (descripcion == "" || articulo == "" || servicio == "" || peso == "" || tarjetapago == "") {
         alert("No dejar campos vacíos");
         return false;
-    } else if (checked == true) {
+    } else if (validacionCero == 0) {
+        alert("No se puede dejar el peso en 0");
+        return false;
+    }
+    else if (checked == true) {
         entrega = document.getElementById("MainContent_txtDireccion").value;
         if (entrega == "") {
             alert("No dejar campo de entrega vacío");

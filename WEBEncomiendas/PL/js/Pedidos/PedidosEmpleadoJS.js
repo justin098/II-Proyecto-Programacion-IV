@@ -119,10 +119,9 @@ function calculoCostos(pesoIngresado) {
     }
     else if (pesoDecimal >= 20.01 && pesoDecimal < 30) {
         calculoPeso = pesoDecimal * 3480;
-    } else if (pesoDecimal > 30) {
+    } else if (pesoDecimal >= 30) {
         calculoPeso = pesoDecimal * 3120;
     }
-
     document.getElementById("MainContent_txtCalculo").value = calculoPeso;
     costoServicio();
 
@@ -179,8 +178,14 @@ function validacionGuardar() {
 
     nombre = document.getElementById("MainContent_txtNombreCliente").value;
 
+    var validacionCero = parseFloat(peso.replace(".", ""));
+    calculoCostos(peso);
+
     if (descripcion == "" || articulo == "" || servicio == "" || peso == "" || tarjetapago == "" || cedula == "" || nombre == "") {
         alert("No dejar campos vacíos");
+        return false;
+    } else if (validacionCero == 0) {
+        alert("No se puede dejar el peso en 0");
         return false;
     } else if (checked == true) {
         entrega = document.getElementById("MainContent_txtDireccion").value;
