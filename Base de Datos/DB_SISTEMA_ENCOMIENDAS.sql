@@ -1,4 +1,4 @@
---CREACION DE LA BASE DE DATOS
+ï»¿--CREACION DE LA BASE DE DATOS
 USE MASTER;
 GO
 
@@ -1093,18 +1093,21 @@ GO
 
 CREATE PROCEDURE sp_Filtrar_Roles_Personas
 (
-	@Filtro varchar(25)
+	@Filtro varchar(15)
 )
 AS
 BEGIN
   SELECT
-    Id_Rol_Persona
-	,Id_Rol
-	,Cedula
+    T_Roles_Personas.Id_Rol_Persona
+	,T_Roles.Rol
   FROM 
     T_Roles_Personas
+  INNER JOIN
+    T_Roles
+  ON
+    (T_Roles_Personas.Id_Rol = T_Roles.Id_Rol)
   WHERE
-    (Id_Rol_Persona like '%'+@Filtro+'%')
+    (T_Roles_Personas.Cedula = @Filtro)
 End;
 GO
 
@@ -1312,6 +1315,52 @@ BEGIN
     DECLARE @ErrorState INT;  
 
 	ROLLBACK TRAN InsertarPrivilegio_Rol;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+GO
+
+IF OBJECT_ID('sp_Insertar_Rol_Persona]') IS NOT NULL DROP PROCEDURE sp_Insertar_Rol_Persona
+GO
+
+CREATE Procedure sp_Insertar_Rol_Persona
+
+(
+  @idRol INT
+  ,@cedula VARCHAR(15)
+)
+As
+BEGIN
+  BEGIN TRAN InsertarRolPersona;
+    BEGIN TRY
+
+	  IF NOT EXISTS(SELECT 1 FROM T_Roles_Personas WHERE Id_Rol = @idRol AND Cedula = @cedula)
+	  BEGIN
+        INSERT INTO T_Roles_Personas
+	      (Id_Rol, Cedula)
+        VALUES
+	      (@idRol, @cedula);
+	  END
+
+      COMMIT TRAN InsertarRolPersona;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN InsertarRolPersona;
   
     SELECT   
         @ErrorMessage = ERROR_MESSAGE(),  
@@ -1585,6 +1634,48 @@ BEGIN
 END
 GO
 
+IF OBJECT_ID('sp_Eliminar_Rol_Persona]') IS NOT NULL DROP PROCEDURE sp_Eliminar_Rol_Persona
+GO
+
+Create Procedure sp_Eliminar_Rol_Persona
+
+(
+  @idRolPersona INT
+)
+As
+BEGIN
+  BEGIN TRAN EliminarRolPersona;
+    BEGIN TRY
+
+      DELETE 
+	    T_Roles_Personas
+      WHERE
+	    (Id_Rol_Persona = @idRolPersona);
+
+      COMMIT TRAN EliminarRolPersona;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN EliminarRolPersona;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+GO
+
 --CREACION DE PROCEDURES MEMBERSHIP
 IF OBJECT_ID('sp_Login') IS NOT NULL DROP PROCEDURE sp_Login
 GO
@@ -1592,7 +1683,7 @@ GO
 CREATE PROCEDURE sp_Login
 
 (
-  @UserLogin VARCHAR(15)
+  @UserLogin VARCHAR(35)
   ,@Contrasena VARCHAR(12)
 )
 As
@@ -1614,7 +1705,7 @@ CREATE PROCEDURE sp_Has_Privilege
 
 (
   @UserLogin VARCHAR(35)
-  ,@Privilegio VARCHAR(20)
+  ,@Privilegio VARCHAR(30)
 )
 As
 BEGIN
@@ -1636,7 +1727,7 @@ BEGIN
   ELSE
   BEGIN
     SELECT
-	*
+	1 Has_Privilege
 	FROM
 	T_Personas P
 	INNER JOIN
@@ -2141,7 +2232,7 @@ VALUES
 INSERT INTO T_Servicios
   (Tipo_Servicio)
 VALUES
-  ('Paquetería y encomienda');
+  ('PaqueterÃ­a y encomienda');
 
 INSERT INTO T_Servicios
   (Tipo_Servicio)
@@ -2151,7 +2242,7 @@ VALUES
 INSERT INTO T_Servicios
   (Tipo_Servicio)
 VALUES
-  ('Servicio de Mensajería Empresarial');
+  ('Servicio de MensajerÃ­a Empresarial');
 
 INSERT INTO T_Estados
   (Descripcion)
