@@ -11,7 +11,7 @@ function ValidarNumero(e) {
     teclado_especiales = false;
 
     var peso = document.getElementById("MainContent_txtPeso").value;
-    //alert(key);
+
     for (var i in especiales) {
 
         if (key == especiales[i]) {
@@ -25,7 +25,7 @@ function ValidarNumero(e) {
             return false;
         }
         else {
-            //alert(teclado);
+
             if (teclado == '.') {
                 if (peso.indexOf('.') != -1)
                     return false;
@@ -37,12 +37,7 @@ function ValidarNumero(e) {
                 if (peso.length == 0) {
                     calculoCostos(teclado + peso);
                 } else {
-                    //alert("peso prueba: " + peso);
-                    /* if (peso.replace('0.', '').length == 0) {
-                         prueba(peso + teclado);
-                     } else {
-                         prueba(peso);
-                     }*/
+
                     calculoCostos(peso + teclado);
                 }
 
@@ -138,7 +133,6 @@ function costoServicio() {
 }
 
 function costoSolicitud() {
-    //alert("llega");
     var subtotal = parseFloat(document.getElementById("MainContent_txtEnvio").value) + parseFloat(document.getElementById("MainContent_txtCalculo").value);
 
     document.getElementById("MainContent_txtSubtotal").value = subtotal;

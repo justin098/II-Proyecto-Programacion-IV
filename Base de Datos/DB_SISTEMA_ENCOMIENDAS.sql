@@ -2061,6 +2061,44 @@ END
 
 GO
 
+CREATE PROCEDURE [dbo].[sp_Listar_Paquetes_Factura]
+AS
+BEGIN
+  SELECT
+    Id_Paquete
+    ,TP.Descripcion AS 'DetallePaquete'
+	,Peso
+	,TC.Id_Categoria
+	,TC.Nombre AS 'TipoCategoria'
+	,TE.Id_Estado
+	,TE.Descripcion AS 'Estado'
+	,TS.Id_Sucursal
+	,TS.Nombre AS 'Sucursal'
+	,TSE.Id_Servicio
+	,TSE.Tipo_Servicio
+	,TP.Cedula
+	,TPE.Usuario
+	,Retiro_Domicilio
+	,Entrega_Domicilio
+	,Direccion_Entrega
+	,TP.Id_Recibo
+	,TR.Sub_Total
+	,TR.Impuesto
+	,TR.Envio
+	,TR.Total
+	,TR.Pagado
+	,TR.Numero_tarjeta
+  FROM 
+    T_Paquetes TP
+	INNER JOIN T_Personas TPE ON TP.Cedula = TPE.Cedula
+	INNER JOIN T_Recibos TR ON TP.Id_Recibo=TR.Id_Recibo
+	INNER JOIN T_Categorias TC ON TP.Id_Categoria = TC.Id_Categoria
+	INNER JOIN T_Sucursales TS ON TP.Id_Sucursal=TS.Id_Sucursal
+	INNER JOIN T_Servicios TSE ON TP.Id_Servicio=TSE.Id_Servicio
+	INNER JOIN T_Estados TE ON TP.Id_Estado = TE.Id_Estado
+End; 
+GO
+
 
 
 --INSERTS INICIALES
@@ -2099,3 +2137,23 @@ INSERT INTO T_Privilegios
   (Privilegio, Descripcion)
 VALUES
   ('Crear_Solicitud', 'Permite crear la solicitud de un paquete');
+
+INSERT INTO T_Servicios
+  (Tipo_Servicio)
+VALUES
+  ('Paquetería y encomienda');
+
+INSERT INTO T_Servicios
+  (Tipo_Servicio)
+VALUES
+  ('Servicio de Motorizados');
+
+INSERT INTO T_Servicios
+  (Tipo_Servicio)
+VALUES
+  ('Servicio de Mensajería Empresarial');
+
+INSERT INTO T_Estados
+  (Descripcion)
+VALUES
+  ('Recibido');

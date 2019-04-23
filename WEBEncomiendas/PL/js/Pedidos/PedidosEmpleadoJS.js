@@ -11,7 +11,7 @@ function ValidarNumero(e) {
     teclado_especiales = false;
 
     var peso = document.getElementById("MainContent_txtPeso").value;
-    //alert(key);
+
     for (var i in especiales) {
 
         if (key == especiales[i]) {

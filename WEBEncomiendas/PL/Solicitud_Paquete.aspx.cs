@@ -91,7 +91,7 @@ namespace PL
                             divSucursal.Style.Add("display", "block");
                         }
                         divTarjetas.Style.Add("display", "block");
-                        CargarTarjetas(row["Cedula"].ToString());
+                        CargarTarjetas(row["Usuario"].ToString());
                         updIngreso.Update();
                     }
                 }

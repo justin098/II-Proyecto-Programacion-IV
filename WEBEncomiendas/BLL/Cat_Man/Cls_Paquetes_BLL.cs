@@ -61,5 +61,37 @@ namespace BLL.Cat_Man
             objPaqDAL.SError = vError;
         }
 
+        public void Listar(ref Cls_Paquetes_DAL objPaqDAL)
+        {
+            BDServiceClient Obj_BDService = new BDServiceClient();
+            try
+            {
+
+                string SSP_Nombre = "sp_Listar_Paquetes_Factura";
+                string SNombreTabla = "Paquetes";
+                string error = "";
+
+                objPaqDAL.DtTablaPaquetes = Obj_BDService.ListarDatos(SSP_Nombre, SNombreTabla, ref error);
+
+                if (error == string.Empty && objPaqDAL.DtTablaPaquetes != null)
+                {
+                    objPaqDAL.SError = string.Empty;
+                }
+                else
+                {
+                    objPaqDAL.SError = error;
+                }
+            }
+            catch (Exception ex)
+            {
+                objPaqDAL.SError = ex.Message.ToString();
+            }
+            finally
+            {
+                Obj_BDService.Close();
+            }
+        }
+
+
     }
 }
