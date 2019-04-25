@@ -30,7 +30,7 @@ namespace PL
                 Session["UserLogin"] = objDAL.sUserLogin;
                 txtusuario.Value = string.Empty;
                 txtcontrasenia.Value = string.Empty;
-                Response.Redirect("/Perfil.aspx");
+                Response.Redirect("/Inicio.aspx");
             }
             else
             {

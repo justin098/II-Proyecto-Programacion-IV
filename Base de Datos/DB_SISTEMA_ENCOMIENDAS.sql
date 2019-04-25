@@ -1178,7 +1178,7 @@ GO
 IF OBJECT_ID('sp_Insertar_Persona]') IS NOT NULL DROP PROCEDURE sp_Insertar_Persona
 GO
 
-Create Procedure sp_Insertar_Persona
+create Procedure sp_Insertar_Persona
 
 (
   @Cedula VARCHAR(15)
@@ -1193,8 +1193,8 @@ Create Procedure sp_Insertar_Persona
   ,@Super_Usuario BIT
   ,@Activo BIT
   ,@Provincia VARCHAR(10)
-  ,@Canton VARCHAR(10)
-  ,@Distrito VARCHAR(10)
+  ,@Canton VARCHAR(20)
+  ,@Distrito VARCHAR(25)
   ,@Direccion_Exacta VARCHAR(250)
 )
 As
@@ -1381,7 +1381,7 @@ GO
 IF OBJECT_ID('sp_Modificar_Persona]') IS NOT NULL DROP PROCEDURE sp_Modificar_Persona
 GO
 
-Create Procedure sp_Modificar_Persona
+create Procedure sp_Modificar_Persona
 
 (
   @Cedula VARCHAR(15)
@@ -1396,8 +1396,8 @@ Create Procedure sp_Modificar_Persona
   ,@Super_Usuario BIT
   ,@Activo BIT
   ,@Provincia VARCHAR(10)
-  ,@Canton VARCHAR(10)
-  ,@Distrito VARCHAR(10)
+  ,@Canton VARCHAR(20)
+  ,@Distrito VARCHAR(25)
   ,@Direccion_Exacta VARCHAR(250)
 )
 As
