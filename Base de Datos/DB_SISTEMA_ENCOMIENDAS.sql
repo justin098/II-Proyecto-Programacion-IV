@@ -1,4 +1,4 @@
---CREACION DE LA BASE DE DATOS
+﻿--CREACION DE LA BASE DE DATOS
 USE MASTER;
 GO
 
@@ -1006,18 +1006,21 @@ GO
 
 CREATE PROCEDURE sp_Filtrar_Privilegios_Roles
 (
-	@Filtro varchar(25)
+	@Filtro INT
 )
 AS
 BEGIN
   SELECT
-    Id_Privilegio_Rol
-	,Id_Rol
-	,Id_Privilegio
+    T_Privilegios_Roles.Id_Privilegio_Rol
+	,T_Privilegios.Descripcion
   FROM 
     T_Privilegios_Roles
+  INNER JOIN
+    T_Privilegios
+  ON
+    (T_Privilegios_Roles.Id_Privilegio = T_Privilegios.Id_Privilegio)
   WHERE
-    (Id_Privilegio_Rol like '%'+@Filtro+'%')
+    (T_Privilegios_Roles.Id_Rol =  @Filtro)
 End;
 GO
 
@@ -1090,18 +1093,21 @@ GO
 
 CREATE PROCEDURE sp_Filtrar_Roles_Personas
 (
-	@Filtro varchar(25)
+	@Filtro varchar(15)
 )
 AS
 BEGIN
   SELECT
-    Id_Rol_Persona
-	,Id_Rol
-	,Cedula
+    T_Roles_Personas.Id_Rol_Persona
+	,T_Roles.Rol
   FROM 
     T_Roles_Personas
+  INNER JOIN
+    T_Roles
+  ON
+    (T_Roles_Personas.Id_Rol = T_Roles.Id_Rol)
   WHERE
-    (Id_Rol_Persona like '%'+@Filtro+'%')
+    (T_Roles_Personas.Cedula = @Filtro)
 End;
 GO
 
@@ -1172,7 +1178,7 @@ GO
 IF OBJECT_ID('sp_Insertar_Persona]') IS NOT NULL DROP PROCEDURE sp_Insertar_Persona
 GO
 
-Create Procedure sp_Insertar_Persona
+create Procedure sp_Insertar_Persona
 
 (
   @Cedula VARCHAR(15)
@@ -1187,8 +1193,8 @@ Create Procedure sp_Insertar_Persona
   ,@Super_Usuario BIT
   ,@Activo BIT
   ,@Provincia VARCHAR(10)
-  ,@Canton VARCHAR(10)
-  ,@Distrito VARCHAR(10)
+  ,@Canton VARCHAR(20)
+  ,@Distrito VARCHAR(25)
   ,@Direccion_Exacta VARCHAR(250)
 )
 As
@@ -1279,12 +1285,103 @@ BEGIN
 END
 GO
 
+IF OBJECT_ID('sp_Insertar_Privilegio_Rol]') IS NOT NULL DROP PROCEDURE sp_Insertar_Privilegio_Rol
+GO
+
+CREATE Procedure sp_Insertar_Privilegio_Rol
+
+(
+  @idRol INT
+  ,@IdPrivilegio INT
+)
+As
+BEGIN
+  BEGIN TRAN InsertarPrivilegio_Rol;
+    BEGIN TRY
+
+	  IF NOT EXISTS(SELECT 1 FROM T_Privilegios_Roles WHERE Id_Rol = @idRol AND Id_Privilegio = @IdPrivilegio)
+	  BEGIN
+        INSERT INTO T_Privilegios_Roles
+	      (Id_Rol, Id_Privilegio)
+        VALUES
+	      (@idRol, @IdPrivilegio);
+	  END
+
+      COMMIT TRAN InsertarPrivilegio_Rol;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN InsertarPrivilegio_Rol;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+GO
+
+IF OBJECT_ID('sp_Insertar_Rol_Persona]') IS NOT NULL DROP PROCEDURE sp_Insertar_Rol_Persona
+GO
+
+CREATE Procedure sp_Insertar_Rol_Persona
+
+(
+  @idRol INT
+  ,@cedula VARCHAR(15)
+)
+As
+BEGIN
+  BEGIN TRAN InsertarRolPersona;
+    BEGIN TRY
+
+	  IF NOT EXISTS(SELECT 1 FROM T_Roles_Personas WHERE Id_Rol = @idRol AND Cedula = @cedula)
+	  BEGIN
+        INSERT INTO T_Roles_Personas
+	      (Id_Rol, Cedula)
+        VALUES
+	      (@idRol, @cedula);
+	  END
+
+      COMMIT TRAN InsertarRolPersona;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN InsertarRolPersona;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+GO
 
 --CREACION DE PROCEDURES MODIFICAR
 IF OBJECT_ID('sp_Modificar_Persona]') IS NOT NULL DROP PROCEDURE sp_Modificar_Persona
 GO
 
-Create Procedure sp_Modificar_Persona
+create Procedure sp_Modificar_Persona
 
 (
   @Cedula VARCHAR(15)
@@ -1299,8 +1396,8 @@ Create Procedure sp_Modificar_Persona
   ,@Super_Usuario BIT
   ,@Activo BIT
   ,@Provincia VARCHAR(10)
-  ,@Canton VARCHAR(10)
-  ,@Distrito VARCHAR(10)
+  ,@Canton VARCHAR(20)
+  ,@Distrito VARCHAR(25)
   ,@Direccion_Exacta VARCHAR(250)
 )
 As
@@ -1495,6 +1592,90 @@ BEGIN
 END
 GO
 
+IF OBJECT_ID('sp_Eliminar_Privilegio_Rol]') IS NOT NULL DROP PROCEDURE sp_Eliminar_Privilegio_Rol
+GO
+
+Create Procedure sp_Eliminar_Privilegio_Rol
+
+(
+  @idPrivilegioRol INT
+)
+As
+BEGIN
+  BEGIN TRAN EliminarPrivilegioRol;
+    BEGIN TRY
+
+      DELETE 
+	    T_Privilegios_Roles
+      WHERE
+	    (Id_Privilegio_Rol = @idPrivilegioRol);
+
+      COMMIT TRAN EliminarPrivilegioRol;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN EliminarPrivilegioRol;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+GO
+
+IF OBJECT_ID('sp_Eliminar_Rol_Persona]') IS NOT NULL DROP PROCEDURE sp_Eliminar_Rol_Persona
+GO
+
+Create Procedure sp_Eliminar_Rol_Persona
+
+(
+  @idRolPersona INT
+)
+As
+BEGIN
+  BEGIN TRAN EliminarRolPersona;
+    BEGIN TRY
+
+      DELETE 
+	    T_Roles_Personas
+      WHERE
+	    (Id_Rol_Persona = @idRolPersona);
+
+      COMMIT TRAN EliminarRolPersona;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN EliminarRolPersona;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+GO
+
 --CREACION DE PROCEDURES MEMBERSHIP
 IF OBJECT_ID('sp_Login') IS NOT NULL DROP PROCEDURE sp_Login
 GO
@@ -1502,7 +1683,7 @@ GO
 CREATE PROCEDURE sp_Login
 
 (
-  @UserLogin VARCHAR(15)
+  @UserLogin VARCHAR(35)
   ,@Contrasena VARCHAR(12)
 )
 As
@@ -1524,7 +1705,7 @@ CREATE PROCEDURE sp_Has_Privilege
 
 (
   @UserLogin VARCHAR(35)
-  ,@Privilegio VARCHAR(20)
+  ,@Privilegio VARCHAR(30)
 )
 As
 BEGIN
@@ -1546,7 +1727,7 @@ BEGIN
   ELSE
   BEGIN
     SELECT
-	*
+	1 Has_Privilege
 	FROM
 	T_Personas P
 	INNER JOIN
@@ -1877,6 +2058,139 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [dbo].[sp_Listar_Tarjetas_Persona]
+@Usuario VARCHAR(15)
+AS
+BEGIN
+DECLARE @Cedula VARCHAR(15);
+SELECT TOP 1 @Cedula = Cedula FROM T_Personas WHERE Usuario = @Usuario ORDER BY Cedula DESC;
+  SELECT
+    Numero_tarjeta
+	,Cedula
+  FROM 
+    T_Tarjetas
+	WHERE Cedula = @Cedula
+End;
+GO
+
+CREATE PROCEDURE [dbo].[sp_Listar_Servicios]
+AS
+BEGIN
+  SELECT
+    Id_Servicio
+    ,Tipo_Servicio
+  FROM 
+    T_Servicios
+End;
+GO
+
+CREATE PROCEDURE [dbo].[sp_Insertar_Paquete]
+(
+   @Descripcion VARCHAR(25)
+  ,@Peso FLOAT
+  ,@Id_Categoria INT
+  ,@Id_Estado INT
+  ,@Id_Sucursal INT
+  ,@Id_Servicio INT
+  ,@Usuario VARCHAR(15)
+  ,@Retiro_Domicilio BIT
+  ,@Entrega_Domicilio BIT
+  ,@Direccion_Entrega VARCHAR(250)
+  ,@Sub_Total MONEY
+  ,@Impuesto MONEY
+  ,@Envio MONEY
+  ,@Total MONEY
+  ,@Pagado BIT
+  ,@Numero_tarjeta VARCHAR(16)
+)
+As
+BEGIN
+  BEGIN TRAN InsertarPaquete;
+    BEGIN TRY
+
+      DECLARE @Id_Recibo INT;
+
+      INSERT INTO T_Recibos
+	              (Sub_Total, Impuesto, Envio, Total,Pagado,Numero_tarjeta)
+      VALUES
+	              (@Sub_Total, @Impuesto, @Envio,@Total,@Pagado,@Numero_tarjeta);
+
+      SELECT TOP 1 @Id_Recibo = Id_Recibo FROM T_Recibos ORDER BY Id_Recibo DESC; 
+
+	  DECLARE @Cedula VARCHAR(15);
+	  SELECT TOP 1 @Cedula = Cedula FROM T_Personas WHERE Usuario = @Usuario ORDER BY Cedula DESC;
+
+      INSERT INTO T_Paquetes
+                 (Descripcion,Peso,Id_Categoria,Id_Estado,Id_Sucursal,Id_Servicio,Cedula,Retiro_Domicilio,Entrega_Domicilio,
+				 Direccion_Entrega,Id_Recibo)
+      VALUES
+                 (@Descripcion,@Peso,@Id_Categoria,@Id_Estado,@Id_Sucursal,@Id_Servicio,@Cedula,@Retiro_Domicilio,@Entrega_Domicilio,
+				 @Direccion_Entrega,@Id_Recibo);
+
+      COMMIT TRAN InsertarPaquete;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN InsertarPaquete;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[sp_Listar_Paquetes_Factura]
+AS
+BEGIN
+  SELECT
+    Id_Paquete
+    ,TP.Descripcion AS 'DetallePaquete'
+	,Peso
+	,TC.Id_Categoria
+	,TC.Nombre AS 'TipoCategoria'
+	,TE.Id_Estado
+	,TE.Descripcion AS 'Estado'
+	,TS.Id_Sucursal
+	,TS.Nombre AS 'Sucursal'
+	,TSE.Id_Servicio
+	,TSE.Tipo_Servicio
+	,TP.Cedula
+	,TPE.Usuario
+	,Retiro_Domicilio
+	,Entrega_Domicilio
+	,Direccion_Entrega
+	,TP.Id_Recibo
+	,TR.Sub_Total
+	,TR.Impuesto
+	,TR.Envio
+	,TR.Total
+	,TR.Pagado
+	,TR.Numero_tarjeta
+  FROM 
+    T_Paquetes TP
+	INNER JOIN T_Personas TPE ON TP.Cedula = TPE.Cedula
+	INNER JOIN T_Recibos TR ON TP.Id_Recibo=TR.Id_Recibo
+	INNER JOIN T_Categorias TC ON TP.Id_Categoria = TC.Id_Categoria
+	INNER JOIN T_Sucursales TS ON TP.Id_Sucursal=TS.Id_Sucursal
+	INNER JOIN T_Servicios TSE ON TP.Id_Servicio=TSE.Id_Servicio
+	INNER JOIN T_Estados TE ON TP.Id_Estado = TE.Id_Estado
+End; 
+GO
+
+
 
 --INSERTS INICIALES
 IF NOT EXISTS(SELECT 1 FROM T_Personas WHERE Usuario = 'admin')
@@ -1914,3 +2228,33 @@ INSERT INTO T_Privilegios
   (Privilegio, Descripcion)
 VALUES
   ('Crear_Solicitud', 'Permite crear la solicitud de un paquete');
+
+INSERT INTO T_Servicios
+  (Tipo_Servicio)
+VALUES
+  ('Paquetería y encomienda');
+
+INSERT INTO T_Servicios
+  (Tipo_Servicio)
+VALUES
+  ('Servicio de Motorizados');
+
+INSERT INTO T_Servicios
+  (Tipo_Servicio)
+VALUES
+  ('Servicio de Mensajería Empresarial');
+
+INSERT INTO T_Estados
+  (Descripcion)
+VALUES
+  ('Enviado');
+
+  INSERT INTO T_Estados
+  (Descripcion)
+VALUES
+  ('En ruta');
+
+    INSERT INTO T_Estados
+  (Descripcion)
+VALUES
+  ('Entregado');
