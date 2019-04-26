@@ -2197,37 +2197,50 @@ IF NOT EXISTS(SELECT 1 FROM T_Personas WHERE Usuario = 'admin')
 BEGIN
   EXEC sp_Insertar_Persona '1-1111-1111', 'Adrian', 'Soto', 'Loria', 'prueba@prueba.com', '2222-2222', '8888-8888', 
                            'admin', '1234', 1, 1, 'San Jose', 'San Jose', 'Carmen', 'Barrio Minerva'
-END
+End;
+GO
 
 INSERT INTO T_Privilegios
   (Privilegio, Descripcion)
 VALUES
   ('Administrar_usuarios', 'Permite administrar los usuarios del sistema');
 
+GO
+
 INSERT INTO T_Privilegios
   (Privilegio, Descripcion)
 VALUES
   ('Administrar_Roles', 'Permite administrar los roles del sistema');
+
+GO
 
 INSERT INTO T_Privilegios
   (Privilegio, Descripcion)
 VALUES
   ('Administrar_Sucursales', 'Permite administrar las sucursales del sistema');
 
+GO
+
 INSERT INTO T_Privilegios
   (Privilegio, Descripcion)
 VALUES
   ('Administrar_Categorias', 'Permite administrar las categorias del sistema');
+
+GO
 
 INSERT INTO T_Privilegios
   (Privilegio, Descripcion)
 VALUES
   ('Cambiar_Estado', 'Permite cambiar el estado de los paquetes');
 
+GO
+
 INSERT INTO T_Privilegios
   (Privilegio, Descripcion)
 VALUES
   ('Crear_Solicitud', 'Permite crear la solicitud de un paquete');
+
+GO
 
 INSERT INTO T_Servicios
   (Tipo_Servicio)
@@ -2239,22 +2252,32 @@ INSERT INTO T_Servicios
 VALUES
   ('Servicio de Motorizados');
 
+GO
+
 INSERT INTO T_Servicios
   (Tipo_Servicio)
 VALUES
   ('Servicio de Mensajería Empresarial');
+
+GO
 
 INSERT INTO T_Estados
   (Descripcion)
 VALUES
   ('Enviado');
 
-  INSERT INTO T_Estados
-  (Descripcion)
+GO
+
+INSERT INTO T_Estados
+ (Descripcion)
 VALUES
   ('En ruta');
 
-    INSERT INTO T_Estados
-  (Descripcion)
+GO
+  
+INSERT INTO T_Estados
+ (Descripcion)
 VALUES
   ('Entregado');
+
+GO
