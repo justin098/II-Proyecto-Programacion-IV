@@ -125,11 +125,14 @@
     <Content Include="Ingreso.aspx" />
     <Content Include="Inicio.aspx" />
     <Content Include="js\main.js" />
+    <Content Include="js\Pedidos\PedidosEmpleadoJS.js" />
+    <Content Include="js\Pedidos\PedidosJS.js" />
     <Content Include="js\placeholders.min.js" />
     <Content Include="EditarSucursales.aspx" />
     <Content Include="js\Roles\RolesJS.js" />
     <Content Include="js\Sucursales\SucursalesJS.js" />
     <Content Include="js\Usuarios\UsuariosJS.js" />
+    <Content Include="Modal\Formulario.css" />
     <Content Include="Modal\Modal.css" />
     <Content Include="Modal\ModalJS.js" />
     <Content Include="Perfil.aspx" />

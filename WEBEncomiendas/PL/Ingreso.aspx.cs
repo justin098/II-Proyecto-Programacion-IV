@@ -11,8 +11,12 @@ namespace PL
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                txtusuario.Value = string.Empty;
+                txtcontrasenia.Value = string.Empty;
+            }
             lblMensaje.Visible = false;
-
         }
 
         protected void btnAceptar_Click(object sender, EventArgs e)
@@ -26,7 +30,7 @@ namespace PL
                 Session["UserLogin"] = objDAL.sUserLogin;
                 txtusuario.Value = string.Empty;
                 txtcontrasenia.Value = string.Empty;
-                Response.Redirect("/Perfil.aspx");
+                Response.Redirect("/Inicio.aspx");
             }
             else
             {
