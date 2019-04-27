@@ -131,6 +131,7 @@
     <Content Include="EditarSucursales.aspx" />
     <Content Include="js\Roles\RolesJS.js" />
     <Content Include="js\Sucursales\SucursalesJS.js" />
+    <Content Include="js\Tarjetas\TarjetasJS.js" />
     <Content Include="js\Usuarios\UsuariosJS.js" />
     <Content Include="Modal\Formulario.css" />
     <Content Include="Modal\Modal.css" />
@@ -142,6 +143,7 @@
     <Content Include="Servicios.aspx" />
     <Content Include="Sucursales.aspx" />
     <Content Include="Solicitud_Paquete.aspx" />
+    <Content Include="Tarjetas.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -281,6 +283,13 @@
     </Compile>
     <Compile Include="Solicitud_Paquete.aspx.designer.cs">
       <DependentUpon>Solicitud_Paquete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tarjetas.aspx.cs">
+      <DependentUpon>Tarjetas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tarjetas.aspx.designer.cs">
+      <DependentUpon>Tarjetas.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

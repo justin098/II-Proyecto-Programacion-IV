@@ -11,7 +11,7 @@ namespace DAL.Cat_Man
     {
         private DataTable _dtTablaTarjetas;
         private DataTable _dtParametros;
-        private string _sError, _sPersona;
+        private string _sError, _sPersona, _sNumerotarjeta, _sFechaVencimiento, _scodigoSeguridad;
 
         public DataTable DtTablaTarjetas
         {
@@ -65,5 +65,43 @@ namespace DAL.Cat_Man
             }
         }
 
+        public string SNumerotarjeta
+        {
+            get
+            {
+                return _sNumerotarjeta;
+            }
+
+            set
+            {
+                _sNumerotarjeta = value;
+            }
+        }
+
+        public string SFechaVencimiento
+        {
+            get
+            {
+                return _sFechaVencimiento;
+            }
+
+            set
+            {
+                _sFechaVencimiento = value;
+            }
+        }
+
+        public string ScodigoSeguridad
+        {
+            get
+            {
+                return _scodigoSeguridad;
+            }
+
+            set
+            {
+                _scodigoSeguridad = value;
+            }
+        }
     }
 }

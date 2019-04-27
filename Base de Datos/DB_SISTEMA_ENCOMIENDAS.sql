@@ -195,8 +195,8 @@ BEGIN
   CREATE TABLE T_Tarjetas 
   (
 	Numero_tarjeta VARCHAR(16) NOT NULL,
-	Fecha_Vencimiento DATETIME NOT NULL,
-	Codigo_Seguridad SMALLINT NOT NULL,
+	Fecha_Vencimiento DATE NOT NULL,
+	Codigo_Seguridad VARCHAR(3) NOT NULL,
 	Cedula VARCHAR(15) NOT NULL,
     CONSTRAINT  PK_Numero_tarjeta PRIMARY KEY NONCLUSTERED
     (
@@ -1377,6 +1377,53 @@ BEGIN
 END
 GO
 
+IF OBJECT_ID('sp_Insertar_Tarjeta_Persona]') IS NOT NULL DROP PROCEDURE sp_Insertar_Tarjeta_Persona
+GO
+
+CREATE Procedure sp_Insertar_Tarjeta_Persona
+
+(
+  @NumeroTarjeta VARCHAR(16),
+  @FechaVencimiento DATE,
+  @CodigoSeguridad VARCHAR(3),
+  @Usuario VARCHAR(35)
+)
+As
+BEGIN
+  BEGIN TRAN InsertarTarjetaPersona;
+    BEGIN TRY
+      DECLARE @Cedula VARCHAR(15);
+      SELECT TOP 1 @Cedula = Cedula FROM T_Personas WHERE (Usuario = @Usuario) OR (Email = @Usuario) ORDER BY Cedula DESC;
+
+      INSERT INTO T_Tarjetas
+	    (Numero_tarjeta,Fecha_Vencimiento,Codigo_Seguridad,Cedula)
+      VALUES (@NumeroTarjeta,@FechaVencimiento, @CodigoSeguridad,@Cedula)
+
+      COMMIT TRAN InsertarTarjetaPersona;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN InsertarTarjetaPersona;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+GO
+
+
 --CREACION DE PROCEDURES MODIFICAR
 IF OBJECT_ID('sp_Modificar_Persona]') IS NOT NULL DROP PROCEDURE sp_Modificar_Persona
 GO
@@ -1504,6 +1551,58 @@ BEGIN
 
 END
 GO
+
+IF OBJECT_ID('sp_Modificar_Tarjeta_Persona]') IS NOT NULL DROP PROCEDURE sp_Modificar_Tarjeta_Persona
+GO
+
+CREATE Procedure sp_Modificar_Tarjeta_Persona
+
+(
+  @NumeroTarjeta VARCHAR(16),
+  @FechaVencimiento DATE,
+  @CodigoSeguridad VARCHAR(3),
+  @Usuario VARCHAR(35)
+)
+As
+BEGIN
+  BEGIN TRAN ModificarTarjetaPersona;
+    BEGIN TRY
+      DECLARE @Cedula VARCHAR(15);
+      SELECT TOP 1 @Cedula = Cedula FROM T_Personas WHERE (Usuario = @Usuario) OR (Email = @Usuario) ORDER BY Cedula DESC;
+
+      UPDATE 
+	    T_Tarjetas
+	  SET 
+	    Fecha_Vencimiento = @FechaVencimiento,
+	    Codigo_Seguridad = @CodigoSeguridad
+      WHERE
+	    (Numero_tarjeta = @NumeroTarjeta)
+		AND (Cedula = @Cedula)
+
+      COMMIT TRAN ModificarTarjetaPersona;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN ModificarTarjetaPersona;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+GO
+
 
 --CREACION DE PROCEDURES ELIMINAR
 IF OBJECT_ID('sp_Eliminar_Persona') IS NOT NULL DROP PROCEDURE sp_Eliminar_Persona
@@ -1660,6 +1759,52 @@ BEGIN
     DECLARE @ErrorState INT;  
 
 	ROLLBACK TRAN EliminarRolPersona;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+GO
+
+IF OBJECT_ID('sp_Eliminar_Tarjeta_Persona]') IS NOT NULL DROP PROCEDURE sp_Eliminar_Tarjeta_Persona
+GO
+
+CREATE Procedure sp_Eliminar_Tarjeta_Persona
+
+(
+  @NumeroTarjeta VARCHAR(16),
+  @Usuario VARCHAR(35)
+)
+As
+BEGIN
+  BEGIN TRAN EliminarTarjetaPersona;
+    BEGIN TRY
+      DECLARE @Cedula VARCHAR(15);
+      SELECT TOP 1 @Cedula = Cedula FROM T_Personas WHERE (Usuario = @Usuario) OR (Email = @Usuario) ORDER BY Cedula DESC;
+
+      DELETE 
+	    T_Tarjetas
+      WHERE
+	    (Numero_tarjeta = @NumeroTarjeta)
+		AND (Cedula = @Cedula)
+
+      COMMIT TRAN EliminarTarjetaPersona;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN EliminarTarjetaPersona;
   
     SELECT   
         @ErrorMessage = ERROR_MESSAGE(),  
@@ -2059,13 +2204,15 @@ END
 GO
 
 CREATE PROCEDURE [dbo].[sp_Listar_Tarjetas_Persona]
-@Usuario VARCHAR(15)
+@Usuario VARCHAR(35)
 AS
 BEGIN
 DECLARE @Cedula VARCHAR(15);
-SELECT TOP 1 @Cedula = Cedula FROM T_Personas WHERE Usuario = @Usuario ORDER BY Cedula DESC;
+SELECT TOP 1 @Cedula = Cedula FROM T_Personas WHERE (Usuario = @Usuario) OR (Email = @Usuario) ORDER BY Cedula DESC;
   SELECT
     Numero_tarjeta
+	,Fecha_Vencimiento
+	,Codigo_Seguridad
 	,Cedula
   FROM 
     T_Tarjetas

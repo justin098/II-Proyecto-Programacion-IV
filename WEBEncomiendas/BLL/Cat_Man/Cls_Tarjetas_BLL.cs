@@ -41,7 +41,7 @@ namespace BLL.Cat_Man
                 Crear_Parametros(ref Obj_Tarjetas_DAL);
                 Obj_Tarjetas_DAL.DtParametros.Rows.Add("@Usuario", "2", Obj_Tarjetas_DAL.SPersona);
 
-                Obj_Tarjetas_DAL.DtTablaTarjetas = Obj_BDService.FiltrarDatos("sp_Listar_Tarjetas_Persona", "Sucursales", Obj_Tarjetas_DAL.DtParametros, ref error);
+                Obj_Tarjetas_DAL.DtTablaTarjetas = Obj_BDService.FiltrarDatos("sp_Listar_Tarjetas_Persona", "Tarjetas", Obj_Tarjetas_DAL.DtParametros, ref error);
 
                 if (error == string.Empty && Obj_Tarjetas_DAL.DtTablaTarjetas != null)
                 {
@@ -62,33 +62,49 @@ namespace BLL.Cat_Man
             }
         }
 
-        public void Listar(ref Cls_Tarjetas_DAL Obj_Tarjetas_DAL)
+        public void Insertar(ref Cls_Tarjetas_DAL Obj_Tarjetas_DAL)
         {
             BDServiceClient Obj_BDService = new BDServiceClient();
-            try
-            {
-                string SSP_Nombre = "sp_Listar_Tarjetas_Persona";
-                string SNombreTabla = "Tarjetas";
-                string error = "";
-                string vError = string.Empty;
-                Obj_Tarjetas_DAL.DtTablaTarjetas = Obj_BDService.ListarDatos(SSP_Nombre, SNombreTabla, ref error);
-                if (error == string.Empty && Obj_Tarjetas_DAL.DtTablaTarjetas != null)
-                {
-                    Obj_Tarjetas_DAL.SError = string.Empty;
-                }
-                else
-                {
-                    Obj_Tarjetas_DAL.SError = error;
-                }
-            }
-            catch (Exception ex)
-            {
-                Obj_Tarjetas_DAL.SError = ex.Message.ToString();
-            }
-            finally
-            {
-                Obj_BDService.Close();
-            }
+
+            string vError = string.Empty;
+            char vAccion = 'I';
+            Crear_Parametros(ref Obj_Tarjetas_DAL);
+
+            Obj_Tarjetas_DAL.DtParametros.Rows.Add("@NumeroTarjeta", "2", Obj_Tarjetas_DAL.SNumerotarjeta);
+            Obj_Tarjetas_DAL.DtParametros.Rows.Add("@FechaVencimiento", "7", Convert.ToDateTime(Obj_Tarjetas_DAL.SFechaVencimiento));
+            Obj_Tarjetas_DAL.DtParametros.Rows.Add("@CodigoSeguridad", "2", Obj_Tarjetas_DAL.ScodigoSeguridad);
+            Obj_Tarjetas_DAL.DtParametros.Rows.Add("@Usuario", "2", Obj_Tarjetas_DAL.SPersona);
+
+            Obj_BDService.InsertarDatoSinIdentity("sp_Insertar_Tarjeta_Persona", "Tarjetas", Obj_Tarjetas_DAL.DtParametros, ref vAccion, ref vError);
+            Obj_Tarjetas_DAL.SError = vError;
+        }
+
+        public void Editar(ref Cls_Tarjetas_DAL Obj_Tarjetas_DAL)
+        {
+            BDServiceClient Obj_BDService = new BDServiceClient();
+
+            string vError = string.Empty;
+            char vAccion = 'U';
+            Crear_Parametros(ref Obj_Tarjetas_DAL);
+            Obj_Tarjetas_DAL.DtParametros.Rows.Add("@NumeroTarjeta", "2", Obj_Tarjetas_DAL.SNumerotarjeta);
+            Obj_Tarjetas_DAL.DtParametros.Rows.Add("@FechaVencimiento", "7", Convert.ToDateTime(Obj_Tarjetas_DAL.SFechaVencimiento));
+            Obj_Tarjetas_DAL.DtParametros.Rows.Add("@CodigoSeguridad", "2", Obj_Tarjetas_DAL.ScodigoSeguridad);
+            Obj_Tarjetas_DAL.DtParametros.Rows.Add("@Usuario", "2", Obj_Tarjetas_DAL.SPersona);
+            Obj_BDService.ModificarDato("sp_Modificar_Tarjeta_Persona", "tarjetas", Obj_Tarjetas_DAL.DtParametros, ref vAccion, ref vError);
+            Obj_Tarjetas_DAL.SError = vError;
+        }
+
+        public void Eliminar(ref Cls_Tarjetas_DAL Obj_Tarjetas_DAL)
+        {
+            BDServiceClient Obj_BDService = new BDServiceClient();
+
+            string vError = string.Empty;
+            Crear_Parametros(ref Obj_Tarjetas_DAL);
+            Obj_Tarjetas_DAL.DtParametros.Rows.Add("@NumeroTarjeta", "2", Obj_Tarjetas_DAL.SNumerotarjeta);
+            Obj_Tarjetas_DAL.DtParametros.Rows.Add("@Usuario", "2", Obj_Tarjetas_DAL.SPersona);
+
+            Obj_BDService.EliminarDato("sp_Eliminar_Tarjeta_Persona", "Tarjetas", Obj_Tarjetas_DAL.DtParametros, ref vError);
+            Obj_Tarjetas_DAL.SError = vError;
         }
 
     }

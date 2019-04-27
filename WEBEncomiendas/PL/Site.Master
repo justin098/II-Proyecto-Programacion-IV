@@ -93,6 +93,7 @@
                     if (Session["UserLogin"] != null)
                     { %>
                         <li><a href="Perfil.aspx">Perfil</a></li>  <%--Nivel cliente--%>
+                        <li><a href="Tarjetas.aspx">Tarjetas</a></li>
                         <li><a href="CrearSolicitud.aspx">Crear solicitud</a></li>  <%--Nivel cliente--%>
                         <li><a href="Historicos.aspx">Históricos</a></li>  <%--Nivel cliente--%>
                         <li><a href="Cerrar.aspx">Cerrar sesión</a></li> <%--AMBOS--%>
