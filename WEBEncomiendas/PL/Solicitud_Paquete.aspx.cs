@@ -15,17 +15,25 @@ namespace PL
         protected void Page_Load(object sender, EventArgs e)
         {
             Cls_Membership_DAL objMember = new Cls_Membership_DAL();
+            Cls_Membership_BLL objBLL = new Cls_Membership_BLL();
             if (Session["UserLogin"] != null)
             {
                 objMember.sUserLogin = Session["UserLogin"].ToString();
                 Usuario = objMember.sUserLogin;
-
-                if (!IsPostBack)
+                objMember.sPrivilegio = "Cambiar_Estado";
+                if (objBLL.HasPrivilege(ref objMember))
                 {
-                    this.Form.Attributes.Add("autocomplete", "off");
-                    CargarCategorias();
-                    CargarServicios();
-                    CargarSucursales();
+                    if (!IsPostBack)
+                    {
+                        this.Form.Attributes.Add("autocomplete", "off");
+                        CargarCategorias();
+                        CargarServicios();
+                        CargarSucursales();
+                    }
+                }
+                else
+                {
+                    Response.Redirect("Inicio.aspx");
                 }
             }
             else

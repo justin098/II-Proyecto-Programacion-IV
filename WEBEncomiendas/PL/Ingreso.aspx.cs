@@ -34,8 +34,8 @@ namespace PL
             }
             else
             {
-                lblMensaje.Text = "Usuario o contraseña incorrecta";
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                lblMensaje.Text = "El servidor no se encuentra disponible ó los datos de acceso son incorrectos";
+                lblMensaje.ForeColor = System.Drawing.Color.White;
                 lblMensaje.Visible = true;
             }
 

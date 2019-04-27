@@ -14,10 +14,28 @@ namespace PL
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (Session["UserLogin"] != null)
             {
-                this.Form.Attributes.Add("autocomplete", "off");
-                CargarCategorias();
+                DAL.Cat_Man.Cls_Membership_DAL objDAL = new DAL.Cat_Man.Cls_Membership_DAL();
+                BLL.Cat_Man.Cls_Membership_BLL objBLL = new BLL.Cat_Man.Cls_Membership_BLL();
+                objDAL.sUserLogin = Session["UserLogin"].ToString();
+                objDAL.sPrivilegio = "Administrar_Categorias";
+                if (objBLL.HasPrivilege(ref objDAL))
+                {
+                    if (!IsPostBack)
+                    {
+                        this.Form.Attributes.Add("autocomplete", "off");
+                        CargarCategorias();
+                    }
+                }
+                else
+                {
+                    Response.Redirect("Inicio.aspx");
+                }
+            }
+            else
+            {
+                Response.Redirect("Inicio.aspx");
             }
         }
         private void CargarCategorias()

@@ -14,10 +14,28 @@ namespace PL
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (Session["UserLogin"] != null)
             {
-                this.Form.Attributes.Add("autocomplete", "off");
-                CargarUsuarios();
+                DAL.Cat_Man.Cls_Membership_DAL objDAL = new DAL.Cat_Man.Cls_Membership_DAL();
+                BLL.Cat_Man.Cls_Membership_BLL objBLL = new BLL.Cat_Man.Cls_Membership_BLL();
+                objDAL.sUserLogin = Session["UserLogin"].ToString();
+                objDAL.sPrivilegio = "Administrar_usuarios";
+                if (objBLL.HasPrivilege(ref objDAL))
+                {
+                    if (!IsPostBack)
+                    {
+                        this.Form.Attributes.Add("autocomplete", "off");
+                        CargarUsuarios();
+                    }
+                }
+                else
+                {
+                    Response.Redirect("Inicio.aspx");
+                }
+            }
+            else
+            {
+                Response.Redirect("Inicio.aspx");
             }
         }
 
@@ -133,6 +151,8 @@ namespace PL
                         cmbDistritos.Text = view[0]["Distrito"].ToString();
                         txtDireccion.Value = view[0]["Direccion_Exacta"].ToString();
                         txtCedula.Disabled = true;
+                        lblContrasenia.Visible = false;
+                        txtContrasenia.Visible = false;
                         Session["Action"] = 'U';
                         updpnlGrid.Update();
                         updpnlModal.Update();
@@ -177,7 +197,10 @@ namespace PL
                 lblHeader.InnerText = "Agregar Usuario";
                 Session["Action"] = 'I';
                 LimpiarCampos();
+                txtContrasenia.Value = "1234";
                 txtCedula.Disabled = false;
+                lblContrasenia.Visible = false;
+                txtContrasenia.Visible = false;
                 updpnlModalHeader.Update();
                 updpnlModal.Update();
             }

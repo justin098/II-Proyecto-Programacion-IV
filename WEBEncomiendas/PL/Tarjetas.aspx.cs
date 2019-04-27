@@ -14,7 +14,6 @@ namespace PL
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Cls_Membership_DAL objMember = new Cls_Membership_DAL();
             if (Session["UserLogin"] != null)
             {
                 if (!IsPostBack)

@@ -32,29 +32,36 @@ namespace BLL.Cat_Man
 
         public bool Login(ref Cls_Membership_DAL Obj_Membership_DAL)
         {
-            BDServiceClient Obj_BDService = new BDServiceClient();
-
-            string vError = string.Empty;
-
-            Crear_Parametros(ref Obj_Membership_DAL);
-            Obj_Membership_DAL.dtParametros.Rows.Add("@UserLogin", "2", Obj_Membership_DAL.sUserLogin);
-            Obj_Membership_DAL.dtParametros.Rows.Add("@Contrasena", "2", Obj_Membership_DAL.sContrasena);
-
-            Obj_Membership_DAL.dtTablMembership = Obj_BDService.FiltrarDatos("sp_Login", "Membership", Obj_Membership_DAL.dtParametros, ref vError);
-            Obj_Membership_DAL.sError = vError;
-            if (Obj_Membership_DAL.sError == string.Empty)
+            try
             {
-                if (Obj_Membership_DAL.dtTablMembership.Rows.Count > 0)
+                BDServiceClient Obj_BDService = new BDServiceClient();
+
+                string vError = string.Empty;
+
+                Crear_Parametros(ref Obj_Membership_DAL);
+                Obj_Membership_DAL.dtParametros.Rows.Add("@UserLogin", "2", Obj_Membership_DAL.sUserLogin);
+                Obj_Membership_DAL.dtParametros.Rows.Add("@Contrasena", "2", Obj_Membership_DAL.sContrasena);
+
+                Obj_Membership_DAL.dtTablMembership = Obj_BDService.FiltrarDatos("sp_Login", "Membership", Obj_Membership_DAL.dtParametros, ref vError);
+                Obj_Membership_DAL.sError = vError;
+                if (Obj_Membership_DAL.sError == string.Empty)
                 {
-                    return true;
+                    if (Obj_Membership_DAL.dtTablMembership.Rows.Count > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
                 }
                 else
                 {
                     return false;
                 }
-
             }
-            else
+            catch
             {
                 return false;
             }
