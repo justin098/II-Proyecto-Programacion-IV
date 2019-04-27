@@ -33,9 +33,14 @@
                                 Dirección Exacta:
                                 <asp:Label ID="lblDirExacta" Text='<%#Eval("Direccion_Exacta") %>' runat="server" />
                                 <br />
-                                Hora apertura:
-                                <asp:Label ID="lblApertura" Text='<%#Eval("Hora_Apertura") %>' runat="server" />&nbsp;Hora cierre:
-                                <asp:Label ID="lblCierre" Text='<%#Eval("Hora_Cierre") %>' runat="server" /></h3>
+                                Horarios de atención:
+                                <asp:Label ID="lblDiaApertura" Text='<%#Eval("Dia_Apertura") %>' runat="server" />&nbsp; a 
+                                <asp:Label ID="lblDiaCierre" Text='<%#Eval("Dia_Cierre") %>' runat="server" />
+                                <br />
+                                Desde las 
+                                <asp:Label ID="lblApertura" Text='<%#Eval("Hora_Apertura") %>' runat="server" /> hasta 
+                                <asp:Label ID="lblCierre" Text='<%#Eval("Hora_Cierre") %>' runat="server" />
+                                </h3>
                             </p>
                         </section>
                     </ItemTemplate>

@@ -20,10 +20,10 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-1">
-                                    <input type="text" id="txtBuscar" runat="server" maxlength="25" name="txtBuscar" value="" placeholder="Filtrar por nombre" />
+                                    <input type="text" id="txtBuscar" runat="server" maxlength="25" name="txtBuscar" value="" placeholder="Filtrar por detalle" />
                                 </div>
                                 <div class="col-lg-7">
-                                    <asp:Button ID="bntBuscar" runat="server" Text="Buscar sucursal" class="submit" OnClick="bntBuscar_Click" />
+                                    <asp:Button ID="bntBuscar" runat="server" Text="Buscar paquete" class="submit" OnClick="bntBuscar_Click" />
                                 </div>
                             </div>
                         </div>

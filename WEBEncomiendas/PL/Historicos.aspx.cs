@@ -87,7 +87,6 @@ namespace PL
                 lblMensaje.Text = objDAL.SError;
             }
         }
-
         protected void gdvPaquetes_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gdvPaquetes.PageIndex = e.NewPageIndex;

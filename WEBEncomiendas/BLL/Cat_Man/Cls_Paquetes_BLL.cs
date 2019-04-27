@@ -92,6 +92,18 @@ namespace BLL.Cat_Man
             }
         }
 
+        public void Editar(ref Cls_Paquetes_DAL objPaqDAL)
+        {
+            BDServiceClient Obj_BDService = new BDServiceClient();
 
+            string vError = string.Empty;
+            char vAccion = objPaqDAL.CAccion;
+            Crear_Parametros(ref objPaqDAL);
+            objPaqDAL.DtParametros.Rows.Add("@Id_Paquete", "1", objPaqDAL.SIdPaquete);
+            objPaqDAL.DtParametros.Rows.Add("@Id_Estado", "2", objPaqDAL.SIdEstado);
+            Obj_BDService.ModificarDato("sp_Modificar_Paquetes", "Paquetes", objPaqDAL.DtParametros, ref vAccion, ref vError);
+            objPaqDAL.CAccion = vAccion;
+            objPaqDAL.SError = vError;
+        }
     }
 }

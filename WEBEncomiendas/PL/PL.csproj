@@ -124,6 +124,7 @@
     <Content Include="img\cd-logo.svg" />
     <Content Include="Ingreso.aspx" />
     <Content Include="Inicio.aspx" />
+    <Content Include="js\Estado\EstadosJS.js" />
     <Content Include="js\main.js" />
     <Content Include="js\Pedidos\PedidosEmpleadoJS.js" />
     <Content Include="js\Pedidos\PedidosJS.js" />

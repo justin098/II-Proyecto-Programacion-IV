@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cat_Man\Cls_Categoria_DAL.cs" />
+    <Compile Include="Cat_Man\Cls_Estados_DAL.cs" />
     <Compile Include="Cat_Man\Cls_Membership_DAL.cs" />
     <Compile Include="Cat_Man\Cls_Paquetes_DAL.cs" />
     <Compile Include="Cat_Man\Cls_Personas_DAL.cs" />

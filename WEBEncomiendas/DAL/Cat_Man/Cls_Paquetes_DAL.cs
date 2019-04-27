@@ -12,7 +12,7 @@ namespace DAL.Cat_Man
 
         private DataTable _dtTablaPaquetes;
         private DataTable _dtParametros;
-        private string _sError, _sPersona, _sDescripcion, _sDireccionEntrega, _sNumeroTarjeta;
+        private string _sError, _sPersona, _sDescripcion, _sDireccionEntrega, _sNumeroTarjeta, _sIdPaquete;
         private bool _sRetiroDomicilio, _sEntregaDomicilio, _sPagado;
         private int _sIdCategoria, _sIdEstado, _sIdSucursal, _sIdServicio;
         private double _sPeso, _sSubtotal, _sImpuesto, _sEnvio, _sTotal;
@@ -41,6 +41,19 @@ namespace DAL.Cat_Man
             set
             {
                 _dtParametros = value;
+            }
+        }
+
+        public string SIdPaquete
+        {
+            get
+            {
+                return _sIdPaquete;
+            }
+
+            set
+            {
+                _sIdPaquete = value;
             }
         }
 
