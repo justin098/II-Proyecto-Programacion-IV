@@ -1838,8 +1838,9 @@ BEGIN
   FROM
     T_Personas
   WHERE
-    (Email = @UserLogin AND Contrasena = @Contrasena)
-	OR (Usuario = @UserLogin AND Contrasena = @Contrasena)
+    ((Email = @UserLogin AND Contrasena = @Contrasena)
+	OR (Usuario = @UserLogin AND Contrasena = @Contrasena))
+	AND (Activo = 1)
 End
 GO
 
@@ -1862,8 +1863,9 @@ BEGIN
   FROM 
   T_Personas 
   WHERE
-    (Email = @UserLogin)
-	OR (Usuario = @UserLogin);
+    ((Email = @UserLogin)
+	OR (Usuario = @UserLogin))
+	AND (Activo = 1);
 
   IF @superUsuario = 1
   BEGIN
@@ -1892,8 +1894,9 @@ BEGIN
 	ON
 	(PRI.Id_Privilegio = PR.Id_Privilegio)
   WHERE
-    (P.Email = @UserLogin AND PRI.Privilegio = @Privilegio)
-	OR (P.Usuario = @UserLogin AND PRI.Privilegio = @Privilegio)
+    ((P.Email = @UserLogin AND PRI.Privilegio = @Privilegio)
+	OR (P.Usuario = @UserLogin AND PRI.Privilegio = @Privilegio))
+	AND (P.Activo = 1)
 
   END
 End
