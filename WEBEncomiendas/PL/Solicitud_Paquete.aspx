@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="Modal/Modal.css" />
 
 
-    <link href="Modal/Formulario.css" rel="stylesheet" />
 
 </asp:Content>
 
