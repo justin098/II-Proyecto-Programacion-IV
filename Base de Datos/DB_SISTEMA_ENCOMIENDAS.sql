@@ -2338,6 +2338,50 @@ End;
 GO
 
 
+CREATE PROCEDURE [dbo].[sp_Modificar_Paquetes]
+
+(
+   @Id_Paquete INT
+  ,@Id_Estado INT
+)
+As
+BEGIN
+  BEGIN TRAN ModificarPaquetes;
+    BEGIN TRY
+
+      UPDATE 
+        T_Paquetes
+      SET
+  	    Id_Estado = @Id_Estado
+      WHERE
+        (Id_Paquete = @Id_Paquete)
+
+      COMMIT TRAN ModificarPaquetes;
+  END TRY
+  BEGIN CATCH
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+
+	ROLLBACK TRAN ModificarPaquetes;
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );
+
+  END CATCH
+
+END
+
+GO
+
+
 
 --INSERTS INICIALES
 IF NOT EXISTS(SELECT 1 FROM T_Personas WHERE Usuario = 'admin')
