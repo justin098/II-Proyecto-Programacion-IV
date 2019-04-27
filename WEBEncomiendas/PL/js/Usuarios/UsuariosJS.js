@@ -49,7 +49,7 @@ function GuardarModal() {
 
     if (vldCedula == "" || vldNombre == "" || vldPrimerApellido == "" || vldSegundoApellido == "" || vldEmail == "" || vldTelefono1 == ""
         || vldUsuario == "" || vldContrasenia == "" || vldcmbProvincias == "" || vldcmbCantones == "" || vldcmbDistritos == "" || vldDireccion == "") {
-        alert("Debe llenar los campos obligatorios");
+        alert("Debe llenar todos los campos");
         return false;
     } else {
         modal.style.display = 'none';

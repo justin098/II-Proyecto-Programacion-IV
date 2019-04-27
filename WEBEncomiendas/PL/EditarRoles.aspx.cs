@@ -150,7 +150,7 @@ namespace PL
                     CargarRoles();
                     lblMensaje.Visible = true;
                     lblMensaje.Text = "Registro eliminado correctamente";
-                    lblMensaje.ForeColor = System.Drawing.Color.Green;
+                    lblMensaje.ForeColor = System.Drawing.Color.White;
                     updpnlGrid.Update();
                 }
             }

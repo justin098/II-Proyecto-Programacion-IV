@@ -235,7 +235,7 @@ namespace PL
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowPopup", "Guardado();", true);
                     }
 
-                    lblMensaje.ForeColor = System.Drawing.Color.Green;
+                    lblMensaje.ForeColor = System.Drawing.Color.White;
                     
                 }
                 updpnlGrid.Update();

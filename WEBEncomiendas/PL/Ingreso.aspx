@@ -33,6 +33,9 @@
                     <div class="col-lg-8">
                         <input type="button" id="btnCancelar" onclick="location.href = 'Inicio.aspx' " runat="server" value="Cancelar" />
                     </div>
+                    <div class="col-lg-8">
+                        <asp:Button ID="btnRecuperarContrasenia" runat="server" Text="Recuperar Contraseña" Width="250px" class="submit" OnClick="btnRecuperarContrasenia_Click" />
+                    </div>
                 </div>
 
                 <asp:Label Text="" ID="lblMensaje" runat="server" Font-Size="XX-Large" />

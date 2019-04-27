@@ -42,5 +42,10 @@ namespace PL
 
 
         }
+
+        protected void btnRecuperarContrasenia_Click(object sender, EventArgs e)
+        {
+            //Aqui va codigo que envia correo
+        }
     }
 }
